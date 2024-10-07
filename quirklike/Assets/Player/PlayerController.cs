@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
             _currentVelocity.x = 0.0f;
             _currentVelocity.z = 0.0f;
         }
-        if (_isGrounded && _currentVelocity.y < 0.0f && !onSlope)
+        if (_isGrounded && _currentVelocity.y < 0.0f && !onSlope && !onSteepSlope)
         {
             _currentVelocity.y = 0.0f;
         }
@@ -95,8 +95,15 @@ public class PlayerController : MonoBehaviour
         if (_isGrounded && onSteepSlope)
         { 
             Debug.Log("STEEP SLOPE");
+            /*
             _currentVelocity.x += (1f - _slopeHit.normal.y) * _slopeHit.normal.x * (1f - 0.5f);
             _currentVelocity.z += (1f - _slopeHit.normal.y) * _slopeHit.normal.z * (1f - 0.5f);
+            */
+            Vector3 acrossSlope = Vector3.Cross(Vector3.up, _slopeHit.normal);
+            Vector3 downSlope = Vector3.Cross(acrossSlope, _slopeHit.normal);
+            Vector3 move = GetSlopeMoveDirection(new Vector3(downSlope.x, 0.0f, downSlope.z));
+
+            _characterController.Move((move * Mathf.Abs(_currentVelocity.y) * Time.deltaTime));
         }
 
         if (_isGrounded && !onSteepSlope && _playerInputManager.PlayerJumpPress())
