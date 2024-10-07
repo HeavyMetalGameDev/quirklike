@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
         _groundLayerMask = LayerMask.GetMask("Ground");
         _currentVelocity = Vector3.zero;
         _cameraTransform = Camera.main.transform;
+        Cursor.visible = false;
     }
     private void Update()
     {
