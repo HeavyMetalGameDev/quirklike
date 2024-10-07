@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-
+        Debug.Log(_currentVelocity.y);
         bool onSlope = OnSlope();
         bool onSteepSlope = OnSteepSlope(); 
         if (_isGrounded && !onSteepSlope && !onSlope)
@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
             _currentVelocity.x = 0.0f;
             _currentVelocity.z = 0.0f;
         }
-        if (_isGrounded && _currentVelocity.y < 0.0f && !onSlope && !onSteepSlope)
+        if ((_isGrounded && _currentVelocity.y < 0.0f && (onSlope || !onSteepSlope)))
         {
             _currentVelocity.y = 0.0f;
         }
@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour
         _currentVelocity.y += _gravity * Time.deltaTime;
         if (_isGrounded && onSteepSlope)
         { 
-            Debug.Log("STEEP SLOPE");
+            //Debug.Log("STEEP SLOPE");
             /*
             _currentVelocity.x += (1f - _slopeHit.normal.y) * _slopeHit.normal.x * (1f - 0.5f);
             _currentVelocity.z += (1f - _slopeHit.normal.y) * _slopeHit.normal.z * (1f - 0.5f);
@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
 
         if (_isGrounded && !onSteepSlope && _playerInputManager.PlayerJumpPress())
         {
-            Debug.Log("JUMP");
+            //Debug.Log("JUMP");
             Jump();
         }
         _characterController.Move(_currentVelocity * Time.deltaTime);
