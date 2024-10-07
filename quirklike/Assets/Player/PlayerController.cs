@@ -67,8 +67,8 @@ public class PlayerController : MonoBehaviour
         {
             move = GetSlopeMoveDirection(move);
         }
-
-        _characterController.Move(move * Time.deltaTime * _walkSpeed);
+        Debug.Log(move);
+        _characterController.Move((move * _walkSpeed) * Time.deltaTime);
         ApplyGravity(onSteepSlope);
         
     }

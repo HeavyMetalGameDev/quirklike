@@ -1097,7 +1097,6 @@ Transform:
   - {fileID: 1527175364}
   - {fileID: 765669792}
   - {fileID: 2057384957}
-  - {fileID: 2034834914}
   - {fileID: 1488067600}
   - {fileID: 86266572}
   m_Father: {fileID: 0}
@@ -1112,7 +1111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1488067600}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Ramps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1127,10 +1126,11 @@ Transform:
   m_GameObject: {fileID: 1488067599}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 70.77, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2034834914}
   - {fileID: 22412286}
   - {fileID: 990786259}
   - {fileID: 242452459}
@@ -1231,7 +1231,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1413566747}
+    m_TransformParent: {fileID: 1488067600}
     m_Modifications:
     - target: {fileID: 2250862074388177841, guid: 2cc68162e395d4942a702313f14f81de, type: 3}
       propertyPath: m_LocalScale.x
@@ -1941,6 +1941,14 @@ PrefabInstance:
     - target: {fileID: 6947899192077550527, guid: 5f04445a6a083f24fbcbabd005160483, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7107707877381699460, guid: 5f04445a6a083f24fbcbabd005160483, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7107707877381699460, guid: 5f04445a6a083f24fbcbabd005160483, type: 3}
+      propertyPath: m_SlopeLimit
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7474730322658069437, guid: 5f04445a6a083f24fbcbabd005160483, type: 3}
       propertyPath: m_VerticalAxis.m_AccelTime
