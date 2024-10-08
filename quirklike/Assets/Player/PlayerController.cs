@@ -60,7 +60,8 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log(_currentVelocity.y);
+
+        Vector3 previousPosition = _characterController.transform.position;
         bool onSlope = OnSlope();
         bool onSteepSlope = OnSteepSlope(); 
         if (_isGrounded && !onSteepSlope && !onSlope)
@@ -88,12 +89,14 @@ public class PlayerController : MonoBehaviour
         {
             move = GetSlopeMoveDirection(move);
         }
-        Debug.Log(move);
+        
         _characterController.Move((move * _walkSpeed) * Time.deltaTime);
-        _currentVelocity.x = move.x * _walkSpeed;
-        _currentVelocity.z = move.y * _walkSpeed;
         ApplyGravity(onSteepSlope);
         
+        Vector3 _speed = _characterController.transform.position - previousPosition;
+        _currentVelocity.x = _speed.x;
+        _currentVelocity.z = _speed.z;
+        Debug.Log(_speed.magnitude);
     }
 
     private void FixedUpdate()
@@ -134,7 +137,7 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("JUMP");
             Jump();
         }
-        _characterController.Move(_currentVelocity * Time.deltaTime);
+        _characterController.Move(new Vector3(0,_currentVelocity.y,0) * Time.deltaTime);
     }
   
     private void ResetYSpeed()
