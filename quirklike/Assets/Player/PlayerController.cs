@@ -13,14 +13,30 @@ public class PlayerController : MonoBehaviour
     private Vector3 _currentVelocity;
     private float _maxRampAngle;
     private RaycastHit _slopeHit;
+    private Vector3 _previousInputs;
 
+    [Header("References")]
     [SerializeField]
     private Transform _groundCheckTransform;
 
+    [Header("Horizontal Movement")]
     [SerializeField]
     [Range(0f, 100f)]
     public float _walkSpeed = 1.0f;
 
+    [SerializeField]
+    [Range(0f, 1f)]
+    public float _fakeAcceleration = 0.5f;
+
+    [SerializeField]
+    [Range(0f, 1f)]
+    public float _fakeDeceleration = 0.5f;
+
+    [SerializeField]
+    [Range(0f, 0.01f)]
+    private float _stoppingMagnitudeThreshold = 0.005f;
+
+    [Header("Vertical Movement")]
     [SerializeField]
     [Range(0f, 100f)]
     public float _jumpHeight = 5.0f;
@@ -56,19 +72,26 @@ public class PlayerController : MonoBehaviour
         {
             _currentVelocity.y = 0.0f;
         }
-            Vector2 movementValues = _playerInputManager.GetPlayerMovement();
-        Vector3 move = new Vector3(movementValues.x, 0, movementValues.y);
-        move = _cameraTransform.forward * move.z + _cameraTransform.right * move.x;
+        Vector2 movementValues = _playerInputManager.GetPlayerMovement();
+        Vector3 preMove = new Vector3(movementValues.x, 0, movementValues.y);
+        preMove = _cameraTransform.forward * preMove.z + _cameraTransform.right * preMove.x;
+        preMove.y = 0;
 
-        move.y = 0.0f;
-        
-        
+        float dampeningAmount = movementValues == Vector2.zero ? _fakeDeceleration : _fakeAcceleration;
+        _previousInputs = _previousInputs * (1f - dampeningAmount) + preMove * dampeningAmount;
+        if (_previousInputs.magnitude < _stoppingMagnitudeThreshold && movementValues == Vector2.zero) { _previousInputs = Vector3.zero; }
+        Vector3 move = _previousInputs;
+
+
+
         if (!onSteepSlope && onSlope)
         {
             move = GetSlopeMoveDirection(move);
         }
         Debug.Log(move);
         _characterController.Move((move * _walkSpeed) * Time.deltaTime);
+        _currentVelocity.x = move.x * _walkSpeed;
+        _currentVelocity.z = move.y * _walkSpeed;
         ApplyGravity(onSteepSlope);
         
     }

@@ -2786,6 +2786,22 @@ PrefabInstance:
       propertyPath: _jumpHeight
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1397611394220703245, guid: 5f04445a6a083f24fbcbabd005160483, type: 3}
+      propertyPath: _acceleration
+      value: 0.965
+      objectReference: {fileID: 0}
+    - target: {fileID: 1397611394220703245, guid: 5f04445a6a083f24fbcbabd005160483, type: 3}
+      propertyPath: _fakeAcceleration
+      value: 0.045
+      objectReference: {fileID: 0}
+    - target: {fileID: 1397611394220703245, guid: 5f04445a6a083f24fbcbabd005160483, type: 3}
+      propertyPath: _fakeDeceleration
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1397611394220703245, guid: 5f04445a6a083f24fbcbabd005160483, type: 3}
+      propertyPath: _stoppingMagnitudeThreshold
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 1806834055623381577, guid: 5f04445a6a083f24fbcbabd005160483, type: 3}
       propertyPath: m_Name
       value: Player Prefab Set
