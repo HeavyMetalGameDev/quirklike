@@ -6,7 +6,7 @@ using UnityEngine;
 public class Wanderer : MonoBehaviour
 {
     private StateMachine StateMachine;
-    public bool living = false; 
+    public int time = 0; 
     
     private void Awake() {
         var height = this.transform.position.y;
@@ -16,10 +16,10 @@ public class Wanderer : MonoBehaviour
         var inst = new BirthTest(this);
         var alive = new AliveTest(this);
 
-        StateMachine.AddTransition(inst, alive, Living());
+        StateMachine.AddTransition(inst, alive, isLIving());
 
-        Func<bool> Living () => () =>  true;
-        StateMachine.SetState(inst);
+        Func<bool> isLIving() => () => time >0;
+        StateMachine.SetState(alive);
     }
 
     private void Update() 

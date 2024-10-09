@@ -50,8 +50,6 @@ public class StateMachine
             transistion = new List<Transition>();
             D_Transitions[From.GetType()] = transistion;
         }
-        
-        Debug.Log("added tras");
         transistion.Add(new Transition(To, condition));
     }
 

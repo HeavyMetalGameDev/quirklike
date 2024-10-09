@@ -12,6 +12,7 @@ public class BirthTest : State
 
     public void Tick()
     {
+        wanderer.time = check();
         Debug.Log("birthtick");
     }
 
@@ -21,5 +22,9 @@ public class BirthTest : State
 
     public void OnExit(){
         Debug.Log("birth Exit");
+    }
+
+    private int check(){
+        return 1000;
     }
 }
