@@ -18,7 +18,7 @@ public class StateMachine
     private static List<Transition> EmptyTransitions = new List<Transition>();
 
 
-    private void Tick()
+    public void Tick()
     {
         var Transition = GetTransition();
         if (Transition != null)
@@ -45,10 +45,13 @@ public class StateMachine
 
     public void AddTransition(State From, State To, Func<bool> condition)
     {
+        
         if(D_Transitions.TryGetValue(From.GetType(), out var transistion) == false){
             transistion = new List<Transition>();
             D_Transitions[From.GetType()] = transistion;
         }
+        
+        Debug.Log("added tras");
         transistion.Add(new Transition(To, condition));
     }
 
