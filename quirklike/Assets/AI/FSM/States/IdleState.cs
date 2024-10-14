@@ -1,11 +1,10 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class BirthTest : State
+public class IdleState : State
 {
     private readonly Wanderer wanderer;
     
-    public BirthTest(Wanderer w){
+    public IdleState(Wanderer w){
         Debug.Log("instanciate");
         this.wanderer = w;
     }
@@ -22,5 +21,4 @@ public class BirthTest : State
     public void OnExit(){
         // Debug.Log("birth Exit");
     }
-
 }

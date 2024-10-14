@@ -2,30 +2,35 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Wanderer : MonoBehaviour
 {
     private StateMachine StateMachine;
-    public int time = 0; 
-    public bool us = false;
+    public bool HasTarget = false;
+    public Transform debug;
     
     private void Awake() {
-        var height = this.transform.position.y;
-
         StateMachine = new StateMachine();
+        var NavAgent = GetComponent<NavMeshAgent>();
 
-        var inst = new BirthTest(this);
-        var alive = new AliveTest(this);
-        StateMachine.AddTransition(alive, inst, isLIving);
+        var idle = new IdleState(this);
+        var run = new WanderState(this, NavAgent);
 
-        bool isLIving() =>us;
-        StateMachine.SetState(alive);
+
+
+        StateMachine.AddTransition(idle, run, HasValidTarget);
+        StateMachine.AddTransition(run, idle, NoValidTarget);
+
+        bool HasValidTarget() =>HasTarget;
+        bool NoValidTarget() => !HasTarget;  
+
+        StateMachine.SetState(idle);
         
     }
 
     private void Update() 
     {
-        time ++;
         StateMachine.Tick();
     }
 }
