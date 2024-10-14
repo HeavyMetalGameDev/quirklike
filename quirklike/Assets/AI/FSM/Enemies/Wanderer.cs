@@ -7,6 +7,7 @@ public class Wanderer : MonoBehaviour
 {
     private StateMachine StateMachine;
     public int time = 0; 
+    public bool us = false;
     
     private void Awake() {
         var height = this.transform.position.y;
@@ -17,13 +18,14 @@ public class Wanderer : MonoBehaviour
         var alive = new AliveTest(this);
         StateMachine.AddTransition(inst, alive, isLIving);
 
-        bool isLIving() => time >0;
+        bool isLIving() =>us;
         StateMachine.SetState(inst);
         
     }
 
     private void Update() 
     {
+        time ++;
         StateMachine.Tick();
     }
 }

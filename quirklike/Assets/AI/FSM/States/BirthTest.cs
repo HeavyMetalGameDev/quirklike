@@ -13,6 +13,7 @@ public class BirthTest : State
     public void Tick()
     {
         wanderer.time = check();
+        wanderer.us = true;
         Debug.Log("birthtick");
     }
 
