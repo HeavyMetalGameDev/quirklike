@@ -16,10 +16,10 @@ public class Wanderer : MonoBehaviour
 
         var inst = new BirthTest(this);
         var alive = new AliveTest(this);
-        StateMachine.AddTransition(inst, alive, isLIving);
+        StateMachine.AddTransition(alive, inst, isLIving);
 
         bool isLIving() =>us;
-        StateMachine.SetState(inst);
+        StateMachine.SetState(alive);
         
     }
 

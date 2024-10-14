@@ -14,15 +14,15 @@ public class BirthTest : State
     {
         wanderer.time = check();
         wanderer.us = true;
-        Debug.Log("birthtick");
+        // Debug.Log("birthtick");
     }
 
     public void OnEnter(){
-        Debug.Log("I am birthed");
+        // Debug.Log("I am birthed");
     }
 
     public void OnExit(){
-        Debug.Log("birth Exit");
+        // Debug.Log("birth Exit");
     }
 
     private int check(){
