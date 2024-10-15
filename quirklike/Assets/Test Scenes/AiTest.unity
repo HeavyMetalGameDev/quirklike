@@ -1852,9 +1852,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5cc2d36a78fc824abe4871c96f99392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 0
-  us: 0
+  HasTarget: 0
+  isPatrolling: 0
   debug: {fileID: 592685824}
+  PatrolPoints:
+  - {x: 4.43, y: 1.33, z: -5.26}
+  - {x: -2.69, y: 1.33, z: -26.26}
+  - {x: -2.69, y: 1.33, z: -12.26}
+  - {x: 44.5, y: 1.33, z: 0}
 --- !u!114 &1508469650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1882,12 +1887,12 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 1
+  m_BaseOffset: 0.88
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!1 &1614586236
