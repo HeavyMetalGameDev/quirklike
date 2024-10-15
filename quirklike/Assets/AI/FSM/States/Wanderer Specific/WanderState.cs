@@ -18,7 +18,6 @@ public class WanderState : State
 
     public void OnEnter(){
         NavAgent.enabled  = true;
-        NavAgent.SetDestination(Wanderer.debug.position);
     }
 
     public void OnExit(){

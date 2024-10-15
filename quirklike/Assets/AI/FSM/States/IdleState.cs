@@ -5,7 +5,6 @@ public class IdleState : State
     private readonly Wanderer wanderer;
     
     public IdleState(Wanderer w){
-        Debug.Log("instanciate");
         this.wanderer = w;
     }
 

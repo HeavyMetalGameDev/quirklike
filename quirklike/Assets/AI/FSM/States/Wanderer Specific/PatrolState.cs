@@ -11,8 +11,6 @@ public class PatrolState : State
     int CurPoint      = 0;
     bool TargetSwitch = false;
 
-    float WaitTime = 0.1f;
-
     //private readonly animator etc etc
 
     public PatrolState(Wanderer w, NavMeshAgent a, Vector3[] patrolpoints)
@@ -32,7 +30,8 @@ public class PatrolState : State
                 {
                     if(!TargetSwitch)
                     {
-                       SwitchTargets();
+                        Debug.Log("switching targets!");
+                        SwitchTargets();
                     } 
                 }
                 
