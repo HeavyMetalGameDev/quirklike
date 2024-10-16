@@ -8,6 +8,7 @@ public class WeaponSlot
     public WeaponBase weapon;
     public Transform transform;
 
+
     public void ReparentWeapon()
     {
         weapon.transform.parent = transform;
@@ -25,9 +26,10 @@ public class WeaponSlot
 
 public class PlayerWeaponController : MonoBehaviour
 {
-    [SerializeField] List<WeaponSlot> currentWeaponSlots;
-    [SerializeField] List<WeaponBase> testWeapons;
-    int numberOfAssignedWeapons = 0; 
+    [SerializeField] List<WeaponSlot> _currentWeaponSlots;
+    [SerializeField] List<WeaponBase> _testWeapons;
+    int _numberOfAssignedWeapons = 0;
+    private PlayerInputManager _playerInputManager;
 
     public event System.Action OnPlayerFireClicked;
     public event System.Action OnPlayerFireHeld;
@@ -36,7 +38,8 @@ public class PlayerWeaponController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        foreach(WeaponBase weapon in testWeapons) //this is only here for testing.
+        _playerInputManager = PlayerInputManager.Instance;
+        foreach (WeaponBase weapon in _testWeapons) //this is only here for testing.
         {
             AttachWeapon(weapon);
         }
@@ -45,15 +48,15 @@ public class PlayerWeaponController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) //change these to new input system
+        if (_playerInputManager.PlayerFireDown()) //change these to new input system
         {
             OnPlayerFireClicked?.Invoke();
         }
-        if (Input.GetMouseButton(0))
+        if (_playerInputManager.PlayerFireHeld())
         {
             OnPlayerFireHeld?.Invoke();
         }
-        if (Input.GetMouseButtonUp(0))
+        if (_playerInputManager.PlayerFireUp())
         {
             OnPlayerFireReleased?.Invoke();
         }
@@ -76,7 +79,7 @@ public class PlayerWeaponController : MonoBehaviour
         freeSlot.weapon = weapon;
         freeSlot.ReparentWeapon();
 
-        numberOfAssignedWeapons++;
+        _numberOfAssignedWeapons++;
 
         OnPlayerFireClicked += weapon.OnInputClicked;
         OnPlayerFireHeld += weapon.OnInputHeld;
@@ -85,11 +88,11 @@ public class PlayerWeaponController : MonoBehaviour
 
     void DropWeapon(int weaponIndexID)
     {
-        WeaponSlot droppedSlot = currentWeaponSlots[weaponIndexID];
+        WeaponSlot droppedSlot = _currentWeaponSlots[weaponIndexID];
         WeaponBase droppedWeapon = droppedSlot.weapon;
         droppedSlot.weapon = null;
 
-        numberOfAssignedWeapons--;
+        _numberOfAssignedWeapons--;
         OnPlayerFireClicked -= droppedWeapon.OnInputClicked;
         OnPlayerFireHeld -= droppedWeapon.OnInputHeld;
         OnPlayerFireReleased -= droppedWeapon.OnInputReleased;
@@ -97,7 +100,7 @@ public class PlayerWeaponController : MonoBehaviour
 
     WeaponSlot GetFreeWeaponSlot()
     {
-        foreach(WeaponSlot slot in currentWeaponSlots)
+        foreach(WeaponSlot slot in _currentWeaponSlots)
         {
             if (slot.weapon == null)
             {
