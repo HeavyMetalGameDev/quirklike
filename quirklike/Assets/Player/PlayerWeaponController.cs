@@ -52,11 +52,11 @@ public class PlayerWeaponController : MonoBehaviour
         {
             OnPlayerFireClicked?.Invoke();
         }
-        if (_playerInputManager.PlayerFireHeld())
+        else if (_playerInputManager.PlayerFireHeld())
         {
             OnPlayerFireHeld?.Invoke();
         }
-        if (_playerInputManager.PlayerFireUp())
+        else if (_playerInputManager.PlayerFireUp())
         {
             OnPlayerFireReleased?.Invoke();
         }
