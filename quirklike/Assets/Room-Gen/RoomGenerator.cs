@@ -11,6 +11,16 @@ public class RoomGenerator : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField]
     public int roomsToGenerateCount;
+
+    [SerializeField]
+    private GameObject startingRoom;
+    public GameObject GetStartingRoom() { return startingRoom; }
+
+
+    [SerializeField]
+    private GameObject endingRoom;
+    public GameObject GetEndingRoom() { return endingRoom; }
+
     [SerializeField]
     private List<GameObject> roomPool;
     [SerializeField]
@@ -21,10 +31,11 @@ public class RoomGenerator : MonoBehaviour
 
     private GameObject currentEntryPoint;
     private GameObject currentRoom;
-    private GameObject currentTransition;   
+    private GameObject currentTransition;
+
     void Start()
     {
-        Random.InitState((int)DateTime.Now.Ticks);
+        
         roomsToGenerate = new List<GameObject>();
         GenerateRooms();
     }
@@ -32,7 +43,6 @@ public class RoomGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
     public void GenerateRooms()
     {
@@ -44,6 +54,11 @@ public class RoomGenerator : MonoBehaviour
     {
         if (roomsToGenerate.Count > 0)
         {
+            foreach (GameObject room in generatedRooms)
+            {
+                Destroy(room);
+            }
+            generatedRooms.Clear();
             foreach (GameObject room in roomsToGenerate)
             {
                 Destroy(room);
