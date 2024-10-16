@@ -1503,7 +1503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShowDebugText: 0
+  m_ShowDebugText: 1
   m_ShowCameraFrustum: 1
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
@@ -3360,6 +3360,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Prefab Set
       objectReference: {fileID: 0}
+    - target: {fileID: 3020029338161564195, guid: 5f04445a6a083f24fbcbabd005160483, type: 3}
+      propertyPath: AutoEnableInputs
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4986801128861461838, guid: 5f04445a6a083f24fbcbabd005160483, type: 3}
+      propertyPath: m_StandbyUpdate
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6947899192077550527, guid: 5f04445a6a083f24fbcbabd005160483, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3409,20 +3417,24 @@ PrefabInstance:
       value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 7474730322658069437, guid: 5f04445a6a083f24fbcbabd005160483, type: 3}
+      propertyPath: m_VerticalAxis.m_Wrap
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7474730322658069437, guid: 5f04445a6a083f24fbcbabd005160483, type: 3}
       propertyPath: m_VerticalAxis.m_AccelTime
-      value: 0.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7474730322658069437, guid: 5f04445a6a083f24fbcbabd005160483, type: 3}
       propertyPath: m_VerticalAxis.m_DecelTime
-      value: 0.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7474730322658069437, guid: 5f04445a6a083f24fbcbabd005160483, type: 3}
       propertyPath: m_HorizontalAxis.m_AccelTime
-      value: 0.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7474730322658069437, guid: 5f04445a6a083f24fbcbabd005160483, type: 3}
       propertyPath: m_HorizontalAxis.m_DecelTime
-      value: 0.01
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
