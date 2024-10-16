@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
+
 public class WeaponSlot
 {
     public WeaponBase weapon;
     public Transform transform;
-
 
     public void ReparentWeapon()
     {
@@ -20,6 +20,7 @@ public class WeaponSlot
     public void DropWeaponFromSlot()
     {
         weapon.transform.parent = null;
+        weapon = null;
         //maybe move it to a different place / give it some velocity? / reenable rigidbody
     }
 }
@@ -79,6 +80,8 @@ public class PlayerWeaponController : MonoBehaviour
         freeSlot.weapon = weapon;
         freeSlot.ReparentWeapon();
 
+        weapon._cameraTransform = Camera.main.transform;
+
         _numberOfAssignedWeapons++;
 
         OnPlayerFireClicked += weapon.OnInputClicked;
@@ -90,7 +93,7 @@ public class PlayerWeaponController : MonoBehaviour
     {
         WeaponSlot droppedSlot = _currentWeaponSlots[weaponIndexID];
         WeaponBase droppedWeapon = droppedSlot.weapon;
-        droppedSlot.weapon = null;
+        droppedSlot.DropWeaponFromSlot();
 
         _numberOfAssignedWeapons--;
         OnPlayerFireClicked -= droppedWeapon.OnInputClicked;
