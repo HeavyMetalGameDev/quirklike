@@ -341,8 +341,8 @@ MonoBehaviour:
   roomPool:
   - {fileID: 3481605410305113822, guid: df2d0a2a00e0dc4408b7a08c78827341, type: 3}
   transitionPool:
-  - {fileID: 346312373643525394, guid: 18048490008cc044487da1d1bd61b55c, type: 3}
   - {fileID: 1352145938235056775, guid: 8b903181d413d6044914dafb9d9cbde8, type: 3}
+  - {fileID: 346312373643525394, guid: 18048490008cc044487da1d1bd61b55c, type: 3}
   generatedRooms: []
 --- !u!4 &1654054363
 Transform:

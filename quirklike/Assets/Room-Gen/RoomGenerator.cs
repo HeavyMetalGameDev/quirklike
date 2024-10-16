@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.EditorTools;
 using UnityEngine;
+using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 public class RoomGenerator : MonoBehaviour
 {
@@ -49,14 +51,14 @@ public class RoomGenerator : MonoBehaviour
         }
         for (int i = 0; i < roomsToGenerate; i++)
         {
-            int selectedRoom = UnityEngine.Random.Range(0, roomPool.Count);
+            int selectedRoom = Random.Range(0, roomPool.Count);
             generatedRooms.Add(roomPool[selectedRoom]);
         }
 
     }
     public GameObject GetRandomEntryPoint(RoomData roomData)
     {
-        int randomEntry = UnityEngine.Random.Range(0, roomData.GetEntryLinkPoints().Count);
+        int randomEntry = Random.Range(0, roomData.GetEntryLinkPoints().Count);
         return roomData.GetEntryLinkPoints()[randomEntry];
     }
     private void SpawnRooms()
@@ -73,23 +75,27 @@ public class RoomGenerator : MonoBehaviour
         bool requiresRotation = true;
 
         Vector3 roomOffset = Vector3.zero;
-        float adjustAngle = 0f;
-        Vector3 entryOriginRelitive = Vector3.zero;
-        foreach (GameObject transEntryPoint in transitionRoomData.GetEntryLinkPoints())
-        {
-            bool foundLink = transEntryPoint.transform.localEulerAngles.y == currentEntryPoint.transform.localEulerAngles.y + 180f;
-    
-            if (foundLink == true)
-            {
 
-                roomOffset = transEntryPoint.transform.localPosition;
-                requiresRotation = false;
-                break;
-            }
+        Vector3 entryOriginRelitive = Vector3.zero;
+        int randomEntryLink = Random.Range(0, transitionRoomData.GetEntryLinkPoints().Count);
+        randomEntryLink = 1;
+        GameObject currentExitPoint = transitionRoomData.GetEntryLinkPoints()[randomEntryLink];
+        float toRotate = 0f;
+        if (true)
+        {
+            float adjustAngle = currentExitPoint.transform.localEulerAngles.y;
+            toRotate = (currentEntryPoint.transform.localEulerAngles.y + 180f) - adjustAngle;
+            
+            roomOffset = currentExitPoint.transform.localPosition;
+            requiresRotation = false;
+               
+            
         }
         Debug.Log(currentEntryPoint.transform.localPosition);
         Debug.Log(roomOffset);
-        Instantiate(currentTransition,
+        GameObject newTransition = Instantiate(currentTransition,
             currentEntryPoint.transform.localPosition - roomOffset, new Quaternion(), this.transform);
+        newTransition.transform.RotateAround(currentEntryPoint.transform.localPosition, new Vector3(0, 1, 0), toRotate);
+       // newTransition.transform.Rotate(newTransition.transform.position, toRotate);
     }
 }
