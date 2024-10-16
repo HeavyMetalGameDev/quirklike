@@ -51,6 +51,11 @@ public class RoomData : MonoBehaviour
         }
         return null;
     }
+
+    public void RemoveEntryLinkPoint(int index)
+    {
+        entryLinkPoints.RemoveAt(index);
+    }
     public void OnDrawGizmos()
     {
         if (entryLinkPoints.Count > 0) 

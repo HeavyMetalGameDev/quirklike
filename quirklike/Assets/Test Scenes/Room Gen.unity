@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55aa1a50a0f6c0044ac8cf7ec2c21b30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomsToGenerate: 5
+  roomsToGenerateCount: 5
   roomPool:
   - {fileID: 3481605410305113822, guid: df2d0a2a00e0dc4408b7a08c78827341, type: 3}
   transitionPool:

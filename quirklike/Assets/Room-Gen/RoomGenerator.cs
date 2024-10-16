@@ -10,12 +10,13 @@ public class RoomGenerator : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
-    public int roomsToGenerate;
+    public int roomsToGenerateCount;
     [SerializeField]
     private List<GameObject> roomPool;
     [SerializeField]
     private List<GameObject> transitionPool;
 
+    private List<GameObject> roomsToGenerate;
     public List<GameObject> generatedRooms;
 
     private GameObject currentEntryPoint;
@@ -23,8 +24,8 @@ public class RoomGenerator : MonoBehaviour
     private GameObject currentTransition;   
     void Start()
     {
-        UnityEngine.Random.InitState((int)DateTime.Now.Ticks);
-        generatedRooms = new List<GameObject>();
+        Random.InitState((int)DateTime.Now.Ticks);
+        roomsToGenerate = new List<GameObject>();
         GenerateRooms();
     }
 
@@ -41,18 +42,18 @@ public class RoomGenerator : MonoBehaviour
 
     private void InitialiseRoomList()
     {
-        if (generatedRooms.Count > 0)
+        if (roomsToGenerate.Count > 0)
         {
-            foreach (GameObject room in generatedRooms)
+            foreach (GameObject room in roomsToGenerate)
             {
                 Destroy(room);
             }
-            generatedRooms.Clear();
+            roomsToGenerate.Clear();
         }
-        for (int i = 0; i < roomsToGenerate; i++)
+        for (int i = 0; i < roomsToGenerateCount; i++)
         {
             int selectedRoom = Random.Range(0, roomPool.Count);
-            generatedRooms.Add(roomPool[selectedRoom]);
+            roomsToGenerate.Add(roomPool[selectedRoom]);
         }
 
     }
@@ -63,39 +64,54 @@ public class RoomGenerator : MonoBehaviour
     }
     private void SpawnRooms()
     {
-        currentRoom = generatedRooms[0];
+        currentRoom = roomsToGenerate[0];
  
         Instantiate(currentRoom, Vector3.zero, new Quaternion(), this.transform);
         currentEntryPoint = GetRandomEntryPoint(currentRoom.GetComponent<RoomData>());
-        Debug.Log(currentEntryPoint.name);
-        Debug.Log(currentEntryPoint.transform.position);
 
-        currentTransition = transitionPool[0];
-        RoomData transitionRoomData = currentTransition.GetComponent<RoomData>();
-        bool requiresRotation = true;
+        for (int i = 1; i < roomsToGenerate.Count; i++)
+        {
 
+            currentRoom = LinkRoom(transitionPool[Random.Range(1,3)]);
+            currentEntryPoint = GetRandomEntryPoint(currentRoom.GetComponent<RoomData>());
+
+            currentRoom = LinkRoom(transitionPool[0]);
+            currentEntryPoint = GetRandomEntryPoint(currentRoom.GetComponent<RoomData>());
+
+            currentRoom = LinkRoom(roomsToGenerate[i]);
+            currentEntryPoint = GetRandomEntryPoint(currentRoom.GetComponent<RoomData>());
+        }
+
+        // newTransition.transform.Rotate(newTransition.transform.position, toRotate);
+    }
+
+    private GameObject LinkRoom(GameObject roomToAdd)
+    {
+        if (roomToAdd.GetComponent<RoomData>() == null)
+        {
+            Debug.Log("GameObject does not have Room Data!");
+            return null;
+        }
         Vector3 roomOffset = Vector3.zero;
-
         Vector3 entryOriginRelitive = Vector3.zero;
-        int randomEntryLink = Random.Range(0, transitionRoomData.GetEntryLinkPoints().Count);
-        randomEntryLink = 1;
-        GameObject currentExitPoint = transitionRoomData.GetEntryLinkPoints()[randomEntryLink];
+        int randomEntryLink = Random.Range(0, roomToAdd.GetComponent<RoomData>().GetEntryLinkPoints().Count);
+        randomEntryLink = 0;
+        GameObject currentExitPoint = roomToAdd.GetComponent<RoomData>().GetEntryLinkPoints()[randomEntryLink];
         float toRotate = 0f;
         if (true)
         {
-            float adjustAngle = currentExitPoint.transform.localEulerAngles.y;
-            toRotate = (currentEntryPoint.transform.localEulerAngles.y + 180f) - adjustAngle;
-            
+            float adjustAngle = currentExitPoint.transform.eulerAngles.y;
+            toRotate = (currentEntryPoint.transform.eulerAngles.y + 180f) - adjustAngle;
             roomOffset = currentExitPoint.transform.localPosition;
-            requiresRotation = false;
-               
-            
+
         }
-        Debug.Log(currentEntryPoint.transform.localPosition);
-        Debug.Log(roomOffset);
-        GameObject newTransition = Instantiate(currentTransition,
-            currentEntryPoint.transform.localPosition - roomOffset, new Quaternion(), this.transform);
-        newTransition.transform.RotateAround(currentEntryPoint.transform.localPosition, new Vector3(0, 1, 0), toRotate);
-       // newTransition.transform.Rotate(newTransition.transform.position, toRotate);
+
+        GameObject newTransition = Instantiate(roomToAdd,
+            currentEntryPoint.transform.position - roomOffset, new Quaternion(), this.transform);
+
+        newTransition.transform.RotateAround(currentEntryPoint.transform.position, new Vector3(0, 1, 0), toRotate);
+        newTransition.GetComponent<RoomData>().RemoveEntryLinkPoint(randomEntryLink);
+        generatedRooms.Add(newTransition);
+        return newTransition;
     }
 }
