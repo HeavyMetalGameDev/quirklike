@@ -63,11 +63,22 @@ public class ExampleMachineGun : WeaponBase
             fireTimer -= firePeriod;
             //fire tha weapon
 
-            RaycastHit hit;
-            Physics.Raycast(_cameraTransform.position, _cameraTransform.forward, out hit, 300.0f,GameRaycastLayers.defaultGunRaycastMask);
-            Vector3 hitPos = hit.point;
+
 
             //do damage if we hit an enemy?
+
+            RaycastHit hit;
+            if (Physics.Raycast(_cameraTransform.position, _cameraTransform.forward, out hit, 300.0f, GameRaycastLayers.defaultGunRaycastMask))
+            {
+                Vector3 hitPos = hit.point;
+
+                if (hit.collider.CompareTag("Enemy"))
+                {
+                    var stats = hit.collider.GetComponent<EnemyStats>();
+                    stats.DoDamage(damage);
+                    //there will be most stuff here i.e events called, visuals etc.
+                }
+            }
 
             //Debug.Log(hitPos);
             //Vector3[] positions = {hitPos, transform.position};

@@ -19,15 +19,19 @@ public class EnemyStats : MonoBehaviour {
             TotalHP = 100;
             Debug.LogWarning("Some Enemy's starting HP is missing or 0. Setting it to default value: " + this);
         }
+        CurrentHP = StartingHP;
     }
 
     //DoDamager: simply minuses given damage from total health
     public void DoDamage(float incDamage){
 
-        if(CurrentHP - incDamage < 0){
+        CurrentHP -= incDamage;
+
+        if (CurrentHP < 0)
+        {
             CurrentHP = 0;
         }
-        CurrentHP -= incDamage;
+        Debug.Log(CurrentHP);
     }
 
 
