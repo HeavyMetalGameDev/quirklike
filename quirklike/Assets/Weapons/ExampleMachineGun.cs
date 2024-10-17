@@ -8,6 +8,8 @@ public class ExampleMachineGun : WeaponBase
 {
     [SerializeField] float damage = 10.0f;
     [SerializeField] float fireRate = 0.5f;
+    [SerializeField] Animator _animator;
+
     float firePeriod = 0;
     float fireTimer = 0.0f;
 
@@ -62,6 +64,7 @@ public class ExampleMachineGun : WeaponBase
         {
             Debug.Log("BAM");
             fireTimer -= firePeriod;
+            _animator.SetTrigger("BasicRecoil");
             //fire tha weapon
 
 
@@ -73,6 +76,10 @@ public class ExampleMachineGun : WeaponBase
             {
                 Vector3 hitPos = hit.point;
 
+                Debug.Log(hitPos);
+                Vector3[] positions = { hitPos, transform.position };
+                CreateDebugLineRenderer(ref positions);
+
                 if (hit.collider.CompareTag("Enemy"))
                 {
                     var stats = hit.collider.GetComponent<EnemyStats>();
@@ -81,9 +88,6 @@ public class ExampleMachineGun : WeaponBase
                 }
             }
 
-            //Debug.Log(hitPos);
-            //Vector3[] positions = {hitPos, transform.position};
-            //CreateDebugLineRenderer(ref positions);
         }
     }
 
@@ -93,6 +97,7 @@ public class ExampleMachineGun : WeaponBase
     {
         GameObject line = new GameObject();
         var renderer = line.AddComponent<LineRenderer>();
+        renderer.widthMultiplier = 0.1f;
         renderer.SetPositions(positions);
     }
 

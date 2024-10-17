@@ -3305,7 +3305,8 @@ Transform:
   m_LocalPosition: {x: 0.39, y: -0.18, z: 0.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1959737223}
   m_Father: {fileID: 186112401}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1820705612
@@ -3597,6 +3598,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1959737223}
   - component: {fileID: 1959737224}
+  - component: {fileID: 1959737225}
   m_Layer: 7
   m_Name: TestWeapon
   m_TagString: Untagged
@@ -3613,12 +3615,12 @@ Transform:
   m_GameObject: {fileID: 1959737221}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.41, y: 6.48, z: -1.514}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 445564650}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1807796999}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1959737224
 MonoBehaviour:
@@ -3633,8 +3635,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraTransform: {fileID: 0}
-  damage: 10
-  fireRate: 4
+  damage: 25
+  fireRate: 2
+  _animator: {fileID: 1959737225}
+--- !u!95 &1959737225
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959737221}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c5ca00af9b8a7a84fbd056e9e9750667, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1969492975
 GameObject:
   m_ObjectHideFlags: 0
@@ -4166,7 +4190,6 @@ SceneRoots:
   - {fileID: 1760439081}
   - {fileID: 5391353726472054717}
   - {fileID: 1413566747}
-  - {fileID: 1959737223}
   - {fileID: 1225423304}
   - {fileID: 686877548}
   - {fileID: 421939116}
