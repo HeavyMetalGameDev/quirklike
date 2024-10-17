@@ -24,7 +24,7 @@ public class Wanderer : MonoBehaviour
         var NavAgent = GetComponent<NavMeshAgent>();
         var PlayerDetector = gameObject.AddComponent<PlayerDetector>();
 
-        var idle    = new IdleState(this);
+        var idle    = new IdleState(this, NavAgent);
         var patrol  = new PatrolState(this, NavAgent, PatrolPoints);
         var chase   = new ChaseState(this, NavAgent);
       
@@ -38,7 +38,6 @@ public class Wanderer : MonoBehaviour
         bool NotPatrolling()  => !isPatrolling;
 
         StateMachine.SetState(idle);
-
 
        //Debug UI 
        var canvas = transform.Find("Canvas").gameObject;

@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 8943601075424930320}
   - component: {fileID: 8721247050344209284}
   - component: {fileID: 4489156811163552806}
+  - component: {fileID: 1250647956822725575}
+  - component: {fileID: 5883882421454158256}
   - component: {fileID: 8602884505754782771}
   - component: {fileID: 1921913723228840406}
-  - component: {fileID: 5883882421454158256}
   - component: {fileID: 2644957673678147052}
-  - component: {fileID: 1250647956822725575}
   m_Layer: 0
   m_Name: E_Wanderer
   m_TagString: Untagged
@@ -139,42 +139,29 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &8602884505754782771
-MonoBehaviour:
+--- !u!135 &1250647956822725575
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1192826631389093771}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5cc2d36a78fc824abe4871c96f99392, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isPatrolling: 0
-  PatrolPoints:
-  - {x: 4.43, y: 1.33, z: -5.26}
-  - {x: -21.88, y: 1.33, z: -24.66988}
-  - {x: -21.88, y: 5.94, z: -36.92}
-  - {x: -21.88, y: 5.94, z: -51.59}
-  Player: {fileID: 0}
-  isReals: 0
-  StateName: cringe
---- !u!114 &1921913723228840406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1192826631389093771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7754dd5113077ff449964f444541bb8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartingHP: 100
+  serializedVersion: 3
+  m_Radius: 10
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &5883882421454158256
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -197,6 +184,38 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &8602884505754782771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192826631389093771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5cc2d36a78fc824abe4871c96f99392, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPatrolling: 0
+  PatrolPoints:
+  - {x: 4.43, y: 1.33, z: -5.26}
+  - {x: -21.88, y: 1.33, z: -24.66988}
+  - {x: -21.88, y: 5.94, z: -36.92}
+  - {x: -21.88, y: 5.94, z: -51.59}
+  StateName: cringe
+--- !u!114 &1921913723228840406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192826631389093771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7754dd5113077ff449964f444541bb8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartingHP: 100
 --- !u!114 &2644957673678147052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,27 +262,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!135 &1250647956822725575
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1192826631389093771}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 3
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3892111185322169082
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,7 +370,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4085308245004833277
 RectTransform:
   m_ObjectHideFlags: 0
@@ -439,7 +437,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &7711499387200758985
 MonoBehaviour:
   m_ObjectHideFlags: 0

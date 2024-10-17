@@ -1,21 +1,30 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class IdleState : State
 {
     private readonly Wanderer wanderer;
+    private readonly NavMeshAgent NavAgent;
+    private int IDLE_TIME = 1000;
     
-    public IdleState(Wanderer w){
+    public IdleState(Wanderer w, NavMeshAgent a){
         this.wanderer = w;
+        this.NavAgent = a;
     }
 
     public void Tick()
     { 
-        // Debug.Log("birthtick");
+        IDLE_TIME --;
+        if(IDLE_TIME < 0){
+            wanderer.isPatrolling = true;
+        }
     }
 
     public void OnEnter(){
-        // Debug.Log("I am birthed");
+        IDLE_TIME = 1000;
         wanderer.StateName = "idle";
+        NavAgent.enabled = true;
+       
     }
 
     public void OnExit(){

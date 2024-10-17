@@ -21,7 +21,7 @@ public class PlayerDetector : MonoBehaviour
     }
 
     private IEnumerator ClearDetectionAfterDelay(){
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(20f);
         DetectedPlayer = null;
     }
 
