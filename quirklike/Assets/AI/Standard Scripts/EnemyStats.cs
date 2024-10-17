@@ -30,6 +30,10 @@ public class EnemyStats : MonoBehaviour {
         if (CurrentHP < 0)
         {
             CurrentHP = 0;
+            Callbacks.CallEvent(CallbackEvent.EnemyKilled);
+            //enemy has died, do something here
+            //for now we will just disable the enemy
+            gameObject.SetActive(false);
         }
         Debug.Log(CurrentHP);
     }

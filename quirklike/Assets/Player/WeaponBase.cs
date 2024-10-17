@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//this is the most basic weapon class, which has very simple functionality.
+//there are other weapon classes that derive from this which may be more appropriate, unless you want to make a weapon from scratch.
 public abstract class WeaponBase : MonoBehaviour
 {
     public Transform _cameraTransform;

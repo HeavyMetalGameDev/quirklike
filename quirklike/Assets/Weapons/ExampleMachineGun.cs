@@ -11,6 +11,7 @@ public class ExampleMachineGun : WeaponBase
     float firePeriod = 0;
     float fireTimer = 0.0f;
 
+
     private void Awake()
     {
         RecalculateFirePeriod();
@@ -94,4 +95,5 @@ public class ExampleMachineGun : WeaponBase
         var renderer = line.AddComponent<LineRenderer>();
         renderer.SetPositions(positions);
     }
+
 }

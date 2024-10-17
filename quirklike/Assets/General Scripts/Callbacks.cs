@@ -11,13 +11,15 @@ public enum CallbackEvent
 {
     NullEvent,
     TestEvent,
-    TestIntEvent
+    TestIntEvent,
+    EnemyKilled
 }
 
 
 public static class Callbacks
 {
     public static event System.Action TestEvent;
+    public static event System.Action EnemyKilled;
 
 
     public static void CallEvent(CallbackEvent callbackEvent, CallbackData data = null) //this can be called from anywhere, be careful
@@ -28,6 +30,12 @@ public static class Callbacks
                 {
                     Debug.Log("TEST EVENT CALLED");
                     TestEvent?.Invoke();
+                    break;
+                }
+            case CallbackEvent.EnemyKilled:
+                {
+                    Debug.Log("ENEMY HAS BEEN KILLED");
+                    EnemyKilled?.Invoke();
                     break;
                 }
         }
