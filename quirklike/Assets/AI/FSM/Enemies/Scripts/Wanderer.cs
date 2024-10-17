@@ -15,9 +15,6 @@ public class Wanderer : MonoBehaviour
     public Vector3[] PatrolPoints;
 
     [Header("Debug")]
-    public GameObject Player;
-    public bool isReals;
-
     public string StateName;
     
     
@@ -25,20 +22,20 @@ public class Wanderer : MonoBehaviour
     {
         StateMachine = new StateMachine();
         var NavAgent = GetComponent<NavMeshAgent>();
+        var PlayerDetector = gameObject.AddComponent<PlayerDetector>();
 
         var idle    = new IdleState(this);
         var patrol  = new PatrolState(this, NavAgent, PatrolPoints);
-        var chase   = new ChaseState(this);
+        var chase   = new ChaseState(this, NavAgent);
       
         StateMachine.AddTransition(idle, patrol, IsPatrolling);
         StateMachine.AddTransition(patrol, idle, NotPatrolling);
 
-        StateMachine.AddAnyTransition(chase, ()=> isReals);
-        StateMachine.AddTransition(chase, idle, ()=> !isReals);
+        StateMachine.AddAnyTransition(chase, ()=> PlayerDetector.PlayerInRange);
+        StateMachine.AddTransition(chase, idle, ()=> PlayerDetector.PlayerInRange == false);
 
         bool IsPatrolling()   => isPatrolling; 
         bool NotPatrolling()  => !isPatrolling;
-        bool isReal() => isReals;
 
         StateMachine.SetState(idle);
 
