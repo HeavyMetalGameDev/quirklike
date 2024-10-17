@@ -15,6 +15,7 @@ public class IdleState : State
 
     public void OnEnter(){
         // Debug.Log("I am birthed");
+        wanderer.StateName = "idle";
     }
 
     public void OnExit(){

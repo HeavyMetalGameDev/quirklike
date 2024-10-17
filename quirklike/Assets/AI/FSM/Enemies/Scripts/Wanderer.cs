@@ -17,6 +17,8 @@ public class Wanderer : MonoBehaviour
     [Header("Debug")]
     public GameObject Player;
     public bool isReals;
+
+    public string StateName;
     
     
     private void Awake() 
@@ -31,17 +33,25 @@ public class Wanderer : MonoBehaviour
         StateMachine.AddTransition(idle, patrol, IsPatrolling);
         StateMachine.AddTransition(patrol, idle, NotPatrolling);
 
-        StateMachine.AddAnyTransition(chase, isReal);
+        StateMachine.AddAnyTransition(chase, ()=> isReals);
+        StateMachine.AddTransition(chase, idle, ()=> !isReals);
 
         bool IsPatrolling()   => isPatrolling; 
         bool NotPatrolling()  => !isPatrolling;
         bool isReal() => isReals;
 
         StateMachine.SetState(idle);
-        
+
+
+       //Debug UI 
+       var canvas = transform.Find("Canvas").gameObject;
+       canvas.SetActive(true);
     }
 
     private void Update() => StateMachine.Tick();
 
+    public string getStateName(){
+        return StateName;
+    }
 
 }

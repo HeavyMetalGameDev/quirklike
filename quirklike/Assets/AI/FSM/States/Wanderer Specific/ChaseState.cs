@@ -12,7 +12,7 @@ public class ChaseState : State
 
     }
     public void OnEnter(){
-        Debug.Log("Current State");
+        wanderer.StateName = "chase";
     }
     public void OnExit(){
 
