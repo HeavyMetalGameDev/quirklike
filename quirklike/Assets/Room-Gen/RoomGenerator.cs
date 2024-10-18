@@ -48,8 +48,17 @@ public class RoomGenerator : MonoBehaviour
 
     void Start()
     {
-        
         roomsToGenerate = new List<GameObject>();
+        if (roomPool.Count != roomPoolWeights.Count)
+        {
+            Debug.Log("WARNING: Room Pool and Room Pool Weight Mismatch");
+            return;
+        }
+        if (transitionPool.Count != transitionPoolWeights.Count)
+        {
+            Debug.Log("WARNING: Transition Pool and Transition Pool Weight Mismatch");
+            return;
+        }
         GenerateRooms();
     }
 
@@ -83,12 +92,12 @@ public class RoomGenerator : MonoBehaviour
         for (int i = 0; i < roomsToGenerateCount; i++)
         {
             Debug.Log("Generating Room " + i);
-            roomsToGenerate.Add(WeightedSelect(roomPool, roomPoolWeights));
+            roomsToGenerate.Add(WeightedRoomSelect(roomPool, roomPoolWeights));
         }
 
     }
 
-    private GameObject WeightedSelect(List<GameObject> r, List<float> w)
+    private GameObject WeightedRoomSelect(List<GameObject> r, List<float> w)
     {
         List<GameObject> rooms = new List<GameObject>(r);
         List<float> roomWeights = new List<float>(w);
@@ -104,7 +113,7 @@ public class RoomGenerator : MonoBehaviour
         while (index >= 0)
         {
             // Do a probability check with a likelihood of weights[index] / weightSum.
-            if (Random.Range(0, totalWeight) >= workingWeight)
+            if (Random.Range(0, totalWeight) > workingWeight)
             {
                 Debug.Log(index);
                 return rooms[index];
@@ -116,7 +125,7 @@ public class RoomGenerator : MonoBehaviour
             workingWeight -= roomWeights[index];
         }
         Debug.Log("Something Fucked Up");
-        return rooms[index];
+        return null;
     }
     public GameObject GetRandomLinkPoints(RoomData roomData)
     {
@@ -161,7 +170,7 @@ public class RoomGenerator : MonoBehaviour
         for (int i = 1; i < roomsToGenerate.Count; i++)
         {
 
-            currentRoom = LinkRoom(WeightedSelect(transitionPool, transitionPoolWeights));
+            currentRoom = LinkRoom(WeightedRoomSelect(transitionPool, transitionPoolWeights));
             currentLinkPoint = GetRandomLinkPoints(currentRoom.GetComponent<RoomData>(), LinkType.ExitOnly);
 
             //currentRoom = LinkRoom(transitionPool[0]);
