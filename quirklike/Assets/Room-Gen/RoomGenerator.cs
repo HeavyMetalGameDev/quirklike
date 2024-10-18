@@ -76,13 +76,16 @@ public class RoomGenerator : MonoBehaviour
 
     private void InitialiseRoomList()
     {
-        if (roomsToGenerate.Count > 0)
+        if (generatedRooms.Count > 0)
         {
             foreach (GameObject room in generatedRooms)
             {
                 Destroy(room);
             }
             generatedRooms.Clear();
+        }
+        if (roomsToGenerate.Count > 0)
+        {
             foreach (GameObject room in roomsToGenerate)
             {
                 Destroy(room);
