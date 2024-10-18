@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomID: TestRoom1
-  center: {fileID: 528486216993381096}
+  playerSpawn: {fileID: 528486216993381096}
   roomType: 0
   entryLinkPoints:
   - {fileID: 3138715960346351448}
@@ -183,7 +183,7 @@ GameObject:
   m_Component:
   - component: {fileID: 528486216993381096}
   m_Layer: 0
-  m_Name: Source
+  m_Name: PlayerSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,7 +198,7 @@ Transform:
   m_GameObject: {fileID: 6458301790839377591}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

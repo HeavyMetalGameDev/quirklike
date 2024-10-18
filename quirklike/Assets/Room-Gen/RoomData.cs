@@ -14,8 +14,8 @@ public class RoomData : MonoBehaviour
     public string GetRoomID() { return roomID; }
 
     [SerializeField]
-    private Transform center;
-    public Transform GetCenter() { return center; }
+    private Transform playerSpawn;
+    public Transform GetPlayerSpawn() { return playerSpawn; }
 
     [SerializeField] 
     private RoomType roomType;

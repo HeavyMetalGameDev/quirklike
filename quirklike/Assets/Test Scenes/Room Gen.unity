@@ -318,6 +318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1654054363}
   - component: {fileID: 1654054362}
+  - component: {fileID: 1654054364}
   m_Layer: 0
   m_Name: RoomSpawner
   m_TagString: Untagged
@@ -362,6 +363,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1654054364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654054361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 077ce3e6b2a7a7f4283f8bc7c10ac295, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 1806834055623381577, guid: 5f04445a6a083f24fbcbabd005160483, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

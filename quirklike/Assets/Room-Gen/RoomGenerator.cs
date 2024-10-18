@@ -33,6 +33,9 @@ public class RoomGenerator : MonoBehaviour
     private GameObject currentRoom;
     private GameObject currentTransition;
 
+    private bool haveRoomsGenerated = false;
+    public bool HasRoomsGenerated() {  return haveRoomsGenerated; }
+
     void Start()
     {
         
@@ -46,8 +49,10 @@ public class RoomGenerator : MonoBehaviour
     }
     public void GenerateRooms()
     {
+        haveRoomsGenerated = false;
         InitialiseRoomList();
         SpawnRooms();
+        haveRoomsGenerated = true;
     }
 
     private void InitialiseRoomList()
@@ -80,8 +85,8 @@ public class RoomGenerator : MonoBehaviour
     private void SpawnRooms()
     {
         currentRoom = roomsToGenerate[0];
- 
-        Instantiate(currentRoom, Vector3.zero, new Quaternion(), this.transform);
+
+        startingRoom = Instantiate(currentRoom, Vector3.zero, new Quaternion(), this.transform);
         currentEntryPoint = GetRandomEntryPoint(currentRoom.GetComponent<RoomData>());
 
         for (int i = 1; i < roomsToGenerate.Count; i++)
@@ -96,7 +101,7 @@ public class RoomGenerator : MonoBehaviour
             currentRoom = LinkRoom(roomsToGenerate[i]);
             currentEntryPoint = GetRandomEntryPoint(currentRoom.GetComponent<RoomData>());
         }
-
+        endingRoom = currentRoom;
         // newTransition.transform.Rotate(newTransition.transform.position, toRotate);
     }
 
