@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 1654054364}
   m_Layer: 0
   m_Name: RoomSpawner
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -248,6 +248,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomsToGenerateCount: 10
   generatedRooms: []
+  generatedTransitions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   startingRoom: {fileID: 0}
   endingRoom: {fileID: 0}
   roomPool:
