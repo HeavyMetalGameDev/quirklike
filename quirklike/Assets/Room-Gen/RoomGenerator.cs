@@ -77,29 +77,29 @@ public class RoomGenerator : MonoBehaviour
         }
 
     }
-    public GameObject GetRandomEntryPoint(RoomData roomData)
+    public GameObject GetRandomLinkPoints(RoomData roomData)
     {
-        int randomEntry = Random.Range(0, roomData.GetEntryLinkPoints().Count);
-        return roomData.GetEntryLinkPoints()[randomEntry];
+        int randomEntry = Random.Range(0, roomData.GetLinkPoints().Count);
+        return roomData.GetLinkPoints()[randomEntry];
     }
     private void SpawnRooms()
     {
         currentRoom = roomsToGenerate[0];
 
         startingRoom = Instantiate(currentRoom, Vector3.zero, new Quaternion(), this.transform);
-        currentEntryPoint = GetRandomEntryPoint(currentRoom.GetComponent<RoomData>());
+        currentEntryPoint = GetRandomLinkPoints(currentRoom.GetComponent<RoomData>());
 
         for (int i = 1; i < roomsToGenerate.Count; i++)
         {
 
             currentRoom = LinkRoom(transitionPool[Random.Range(1,3)]);
-            currentEntryPoint = GetRandomEntryPoint(currentRoom.GetComponent<RoomData>());
+            currentEntryPoint = GetRandomLinkPoints(currentRoom.GetComponent<RoomData>());
 
             currentRoom = LinkRoom(transitionPool[0]);
-            currentEntryPoint = GetRandomEntryPoint(currentRoom.GetComponent<RoomData>());
+            currentEntryPoint = GetRandomLinkPoints(currentRoom.GetComponent<RoomData>());
 
             currentRoom = LinkRoom(roomsToGenerate[i]);
-            currentEntryPoint = GetRandomEntryPoint(currentRoom.GetComponent<RoomData>());
+            currentEntryPoint = GetRandomLinkPoints(currentRoom.GetComponent<RoomData>());
         }
         endingRoom = currentRoom;
         // newTransition.transform.Rotate(newTransition.transform.position, toRotate);
@@ -114,9 +114,9 @@ public class RoomGenerator : MonoBehaviour
         }
         Vector3 roomOffset = Vector3.zero;
         Vector3 entryOriginRelitive = Vector3.zero;
-        int randomEntryLink = Random.Range(0, roomToAdd.GetComponent<RoomData>().GetEntryLinkPoints().Count);
+        int randomEntryLink = Random.Range(0, roomToAdd.GetComponent<RoomData>().GetLinkPoints().Count);
         randomEntryLink = 0;
-        GameObject currentExitPoint = roomToAdd.GetComponent<RoomData>().GetEntryLinkPoints()[randomEntryLink];
+        GameObject currentExitPoint = roomToAdd.GetComponent<RoomData>().GetLinkPoints()[randomEntryLink];
         float toRotate = 0f;
         if (true)
         {

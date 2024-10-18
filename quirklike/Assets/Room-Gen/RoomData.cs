@@ -24,8 +24,8 @@ public class RoomData : MonoBehaviour
 
 
     [SerializeField]
-    private List<GameObject> entryLinkPoints;
-    public List<GameObject> GetEntryLinkPoints() { return entryLinkPoints; }
+    private List<GameObject> linkPoints;
+    public List<GameObject> GetLinkPoints() { return linkPoints; }
 
      
 
@@ -42,7 +42,7 @@ public class RoomData : MonoBehaviour
     
     public GameObject GetEntryLinkPoint(float angle)
     {
-        foreach (GameObject entry in entryLinkPoints)
+        foreach (GameObject entry in linkPoints)
         {
             if(-entry.transform.eulerAngles.y == angle)
             {
@@ -54,16 +54,16 @@ public class RoomData : MonoBehaviour
 
     public void RemoveEntryLinkPoint(int index)
     {
-        entryLinkPoints.RemoveAt(index);
+        linkPoints.RemoveAt(index);
     }
     public void OnDrawGizmos()
     {
-        if (entryLinkPoints.Count > 0) 
+        if (linkPoints.Count > 0) 
         {
-            foreach (GameObject entry in entryLinkPoints)
+            foreach (GameObject entry in linkPoints)
             {
                 Gizmos.color = Color.red;
-                EntryPoint ep = entry.GetComponent<EntryPoint>();   
+                LinkPoint ep = entry.GetComponent<LinkPoint>();   
                 //Debug.Log(entry.transform.eulerAngles.y);
                 float angle = -ep.GetAngle() * Mathf.Deg2Rad;
                 Gizmos.DrawLine(entry.transform.position, entry.transform.position + 5 * new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)));

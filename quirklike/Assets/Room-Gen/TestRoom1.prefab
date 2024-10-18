@@ -51,7 +51,7 @@ MonoBehaviour:
   roomID: TestRoom1
   playerSpawn: {fileID: 528486216993381096}
   roomType: 0
-  entryLinkPoints:
+  linkPoints:
   - {fileID: 3138715960346351448}
   - {fileID: 6582571170948330499}
 --- !u!1 &4940537390816097585
@@ -214,7 +214,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 953313994346639599, guid: 7c69a8d128939944cbac823f06564057, type: 3}
       propertyPath: m_Name
-      value: EntryTransform
+      value: Link Transform
       objectReference: {fileID: 0}
     - target: {fileID: 1586951223969464728, guid: 7c69a8d128939944cbac823f06564057, type: 3}
       propertyPath: m_LocalPosition.x
@@ -281,7 +281,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 953313994346639599, guid: 7c69a8d128939944cbac823f06564057, type: 3}
       propertyPath: m_Name
-      value: EntryTransform (1)
+      value: Link Transform 2
       objectReference: {fileID: 0}
     - target: {fileID: 1586951223969464728, guid: 7c69a8d128939944cbac823f06564057, type: 3}
       propertyPath: m_LocalPosition.x

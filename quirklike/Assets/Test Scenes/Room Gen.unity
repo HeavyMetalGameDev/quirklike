@@ -246,11 +246,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55aa1a50a0f6c0044ac8cf7ec2c21b30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomsToGenerateCount: 5
+  roomsToGenerateCount: 4
   startingRoom: {fileID: 0}
   endingRoom: {fileID: 0}
   roomPool:
   - {fileID: 3481605410305113822, guid: df2d0a2a00e0dc4408b7a08c78827341, type: 3}
+  - {fileID: 3481605410305113822, guid: 1e0fb78580e93b142aa1c909045d2e7b, type: 3}
   transitionPool:
   - {fileID: 1352145938235056775, guid: 8b903181d413d6044914dafb9d9cbde8, type: 3}
   - {fileID: 346312373643525394, guid: 18048490008cc044487da1d1bd61b55c, type: 3}
