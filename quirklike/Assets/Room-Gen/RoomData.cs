@@ -74,5 +74,10 @@ public class RoomData : MonoBehaviour
                 Gizmos.DrawLine(entry.transform.position, entry.transform.position + 1 * new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)));
             }
         }
+        if(playerSpawn)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawCube(playerSpawn.position, new Vector3(1, 2, 1));
+        }
     }
 }
