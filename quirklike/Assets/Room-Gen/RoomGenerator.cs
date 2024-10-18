@@ -15,6 +15,7 @@ public class RoomGenerator : MonoBehaviour
     [SerializeField]
     public int roomsToGenerateCount;
     public List<GameObject> generatedRooms;
+    public List<GameObject> generatedTransitions;
 
     [Header("Important Rooms")]
     [SerializeField]
@@ -76,22 +77,9 @@ public class RoomGenerator : MonoBehaviour
 
     private void InitialiseRoomList()
     {
-        if (generatedRooms.Count > 0)
-        {
-            foreach (GameObject room in generatedRooms)
-            {
-                Destroy(room);
-            }
-            generatedRooms.Clear();
-        }
-        if (roomsToGenerate.Count > 0)
-        {
-            foreach (GameObject room in roomsToGenerate)
-            {
-                Destroy(room);
-            }
-            roomsToGenerate.Clear();
-        }
+        ClearGameObjectList(generatedRooms);
+        ClearGameObjectList(generatedTransitions);
+        ClearGameObjectList(roomsToGenerate);
         for (int i = 0; i < roomsToGenerateCount; i++)
         {
             Debug.Log("Generating Room " + i);
@@ -99,7 +87,17 @@ public class RoomGenerator : MonoBehaviour
         }
 
     }
-
+    private void ClearGameObjectList(List<GameObject> l)
+    {
+        if (l.Count > 0)
+        {
+            foreach (GameObject r in l)
+            {
+                Destroy(r);
+            }
+            l.Clear();
+        }
+    }
     private GameObject WeightedRoomSelect(List<GameObject> r, List<float> w)
     {
         List<GameObject> rooms = new List<GameObject>(r);
@@ -166,8 +164,8 @@ public class RoomGenerator : MonoBehaviour
     private void SpawnRooms()
     {
         currentRoom = roomsToGenerate[0];
-
         startingRoom = Instantiate(currentRoom, Vector3.zero, new Quaternion(), this.transform);
+        generatedRooms.Add(startingRoom);
         currentLinkPoint = GetRandomLinkPoints(currentRoom.GetComponent<RoomData>(), LinkType.ExitOnly);
 
         for (int i = 1; i < roomsToGenerate.Count; i++)
@@ -211,7 +209,8 @@ public class RoomGenerator : MonoBehaviour
 
         newTransition.transform.RotateAround(currentLinkPoint.transform.position, new Vector3(0, 1, 0), toRotate);
         newTransition.GetComponent<RoomData>().RemoveEntryLinkPoint(randomEntryLink);
-        generatedRooms.Add(newTransition);
+        if(newTransition.GetComponent<RoomData>().GetRoomType() == RoomData.RoomType.MainRoom) generatedRooms.Add(newTransition);
+        else generatedTransitions.Add(newTransition);
         return newTransition;
     }
 }
