@@ -7,23 +7,40 @@ using UnityEngine;
 public class ExampleMachineGun : WeaponBase
 {
     [SerializeField] float damage = 10.0f;
-    [SerializeField] float fireRate = 0.5f;
+    [SerializeField] float baseFireRate = 0.5f; //this should sync up to the animation
+    [SerializeField] float fireRateMultiplier = 1.0f; //this should be used to multiply the animation speed
     [SerializeField] Animator _animator;
     [SerializeField] AudioSource _gunAudioSource;
     [SerializeField] AudioClip _gunFireClip;
 
     float firePeriod = 0;
     float fireTimer = 0.0f;
+    float trueFireRate = 0.5f;
+
 
 
     private void Awake()
     {
+        RecalculateTrueFireRate();
         RecalculateFirePeriod();
+        UpdateAnimationSpeed();
+    }
+
+    private void UpdateAnimationSpeed()
+    {
+        _animator.speed = fireRateMultiplier;
+    }
+    public void RecalculateTrueFireRate()
+    {
+
+        if (baseFireRate == 0.0f) return; //just in case
+        trueFireRate = baseFireRate * fireRateMultiplier;
     }
     public void RecalculateFirePeriod()
     {
-        if (fireRate == 0.0f) return; //just in case
-        firePeriod = 1.0f / fireRate;
+
+        if (trueFireRate == 0.0f) return; //just in case
+        firePeriod = 1.0f / trueFireRate;
     }
 
     public override float GetDamage()
@@ -33,7 +50,7 @@ public class ExampleMachineGun : WeaponBase
 
     public override float GetFireRate()
     {
-        return fireRate;
+        return trueFireRate;
     }
 
     public override void OnInputClicked()
@@ -66,7 +83,7 @@ public class ExampleMachineGun : WeaponBase
         {
             fireTimer -= firePeriod;
             _animator.SetTrigger("BasicRecoil"); //this should be used on every gun to show recoil
-            _gunAudioSource.PlayOneShot(_gunFireClip);
+            _gunAudioSource.PlayOneShot(_gunFireClip); //maybe should be more customisable
 
 
 

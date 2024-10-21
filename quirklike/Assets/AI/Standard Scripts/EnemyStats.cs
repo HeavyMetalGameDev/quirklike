@@ -38,6 +38,4 @@ public class EnemyStats : MonoBehaviour {
         Debug.Log(CurrentHP);
     }
 
-
-    
 }

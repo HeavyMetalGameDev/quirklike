@@ -12,7 +12,8 @@ public enum CallbackEvent
     NullEvent,
     TestEvent,
     TestIntEvent,
-    EnemyKilled
+    EnemyKilled,
+    EnemySpawned,
 }
 
 
