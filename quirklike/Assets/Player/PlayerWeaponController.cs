@@ -28,7 +28,6 @@ public class WeaponSlot
 public class PlayerWeaponController : MonoBehaviour
 {
     [SerializeField] List<WeaponSlot> _currentWeaponSlots;
-    [SerializeField] List<WeaponBase> _testWeapons;
     int _numberOfAssignedWeapons = 0;
     private PlayerInputManager _playerInputManager;
 
@@ -40,9 +39,10 @@ public class PlayerWeaponController : MonoBehaviour
     void Start()
     {
         _playerInputManager = PlayerInputManager.Instance;
-        foreach (WeaponBase weapon in _testWeapons) //this is only here for testing.
+        foreach (WeaponSlot weaponSlot in _currentWeaponSlots) //this is only here for testing.
         {
-            AttachWeapon(weapon);
+            WeaponBase weapon = weaponSlot.transform.GetComponentInChildren<WeaponBase>();
+            if (weapon) AttachWeapon(weapon);
         }
     }
 
