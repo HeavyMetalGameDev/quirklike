@@ -9,6 +9,8 @@ public class ExampleMachineGun : WeaponBase
     [SerializeField] float damage = 10.0f;
     [SerializeField] float fireRate = 0.5f;
     [SerializeField] Animator _animator;
+    [SerializeField] AudioSource _gunAudioSource;
+    [SerializeField] AudioClip _gunFireClip;
 
     float firePeriod = 0;
     float fireTimer = 0.0f;
@@ -26,12 +28,12 @@ public class ExampleMachineGun : WeaponBase
 
     public override float GetDamage()
     {
-        throw new System.NotImplementedException();
+        return damage;
     }
 
     public override float GetFireRate()
     {
-        throw new System.NotImplementedException();
+        return fireRate;
     }
 
     public override void OnInputClicked()
@@ -46,7 +48,7 @@ public class ExampleMachineGun : WeaponBase
 
     public override void OnInputReleased()
     {
-        
+        //nothing for this weapon
     }
 
     // Update is called once per frame
@@ -62,10 +64,9 @@ public class ExampleMachineGun : WeaponBase
     {
         if (fireTimer >= firePeriod)
         {
-            Debug.Log("BAM");
             fireTimer -= firePeriod;
-            _animator.SetTrigger("BasicRecoil");
-            //fire tha weapon
+            _animator.SetTrigger("BasicRecoil"); //this should be used on every gun to show recoil
+            _gunAudioSource.PlayOneShot(_gunFireClip);
 
 
 
@@ -76,16 +77,20 @@ public class ExampleMachineGun : WeaponBase
             {
                 Vector3 hitPos = hit.point;
 
-                Debug.Log(hitPos);
-                Vector3[] positions = { hitPos, transform.position };
-                CreateDebugLineRenderer(ref positions);
-
                 if (hit.collider.CompareTag("Enemy"))
                 {
                     var stats = hit.collider.GetComponent<EnemyStats>();
                     stats.DoDamage(damage);
-                    //there will be most stuff here i.e events called, visuals etc.
+                    //there will be more stuff here i.e events called, visuals etc.
                 }
+
+
+
+
+                //just debug stuff here
+                Debug.Log(hitPos);
+                Vector3[] positions = { hitPos, transform.position }; 
+                CreateDebugLineRenderer(ref positions);
             }
 
         }
