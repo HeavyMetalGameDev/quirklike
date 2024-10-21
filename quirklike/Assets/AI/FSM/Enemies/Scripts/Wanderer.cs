@@ -16,6 +16,7 @@ public class Wanderer : MonoBehaviour
 
     [Header("Debug")]
     public string StateName;
+    public bool Debug;
     
     
     private void Awake() 
@@ -40,8 +41,11 @@ public class Wanderer : MonoBehaviour
         StateMachine.SetState(idle);
 
        //Debug UI 
-       var canvas = transform.Find("Canvas").gameObject;
-       canvas.SetActive(true);
+       if(Debug){
+        var canvas = transform.Find("Canvas").gameObject;
+        canvas.SetActive(true);
+       }
+       
     }
 
     private void Update() => StateMachine.Tick();
