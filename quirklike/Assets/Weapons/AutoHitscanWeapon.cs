@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-public class ExampleMachineGun : WeaponBase
+public class AutoHitscanWeapon : WeaponBase
 {
     [SerializeField] float damage = 10.0f;
     [SerializeField] float baseFireRate = 0.5f; //this should sync up to the animation
@@ -106,7 +106,7 @@ public class ExampleMachineGun : WeaponBase
 
                 //just debug stuff here
                 Debug.Log(hitPos);
-                Vector3[] positions = { hitPos, transform.position }; 
+                Vector3[] positions = { hitPos, _firePoint.position }; 
                 CreateDebugLineRenderer(ref positions);
             }
 

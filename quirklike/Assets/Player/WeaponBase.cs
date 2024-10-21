@@ -7,7 +7,8 @@ using UnityEngine;
 //there are other weapon classes that derive from this which may be more appropriate, unless you want to make a weapon from scratch.
 public abstract class WeaponBase : MonoBehaviour
 {
-    public Transform _cameraTransform;
+    public Transform _cameraTransform; 
+    [SerializeField] protected Transform _firePoint; //this is the position where "bullets" should come out (if appropriate)
     public abstract void OnInputClicked(); //probably useful for sniper like weapons or semi auto
 
     public abstract void OnInputHeld(); //probably useful for fully auto weapons
