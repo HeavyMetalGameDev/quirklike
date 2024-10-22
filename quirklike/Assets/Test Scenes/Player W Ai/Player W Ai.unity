@@ -1442,7 +1442,7 @@ PrefabInstance:
     - target: {fileID: 1921913723228840406, guid: 9714cba4204448d499549c6e976327f2, type: 3}
       propertyPath: AttackRadius
       value: 
-      objectReference: {fileID: 2054917840}
+      objectReference: {fileID: 0}
     - target: {fileID: 4489156811163552806, guid: 9714cba4204448d499549c6e976327f2, type: 3}
       propertyPath: m_Constraints
       value: 80
@@ -1530,9 +1530,6 @@ PrefabInstance:
       insertIndex: 1
       addedObject: {fileID: 1301542977}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1192826631389093771, guid: 9714cba4204448d499549c6e976327f2, type: 3}
-      insertIndex: 8
-      addedObject: {fileID: 2054917840}
     - targetCorrespondingSourceObject: {fileID: 1192826631389093771, guid: 9714cba4204448d499549c6e976327f2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2054917841}
@@ -2195,27 +2192,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 50
   enemy: {fileID: 2054917841}
---- !u!135 &1394777856
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1394777849}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 4
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1408894506
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3580,26 +3556,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8523775351414684411, guid: 9714cba4204448d499549c6e976327f2, type: 3}
   m_PrefabInstance: {fileID: 789667032}
   m_PrefabAsset: {fileID: 0}
---- !u!135 &2054917835 stripped
-SphereCollider:
-  m_CorrespondingSourceObject: {fileID: 1250647956822725575, guid: 9714cba4204448d499549c6e976327f2, type: 3}
-  m_PrefabInstance: {fileID: 789667032}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2054917840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327011335}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e3a6e9cf35738e4bbe32a13f4b9946b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Collider: {fileID: 2054917835}
-  Damage: 10
-  AttackDelay: 1
 --- !u!114 &2054917841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3612,7 +3568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b547411b54474144382e1c5bcb1c0106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackRadius: {fileID: 2054917840}
+  AttackRadius: {fileID: 0}
   Health: 100
 --- !u!1001 &4980952479721871227
 PrefabInstance:
@@ -3797,9 +3753,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8017242372287176718, guid: 5f04445a6a083f24fbcbabd005160483, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1394777855}
-    - targetCorrespondingSourceObject: {fileID: 8017242372287176718, guid: 5f04445a6a083f24fbcbabd005160483, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1394777856}
   m_SourcePrefab: {fileID: 100100000, guid: 5f04445a6a083f24fbcbabd005160483, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

@@ -21,10 +21,9 @@ public class AttackRadius : MonoBehaviour
     {
 
         IDamageable damageable = other.GetComponent<IDamageable>();
-        //This makes it attack only the player
         PlayerController player = other.GetComponent<PlayerController>();
 
-        if(damageable != null)
+        if(damageable != null && player != null)
         {
             Damageables.Add(damageable);
 

@@ -10,6 +10,7 @@ public class EStats : MonoBehaviour, IDamageable
     [SerializeField]
     private int Health = 100;
     private void Awake(){
+        AttackRadius = GetComponent<AttackRadius>(); 
         AttackRadius.OnAttack += OnAttack;
     }
 
