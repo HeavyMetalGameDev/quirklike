@@ -28,6 +28,7 @@ public class Wanderer : MonoBehaviour
         var idle    = new IdleState(this, NavAgent);
         var patrol  = new PatrolState(this, NavAgent, PatrolPoints);
         var chase   = new ChaseState(this, NavAgent);
+        
       
         StateMachine.AddTransition(idle, patrol, IsPatrolling);
         StateMachine.AddTransition(patrol, idle, NotPatrolling);

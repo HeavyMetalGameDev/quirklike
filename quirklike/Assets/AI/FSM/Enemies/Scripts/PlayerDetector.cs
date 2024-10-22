@@ -7,25 +7,29 @@ public class PlayerDetector : MonoBehaviour
 
     private PlayerController DetectedPlayer;
 
-    private void OnTriggerEnter(Collider other){
+    private void OnTriggerEnter(Collider other)
+    {
 
         if(other.GetComponent<PlayerController>()){
             DetectedPlayer = other.GetComponent<PlayerController>();
         }
     }
 
-    private void OnTriggerExit(Collider other){
+    private void OnTriggerExit(Collider other)
+    {
         if(other.GetComponent <PlayerController>()){
             StartCoroutine(ClearDetectionAfterDelay());
         }
     }
 
-    private IEnumerator ClearDetectionAfterDelay(){
+    private IEnumerator ClearDetectionAfterDelay()
+    {
         yield return new WaitForSeconds(20f);
         DetectedPlayer = null;
     }
 
-    public Vector3 GetPlayerPosition(){
+    public Vector3 GetPlayerPosition()
+    {
         return DetectedPlayer?.transform.position ?? Vector3.zero;
     }
 }

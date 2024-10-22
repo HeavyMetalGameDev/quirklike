@@ -63,6 +63,6 @@ public class PatrolState : State
     {
         NavAgent.enabled = false;
         TargetSwitch     = false;
-        CurPoint = 0;
+        CurPoint         = 0;
     }
 }
