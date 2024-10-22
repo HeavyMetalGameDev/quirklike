@@ -1,18 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class AttackState : MonoBehaviour
+public class AttackState : State
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    private readonly Wanderer wanderer;
+    private readonly AttackRadius attackRadius;
+    public AttackState(Wanderer w, AttackRadius a){
+        this.wanderer = w;
+        this.attackRadius = a;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void Tick(){
+
+    }
+
+    public void OnEnter(){
+        attackRadius.attacking = true;
+    }
+
+    public void OnExit(){
+        attackRadius.attacking = false;
     }
 }

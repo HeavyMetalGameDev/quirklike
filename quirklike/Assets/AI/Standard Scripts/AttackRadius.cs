@@ -13,6 +13,8 @@ public class AttackRadius : MonoBehaviour
     public AttackEvent OnAttack;
     private Coroutine AttackCoroutine;
 
+    public bool attacking = false;
+
     private void Awake() {
         Collider = GetComponent<SphereCollider>();    
     }
@@ -23,7 +25,7 @@ public class AttackRadius : MonoBehaviour
         IDamageable damageable = other.GetComponent<IDamageable>();
         PlayerController player = other.GetComponent<PlayerController>();
 
-        if(damageable != null && player != null)
+        if(damageable != null && player != null && attacking)
         {
             Damageables.Add(damageable);
 

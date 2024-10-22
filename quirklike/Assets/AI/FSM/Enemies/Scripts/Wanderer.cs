@@ -23,7 +23,7 @@ public class Wanderer : MonoBehaviour
     {
         StateMachine = new StateMachine();
         var NavAgent = GetComponent<NavMeshAgent>();
-        
+
         var PlayerDetector = gameObject.AddComponent<PlayerDetector>();
         var AttackRadius   = gameObject.AddComponent<AttackRadius>();
         var EStats         = gameObject.AddComponent<EStats>();
@@ -32,6 +32,7 @@ public class Wanderer : MonoBehaviour
         var patrol  = new PatrolState(this, NavAgent, PatrolPoints);
         var chase   = new ChaseState(this, NavAgent);
         
+        var attack  = new AttackState(this, AttackRadius);
       
         StateMachine.AddTransition(idle, patrol, IsPatrolling);
         StateMachine.AddTransition(patrol, idle, NotPatrolling);
