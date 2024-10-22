@@ -7,9 +7,18 @@ public class PlayerStats : MonoBehaviour, IDamageable
     
     [SerializeField]
     private int Health = 100;
-    private void Awake()
+    [SerializeField]
+    EStats enemy;
+    
+    //very unsafe way of doing this yet a way of doing it nonetheless
+    private void Update() 
     {
-        
+
+        if(Input.GetKeyDown(KeyCode.H)){
+            Debug.Log("testing");
+            IDamageable E = enemy.GetComponent<IDamageable>();
+            E.TakeDamage(10);
+        }
     }
 
     private void OnAttack(IDamageable Target)
@@ -21,7 +30,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
         Health -= Damage;
 
         if(Health <=0){
-            Debug.LogError("Player Is Dead");
+            Debug.Log("Player Is Dead");
             // throw new System.NotImplementedException();
         }
     }

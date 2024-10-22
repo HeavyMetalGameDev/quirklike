@@ -2193,7 +2193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 641d68a1e51896b4a9a9d847856c469d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 99999
+  Health: 50
+  enemy: {fileID: 2054917841}
 --- !u!135 &1394777856
 SphereCollider:
   m_ObjectHideFlags: 0
