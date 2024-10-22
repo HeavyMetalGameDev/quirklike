@@ -13,7 +13,7 @@ public class AttackRadius : MonoBehaviour
     public AttackEvent OnAttack;
     private Coroutine AttackCoroutine;
 
-    public bool attacking = false;
+    public bool attacking = true;
 
     private void Awake() {
         Collider = GetComponent<SphereCollider>();    
@@ -54,10 +54,13 @@ public class AttackRadius : MonoBehaviour
 
     private IEnumerator Attack()
     {
+        
         WaitForSeconds Wait = new WaitForSeconds(AttackDelay);
         yield return Wait;
 
-        if(Damageables[0]!= null){
+        float dist = Vector3.Distance(transform.position, Damageables[0].GetTransform().position);
+
+        if(Damageables[0]!= null && dist < 6.0f){
             OnAttack?.Invoke(Damageables[0]);
             Damageables[0].TakeDamage(Damage);
 

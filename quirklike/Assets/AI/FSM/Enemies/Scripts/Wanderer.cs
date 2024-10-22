@@ -42,6 +42,7 @@ public class Wanderer : MonoBehaviour
 
         bool IsPatrolling()   => isPatrolling; 
         bool NotPatrolling()  => !isPatrolling;
+        bool isDebug() => Debug;
 
         StateMachine.SetState(idle);
 
