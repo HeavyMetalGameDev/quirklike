@@ -9,7 +9,6 @@ public class AttackRadius : MonoBehaviour
     public int Damage = 10;
     public float AttackDelay = 0.5f;
     public delegate void AttackEvent(IDamageable Target);
-    [SerializeField]
     private List<IDamageable> Damageables = new List<IDamageable>();
     public AttackEvent OnAttack;
     private Coroutine AttackCoroutine;
@@ -44,7 +43,7 @@ public class AttackRadius : MonoBehaviour
         {
             Damageables.Remove(damageable);
 
-            if(Damageables.Count == 0)
+            if(Damageables.Count == 0 && AttackCoroutine!=null)
             {
                 StopCoroutine(AttackCoroutine);
                 AttackCoroutine = null;
@@ -54,9 +53,19 @@ public class AttackRadius : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        OnAttack?.Invoke(Damageables[0]);
-        Damageables[0].TakeDamage(Damage);
-        yield return null;
+        WaitForSeconds Wait = new WaitForSeconds(AttackDelay);
+        yield return Wait;
+
+        if(Damageables[0]!= null){
+            OnAttack?.Invoke(Damageables[0]);
+            Damageables[0].TakeDamage(Damage);
+
+            yield return Wait;
+            Damageables.RemoveAll(DisabledDamageables);
+        }
+        
+        AttackCoroutine = null;
+        
     }
 
     private bool DisabledDamageables(IDamageable damageable)
