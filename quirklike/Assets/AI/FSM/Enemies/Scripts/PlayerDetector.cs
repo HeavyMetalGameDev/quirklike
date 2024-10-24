@@ -6,6 +6,7 @@ public class PlayerDetector : MonoBehaviour
     public bool PlayerInRange => DetectedPlayer != null;
 
     private PlayerController DetectedPlayer;
+    public bool PlayerInMRange;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -21,10 +22,9 @@ public class PlayerDetector : MonoBehaviour
             StartCoroutine(ClearDetectionAfterDelay());
         }
     }
-
     private IEnumerator ClearDetectionAfterDelay()
     {
-        yield return new WaitForSeconds(20f);
+        yield return new WaitForSeconds(2f);
         DetectedPlayer = null;
     }
 
@@ -32,4 +32,5 @@ public class PlayerDetector : MonoBehaviour
     {
         return DetectedPlayer?.transform.position ?? Vector3.zero;
     }
+
 }

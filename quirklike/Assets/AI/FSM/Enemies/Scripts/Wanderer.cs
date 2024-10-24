@@ -17,7 +17,7 @@ public class Wanderer : MonoBehaviour
     [Header("Debug")]
     public string StateName;
     public bool Debug;
-    
+    public bool range;
     
     private void Awake() 
     {
@@ -39,7 +39,6 @@ public class Wanderer : MonoBehaviour
 
         bool IsPatrolling()   => isPatrolling; 
         bool NotPatrolling()  => !isPatrolling;
-
         StateMachine.SetState(idle);
 
        //Debug UI 
