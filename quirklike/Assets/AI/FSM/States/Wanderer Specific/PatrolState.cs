@@ -18,6 +18,7 @@ public class PatrolState : State
         wanderer = w;
         NavAgent = a;
         PatrolPoints = patrolpoints;
+        
     }
 
     public void Tick()
@@ -30,7 +31,6 @@ public class PatrolState : State
                 {
                     if(!TargetSwitch)
                     {
-                        Debug.Log("switching targets!");
                         SwitchTargets();
                     } 
                 }
@@ -56,12 +56,13 @@ public class PatrolState : State
     {
         NavAgent.enabled = true;
         NavAgent.SetDestination(PatrolPoints[0]);
+        wanderer.StateName = "patrol";
     }
 
     public void OnExit()
     {
         NavAgent.enabled = false;
         TargetSwitch     = false;
-        CurPoint = 0;
+        CurPoint         = 0;
     }
 }

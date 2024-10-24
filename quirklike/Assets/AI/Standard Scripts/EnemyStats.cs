@@ -6,22 +6,28 @@ using UnityEngine;
 //the future but do i care? yes 
 //but it is a problem for future me to worry about
 
-public class EnemyStats : MonoBehaviour {
+public class EnemyStats : MonoBehaviour, IDamageable 
+{
     [Tooltip("Health the enemy starts with. Default 100")]
     [SerializeField] public float StartingHP;
     private float TotalHP;
-    private float CurrentHP;  
+    [SerializeField]
+    private float CurrentHP;
+    [SerializeField]  
+    private AttackRadius AttackRadius;
 
     private void Awake() {
-        TotalHP = StartingHP;
+        TotalHP = 100;
 
-        if(StartingHP <= 0 ){
-            TotalHP = 100;
-            Debug.LogWarning("Some Enemy's starting HP is missing or 0. Setting it to default value: " + this);
-        }
+
+        AttackRadius.OnAttack += OnAttack;
+    }
+    
+    private void OnAttack(IDamageable Target) 
+    {
+        Debug.Log("Enemy Attacks"); 
     }
 
-    //DoDamager: simply minuses given damage from total health
     public void DoDamage(float incDamage){
 
         if(CurrentHP - incDamage < 0){
@@ -30,6 +36,15 @@ public class EnemyStats : MonoBehaviour {
         CurrentHP -= incDamage;
     }
 
-
+    public void TakeDamage(int incDamage)
+    {
+        if(TotalHP - incDamage < 0){
+            TotalHP = 0;
+        }
+        TotalHP -= incDamage;
+    }
     
+    public Transform GetTransform(){
+        return transform;
+    }
 }
