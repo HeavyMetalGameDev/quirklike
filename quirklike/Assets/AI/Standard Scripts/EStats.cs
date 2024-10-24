@@ -5,18 +5,15 @@ using UnityEngine;
 public class EStats : MonoBehaviour, IDamageable
 {
     [SerializeField]
-    private AttackRadius AttackRadius;
-
-    [SerializeField]
     private int Health = 100;
     private void Awake(){
-        AttackRadius = GetComponent<AttackRadius>(); 
-        AttackRadius.OnAttack += OnAttack;
+        
+        
     }
 
     private void OnAttack(IDamageable Target)
     {
-        //animator = true etc etc
+        
         Debug.Log("Enemy Attacks");
     }
 

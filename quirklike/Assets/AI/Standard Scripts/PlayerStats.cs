@@ -8,7 +8,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
     [SerializeField]
     private int Health = 100;
     [SerializeField]
-    EStats enemy;
+    GameObject enemy;
     
     //very unsafe way of doing this yet a way of doing it nonetheless
     private void Update() 

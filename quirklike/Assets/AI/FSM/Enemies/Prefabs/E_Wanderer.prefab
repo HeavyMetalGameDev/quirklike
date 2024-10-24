@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 1250647956822725575}
   - component: {fileID: 5883882421454158256}
   - component: {fileID: 8602884505754782771}
-  - component: {fileID: 1921913723228840406}
   - component: {fileID: 2644957673678147052}
   m_Layer: 0
   m_Name: E_Wanderer
@@ -193,25 +192,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1192826631389093771}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b1a5feec2e894e489f4fd99abb91141, type: 3}
+  m_Script: {fileID: 11500000, guid: 696a01ae10b222d4b828fb6392d3c831, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isPatrolling: 0
   PatrolPoints: []
   StateName: 
---- !u!114 &1921913723228840406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1192826631389093771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7754dd5113077ff449964f444541bb8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartingHP: 100
+  Debug: 0
 --- !u!114 &2644957673678147052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,7 +330,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3892111185322169082}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52de161bf25362d4d9cb82309fb54959, type: 3}
+  m_Script: {fileID: 11500000, guid: f73c323789d5232499c4eaf803806c22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   LookAt: {fileID: 8523775351414684411}
@@ -596,7 +583,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6946073303228654892}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52de161bf25362d4d9cb82309fb54959, type: 3}
+  m_Script: {fileID: 11500000, guid: f73c323789d5232499c4eaf803806c22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   LookAt: {fileID: 8523775351414684411}
@@ -610,7 +597,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6946073303228654892}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36a8b980642f4794389e7acdf464b46b, type: 3}
+  m_Script: {fileID: 11500000, guid: b1928527dbd6d3f4fa77f2b87ccf1355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   curState: {fileID: 5374253259828806863}
