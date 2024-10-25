@@ -19,7 +19,7 @@ public class EStats : MonoBehaviour, IDamageable
 
     public void TakeDamage(int Damage){
         Health -= Damage;
-
+        Debug.Log("DAMAGED????");
         if(Health <=0){
             gameObject.SetActive(false);
         }

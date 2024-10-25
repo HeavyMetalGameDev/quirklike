@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 5883882421454158256}
   - component: {fileID: 8602884505754782771}
   - component: {fileID: 2644957673678147052}
+  - component: {fileID: 5739914523305324146}
   m_Layer: 0
   m_Name: E_Wanderer
   m_TagString: Untagged
@@ -193,13 +194,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1192826631389093771}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 696a01ae10b222d4b828fb6392d3c831, type: 3}
+  m_Script: {fileID: 11500000, guid: fdd9d5a93a815ed4ab139f42748830de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPatrolling: 0
-  PatrolPoints: []
-  StateName: 
-  Debug: 0
+  Health: 100
 --- !u!114 &2644957673678147052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,6 +244,26 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5739914523305324146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192826631389093771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f77f8142b49df94aa4cd531c769fb8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPatrolling: 1
+  PatrolPoints:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  StateName: 
+  Debug: 0
+  range: 0
 --- !u!1 &1937478368512851491
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,11 +456,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3892111185322169082}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f73c323789d5232499c4eaf803806c22, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a3c850cfb5cd4f4b967410bf00692c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   LookAt: {fileID: 8523775351414684411}
-  Offset: {x: 0, y: 2, z: 0}
+  Offset: {x: 0, y: 0, z: 0}
 --- !u!1 &4874969506320625881
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,7 +709,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6946073303228654892}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f73c323789d5232499c4eaf803806c22, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a3c850cfb5cd4f4b967410bf00692c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   LookAt: {fileID: 8523775351414684411}
@@ -705,7 +723,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6946073303228654892}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1928527dbd6d3f4fa77f2b87ccf1355, type: 3}
+  m_Script: {fileID: 11500000, guid: 9fbcc0d84748e424a8d149124c2370a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   curState: {fileID: 5374253259828806863}
