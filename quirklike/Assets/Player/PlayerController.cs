@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
         Vector3 _speed = _characterController.transform.position - previousPosition;
         _currentVelocity.x = _speed.x;
         _currentVelocity.z = _speed.z;
-        //Debug.Log(_speed.magnitude);
+        // Debug.Log(_speed.magnitude);
     }
 
     private void FixedUpdate()

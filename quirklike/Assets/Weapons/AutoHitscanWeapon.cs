@@ -96,8 +96,8 @@ public class AutoHitscanWeapon : WeaponBase
 
                 if (hit.collider.CompareTag("Enemy"))
                 {
-                    var stats = hit.collider.GetComponent<EnemyStats>();
-                    stats.DoDamage(damage);
+                    var stats = hit.collider.GetComponent<IDamageable>();
+                    stats.TakeDamage(damage);
                     //there will be more stuff here i.e events called, visuals etc.
                 }
 
@@ -105,7 +105,6 @@ public class AutoHitscanWeapon : WeaponBase
 
 
                 //just debug stuff here
-                Debug.Log(hitPos);
                 Vector3[] positions = { hitPos, _firePoint.position }; 
                 CreateDebugLineRenderer(ref positions);
             }

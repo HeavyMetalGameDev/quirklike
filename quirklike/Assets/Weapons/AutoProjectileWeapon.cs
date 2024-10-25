@@ -14,6 +14,8 @@ public class AutoProjectileWeapon : WeaponBase
     [SerializeField] AudioClip _gunFireClip;
     [SerializeField] ObjectPool _projectilePool;
 
+    Vector3 _debugLastHiscanPosition = Vector3.zero;
+
     float firePeriod = 0;
     float fireTimer = 0.0f;
     float trueFireRate = 0.5f;
