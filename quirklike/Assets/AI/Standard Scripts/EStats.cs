@@ -5,7 +5,7 @@ using UnityEngine;
 public class EStats : MonoBehaviour, IDamageable
 {
     [SerializeField]
-    private int Health = 100;
+    private float Health = 100;
     private void Awake(){
         
         
@@ -17,7 +17,7 @@ public class EStats : MonoBehaviour, IDamageable
         Debug.Log("Enemy Attacks");
     }
 
-    public void TakeDamage(int Damage){
+    public void TakeDamage(float Damage){
         Health -= Damage;
         Debug.Log("DAMAGED????");
         if(Health <=0){

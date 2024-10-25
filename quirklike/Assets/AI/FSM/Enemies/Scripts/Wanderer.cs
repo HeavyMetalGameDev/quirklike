@@ -10,6 +10,7 @@ public class Wanderer : MonoBehaviour
     [Header("State Variables")]
     [Tooltip("Idle to Patrolling")]
     public bool isPatrolling = false;
+    [SerializeField] GameObject _detectionRadiusObject;
 
     [Tooltip("Points to patrol between. Make sure the Y values are the same/higher than the agent height")]
     public Vector3[] PatrolPoints;
@@ -24,7 +25,7 @@ public class Wanderer : MonoBehaviour
         StateMachine = new StateMachine();
         var NavAgent = GetComponent<NavMeshAgent>();
 
-        var PlayerDetector = gameObject.AddComponent<PlayerDetector>();
+        var PlayerDetector = _detectionRadiusObject.AddComponent<PlayerDetector>();
         var EStats         = gameObject.AddComponent<EStats>();
 
         var idle    = new IdleState(this, NavAgent);

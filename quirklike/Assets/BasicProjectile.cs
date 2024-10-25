@@ -52,8 +52,11 @@ public class BasicProjectile : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            EnemyStats enemy = collision.gameObject.GetComponent<EnemyStats>();
-            enemy.DoDamage(_damage);
+            IDamageable enemy = collision.gameObject.GetComponent<IDamageable>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(_damage);
+            }
         }
         gameObject.SetActive(false);
     }

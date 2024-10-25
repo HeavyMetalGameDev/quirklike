@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8943601075424930320}
   - component: {fileID: 8721247050344209284}
   - component: {fileID: 4489156811163552806}
-  - component: {fileID: 1250647956822725575}
   - component: {fileID: 5883882421454158256}
   - component: {fileID: 8602884505754782771}
   - component: {fileID: 2644957673678147052}
@@ -40,6 +39,7 @@ Transform:
   m_Children:
   - {fileID: 4085308245004833277}
   - {fileID: 7530821092889711877}
+  - {fileID: 5082939215558918802}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1158009457598441529
@@ -142,27 +142,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!135 &1250647956822725575
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1192826631389093771}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 10
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &5883882421454158256
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -275,7 +254,6 @@ GameObject:
   - component: {fileID: 7530821092889711877}
   - component: {fileID: 5486646492721156971}
   - component: {fileID: 1799781349226575998}
-  - component: {fileID: 4858455531308047314}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -291,13 +269,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1937478368512851491}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.3641597, w: 0.9313366}
-  m_LocalPosition: {x: -0.417, y: 0.342, z: 0.57299995}
-  m_LocalScale: {x: 1, y: 0.25, z: 0.25}
+  m_LocalRotation: {x: 0.014118578, y: 0.7069648, z: 0.0141186165, w: 0.7069669}
+  m_LocalPosition: {x: -0.455, y: 0.394, z: 0.57299995}
+  m_LocalScale: {x: 0.7947, y: 0.205725, z: 0.19228}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8523775351414684411}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -42.712}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 2.288}
 --- !u!33 &5486646492721156971
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -348,13 +326,45 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &4858455531308047314
-CapsuleCollider:
+--- !u!1 &3254491840512522079
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1937478368512851491}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5082939215558918802}
+  - component: {fileID: 745274268048292195}
+  m_Layer: 11
+  m_Name: DetectionRadius
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5082939215558918802
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3254491840512522079}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8523775351414684411}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &745274268048292195
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3254491840512522079}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -366,11 +376,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.83
-  m_Height: 1.71
-  m_Direction: 0
-  m_Center: {x: -0.21, y: 0, z: 0}
+  serializedVersion: 3
+  m_Radius: 10
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3892111185322169082
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,7 +468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LookAt: {fileID: 8523775351414684411}
-  Offset: {x: 0, y: 0, z: 0}
+  Offset: {x: 0, y: 2, z: 0}
 --- !u!1 &4874969506320625881
 GameObject:
   m_ObjectHideFlags: 0

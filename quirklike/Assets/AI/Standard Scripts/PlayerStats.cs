@@ -6,7 +6,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
 {
     
     [SerializeField]
-    private int Health = 100;
+    private float Health = 100;
     [SerializeField]
     GameObject enemy;
     
@@ -26,7 +26,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
         Debug.Log("Player Attacks" ); 
     }
 
-    public void TakeDamage(int Damage){
+    public void TakeDamage(float Damage){
         Health -= Damage;
 
         if(Health <=0){
