@@ -38,17 +38,16 @@ public class BasicProjectile : MonoBehaviour
 
     private void OnEnable()
     {
-        //maybe call some event? not sure
     }
 
     private void OnDisable()
     {
-       //spawn some visual effect 
+        transform.rotation = Quaternion.identity; //reset the rotation
+
     }
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("COLLISION!!!");
 
         if (collision.gameObject.CompareTag("Enemy"))
         {

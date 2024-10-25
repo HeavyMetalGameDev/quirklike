@@ -56,4 +56,9 @@ public class Wanderer : MonoBehaviour
         return StateName;
     }
 
+    public PlayerDetector GetDetector()
+    {
+        return _detectionRadiusObject.AddComponent<PlayerDetector>();
+    }
+
 }

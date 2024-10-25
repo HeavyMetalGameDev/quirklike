@@ -105,7 +105,6 @@ public class AutoHitscanWeapon : WeaponBase
 
 
                 //just debug stuff here
-                Debug.Log(hitPos);
                 Vector3[] positions = { hitPos, _firePoint.position }; 
                 CreateDebugLineRenderer(ref positions);
             }

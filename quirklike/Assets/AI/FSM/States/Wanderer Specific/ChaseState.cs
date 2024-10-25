@@ -25,7 +25,7 @@ public class ChaseState : State
         NavAgent.enabled = true;
         NavAgent.speed = CHASE_SPEED;
         wanderer.StateName = "chase";
-        Detector = wanderer.GetComponent<PlayerDetector>();
+        Detector = wanderer.GetDetector();
         
     }
     public void OnExit()
