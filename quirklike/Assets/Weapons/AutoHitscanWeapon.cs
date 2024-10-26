@@ -9,7 +9,6 @@ public class AutoHitscanWeapon : WeaponBase
     [SerializeField] float damage = 10.0f;
     [SerializeField] float baseFireRate = 0.5f; //this should sync up to the animation
     [SerializeField] float fireRateMultiplier = 1.0f; //this should be used to multiply the animation speed
-    [SerializeField] Animator _animator;
     [SerializeField] AudioSource _gunAudioSource;
     [SerializeField] AudioClip _gunFireClip;
 
@@ -19,7 +18,7 @@ public class AutoHitscanWeapon : WeaponBase
 
 
 
-    private void Awake()
+    private void Start()
     {
         RecalculateTrueFireRate();
         RecalculateFirePeriod();
