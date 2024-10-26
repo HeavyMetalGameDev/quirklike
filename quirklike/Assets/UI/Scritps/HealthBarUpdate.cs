@@ -11,10 +11,10 @@ public class HealthBarUpdate : MonoBehaviour
     private float CurrentHealth;
 
     [Header("Variables")]
-    [SerializeField] private float FillSpeed;
-    [SerializeField] private Gradient healthGrad;
-    public int CountFps = 30;
-    public float Duration = 10f;
+    [SerializeField] private float BarFillSpeed =0.5f;
+    [SerializeField] private Gradient BarGradient;
+    public int TextCountFPS = 30;
+    public float TextDuration = 10f;
 
     [Header("References")]
     [SerializeField] private Image HealthBarFill;
@@ -35,15 +35,15 @@ public class HealthBarUpdate : MonoBehaviour
 
     private IEnumerator CountHealth(int NewValue)
     {
-        WaitForSeconds wait = new WaitForSeconds(1/CountFps);
+        WaitForSeconds wait = new WaitForSeconds(1/TextCountFPS);
         int prevVal = _value;
         int stepAmt;
 
         if(NewValue - prevVal < 0){
-            stepAmt = Mathf.FloorToInt((NewValue - prevVal) / (CountFps * Duration));
+            stepAmt = Mathf.FloorToInt((NewValue - prevVal) / (TextCountFPS * TextDuration));
         }
         else{
-            stepAmt = Mathf.CeilToInt((NewValue - prevVal) / (CountFps * Duration));
+            stepAmt = Mathf.CeilToInt((NewValue - prevVal) / (TextCountFPS * TextDuration));
         }
 
         if(prevVal < NewValue)
@@ -57,7 +57,7 @@ public class HealthBarUpdate : MonoBehaviour
                     prevVal = NewValue;
                 }
 
-                HealthTxt.text = prevVal.ToString("N0");
+                HealthTxt.text = prevVal.ToString("N0") + "%";
 
                 yield return wait;
             }
@@ -67,8 +67,8 @@ public class HealthBarUpdate : MonoBehaviour
     private void UpdateHealthBarFill(){
        
         float amt = CurrentHealth / MaxHealth;
-        HealthBarFill.DOFillAmount(amt, FillSpeed);
-        HealthBarFill.DOColor(healthGrad.Evaluate(amt), FillSpeed);
+        HealthBarFill.DOFillAmount(amt, BarFillSpeed);
+        HealthBarFill.DOColor(BarGradient.Evaluate(amt), BarFillSpeed);
 
     }
 
@@ -76,6 +76,10 @@ public class HealthBarUpdate : MonoBehaviour
     {
 
         CurrentHealth = curHP;
+        if(CurrentHealth > MaxHealth){
+            CurrentHealth = MaxHealth;
+            return;
+        }
         UpdateHealthBarFill();
         UpdateHText((int)CurrentHealth);
     }
@@ -83,17 +87,19 @@ public class HealthBarUpdate : MonoBehaviour
 
     void Start()
     {
+        CurrentHealth = MaxHealth;
         UpdateHealthUI(CurrentHealth);
     }
+    
     //Debug Stuff
     void Update()
     {
-        if(Input.GetKeyDown("right")){
+        if(Input.GetKeyDown("left")){
             CurrentHealth -= 10;
-            UpdateHealthUI(30);
+            UpdateHealthUI(CurrentHealth);
 
         }
-        if(Input.GetKeyDown("left")){
+        if(Input.GetKeyDown("right")){
             CurrentHealth +=10;
             UpdateHealthUI(CurrentHealth);
         }
