@@ -49,6 +49,7 @@ public class PlayerWeaponController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        DEBUGTestDropWeapon();
         if (_playerInputManager.PlayerFireDown()) //change these to new input system
         {
             OnPlayerFireClicked?.Invoke();
@@ -91,9 +92,12 @@ public class PlayerWeaponController : MonoBehaviour
     void DropWeapon(int weaponIndexID)
     {
         WeaponSlot droppedSlot = _currentWeaponSlots[weaponIndexID];
+        if (droppedSlot == null) return;
         WeaponBase droppedWeapon = droppedSlot.weapon;
+        if (droppedWeapon == null) return;
         droppedSlot.DropWeaponFromSlot();
         droppedWeapon.DropWeapon();
+        droppedWeapon.transform.position = transform.position;
 
         _numberOfAssignedWeapons--;
         OnPlayerFireClicked -= droppedWeapon.OnInputClicked;
@@ -111,5 +115,13 @@ public class PlayerWeaponController : MonoBehaviour
             }
         }
         return null;
+    }
+
+    void DEBUGTestDropWeapon()
+    {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            DropWeapon(0);
+        }
     }
 }

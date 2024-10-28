@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class WeaponPickupHandler : MonoBehaviour
 {
+    static float WEAPON_DROP_VELOCITY = 10.0f;
     [SerializeField] GameObject _worldHitboxObject;
     WeaponBase _weapon;
     Rigidbody _weaponRigidbody;
@@ -54,8 +55,10 @@ public class WeaponPickupHandler : MonoBehaviour
         _hoverComponent.enabled = true;
         _weaponRigidbody.isKinematic = false;
         _weaponCollider.enabled = true;
-
+        transform.localRotation = Quaternion.identity;
         _worldHitboxObject.SetActive(true);
+
+        _weaponRigidbody.velocity += _weapon._cameraTransform.forward * WEAPON_DROP_VELOCITY;
     }
 
 

@@ -4888,6 +4888,10 @@ PrefabInstance:
       propertyPath: m_StandbyUpdate
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5360830613345182154, guid: 5f04445a6a083f24fbcbabd005160483, type: 3}
+      propertyPath: weaponDropVelocity
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6947899192077550527, guid: 5f04445a6a083f24fbcbabd005160483, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
