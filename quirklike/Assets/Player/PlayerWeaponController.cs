@@ -49,7 +49,6 @@ public class PlayerWeaponController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DEBUGTestDropWeapon();
         if (_playerInputManager.PlayerFireDown()) //change these to new input system
         {
             OnPlayerFireClicked?.Invoke();

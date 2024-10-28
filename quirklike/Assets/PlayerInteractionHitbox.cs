@@ -27,7 +27,7 @@ public class PlayerInteractionHitbox : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         float interactionDistance = (transform.position - other.transform.position).magnitude;
-        if (interactionDistance > _interactedObject.interactionDistance) //we do this so we can only interact with one, closest object per frame
+        if (interactionDistance > _interactedObject.interactionDistance) //we do this so we can only interact with the closest object per frame
         {
             return;
         }
