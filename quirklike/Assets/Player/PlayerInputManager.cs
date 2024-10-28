@@ -55,4 +55,9 @@ public class PlayerInputManager : MonoBehaviour
     {
         return _playerController.Player.Jump.triggered;
     }
+
+    public bool PlayerInteractionPress()
+    {
+        return _playerController.Player.Interact.triggered;
+    }
 }

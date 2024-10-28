@@ -10,6 +10,7 @@ public class WeaponPickupHandler : MonoBehaviour
     [SerializeField] GameObject _worldHitboxObject;
     WeaponBase _weapon;
     Rigidbody _weaponRigidbody;
+    Collider _weaponCollider;
     WeaponWorldHover _hoverComponent;
 
 
@@ -23,6 +24,7 @@ public class WeaponPickupHandler : MonoBehaviour
         _weapon = GetComponent<WeaponBase>();
         _hoverComponent = GetComponent<WeaponWorldHover>();
         _weaponRigidbody = GetComponent<Rigidbody>();
+        _weaponCollider = GetComponentInChildren<Collider>();
         _hoverComponent.enabled = true;
 
     }
@@ -43,6 +45,7 @@ public class WeaponPickupHandler : MonoBehaviour
     {
         _hoverComponent.enabled = false;
         _weaponRigidbody.isKinematic = true;
+        _weaponCollider.enabled = false;
         _worldHitboxObject.SetActive(false);
     }
 
@@ -50,6 +53,8 @@ public class WeaponPickupHandler : MonoBehaviour
     {
         _hoverComponent.enabled = true;
         _weaponRigidbody.isKinematic = false;
+        _weaponCollider.enabled = true;
+
         _worldHitboxObject.SetActive(true);
     }
 
