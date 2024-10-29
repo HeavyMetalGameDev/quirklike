@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(EStats), typeof(AgentLinkMover))]
 public class Wanderer : MonoBehaviour
 {
     private StateMachine StateMachine;
     [Header("State Variables")]
-    [Tooltip("Idle to Patrolling")]
     public bool isPatrolling = false;
     [SerializeField] GameObject _detectionRadiusObject;
 
@@ -19,17 +19,28 @@ public class Wanderer : MonoBehaviour
     public string StateName;
     public bool Debug;
     public bool range;
+
+    private AgentLinkMover LinkMover;
+    private Animator animator;
+    private static readonly int Jump = Animator.StringToHash("Jump");
+    private static readonly int Landed = Animator.StringToHash("Landed");
     
     private void Awake() 
     {
         StateMachine = new StateMachine();
         var NavAgent = GetComponent<NavMeshAgent>();
 
+        animator     = GetComponent<Animator>();
+        LinkMover    = GetComponent<AgentLinkMover>();
+
+        LinkMover.OnLinkStart += HandleLinkStart;
+        LinkMover.OnLinkEnd   += HandleLinkEnd;
+
         var PlayerDetector = _detectionRadiusObject.AddComponent<PlayerDetector>();
         var EStats         = gameObject.AddComponent<EStats>();
 
-        var idle    = new IdleState(this, NavAgent);
-        var patrol  = new PatrolState(this, NavAgent, PatrolPoints);
+        var idle    = new IdleState(this, NavAgent, animator);
+        var patrol  = new PatrolState(this, NavAgent, PatrolPoints , animator);
         var chase   = new ChaseState(this, NavAgent);
         var attack  = new AttackState(this, NavAgent);
       
@@ -39,8 +50,8 @@ public class Wanderer : MonoBehaviour
         // StateMachine.AddAnyTransition(chase, ()=> PlayerDetector.PlayerInRange);
         // StateMachine.AddTransition(chase, idle, ()=> PlayerDetector.PlayerInRange == false);
 
-        StateMachine.AddAnyTransition(attack, ()=> PlayerDetector.PlayerInMRange);
-        StateMachine.AddTransition(attack, idle, ()=> PlayerDetector.PlayerInMRange == false);    
+        // StateMachine.AddAnyTransition(attack, ()=> PlayerDetector.PlayerInMRange);
+        // StateMachine.AddTransition(attack, idle, ()=> PlayerDetector.PlayerInMRange == false);    
 
         bool IsPatrolling()   => isPatrolling; 
         bool NotPatrolling()  => !isPatrolling;
@@ -53,6 +64,17 @@ public class Wanderer : MonoBehaviour
         canvas.SetActive(true);
        }
        
+
+    }
+
+    private void HandleLinkStart()
+    {
+        animator.SetTrigger(Jump);
+    }
+
+    private void HandleLinkEnd()
+    {
+        animator.SetTrigger(Landed);
     }
 
     private void Update() => StateMachine.Tick();

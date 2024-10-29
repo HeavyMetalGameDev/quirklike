@@ -5,11 +5,14 @@ public class IdleState : State
 {
     private readonly Wanderer wanderer;
     private readonly NavMeshAgent NavAgent;
+    private readonly Animator Animator;
+    private static readonly int IsMoving = Animator.StringToHash("IsMoving");
     private int IDLE_TIME = 1000;
     
-    public IdleState(Wanderer w, NavMeshAgent a){
+    public IdleState(Wanderer w, NavMeshAgent a, Animator anim){
         this.wanderer = w;
         this.NavAgent = a;
+        this.Animator = anim;
     }
 
     public void Tick()
@@ -20,11 +23,12 @@ public class IdleState : State
         }
     }
 
-    public void OnEnter(){
+    public void OnEnter()
+    {
         IDLE_TIME = 1000;
         wanderer.StateName = "idle";
         NavAgent.enabled = true;
-       
+        Animator.SetBool(IsMoving, false);
     }
 
     public void OnExit(){

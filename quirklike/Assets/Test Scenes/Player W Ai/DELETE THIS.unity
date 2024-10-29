@@ -580,6 +580,10 @@ PrefabInstance:
       propertyPath: PatrolPoints.Array.data[1].z
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 7530821092889711877, guid: 9714cba4204448d499549c6e976327f2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.573
+      objectReference: {fileID: 0}
     - target: {fileID: 8523775351414684411, guid: 9714cba4204448d499549c6e976327f2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.43

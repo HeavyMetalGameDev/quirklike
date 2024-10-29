@@ -8,17 +8,20 @@ public class PatrolState : State
     private readonly NavMeshAgent NavAgent;
 
     private readonly Vector3[] PatrolPoints;
+    private readonly Animator Animator;
+    private static readonly int IsMoving = Animator.StringToHash("IsMoving");
+
     int CurPoint      = 0;
     bool TargetSwitch = false;
 
     //private readonly animator etc etc
 
-    public PatrolState(Wanderer w, NavMeshAgent a, Vector3[] patrolpoints)
+    public PatrolState(Wanderer w, NavMeshAgent a, Vector3[] patrolpoints, Animator anim)
     {
         wanderer = w;
         NavAgent = a;
         PatrolPoints = patrolpoints;
-        
+        Animator = anim;
     }
 
     public void Tick()
@@ -57,6 +60,8 @@ public class PatrolState : State
         NavAgent.enabled = true;
         NavAgent.SetDestination(PatrolPoints[0]);
         wanderer.StateName = "patrol";
+
+        Animator.SetBool(IsMoving, true);
     }
 
     public void OnExit()
