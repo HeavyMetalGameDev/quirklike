@@ -31,6 +31,7 @@ public class Wanderer : MonoBehaviour
         var idle    = new IdleState(this, NavAgent);
         var patrol  = new PatrolState(this, NavAgent, PatrolPoints);
         var chase   = new ChaseState(this, NavAgent);
+        var attack  = new AttackState(this, NavAgent);
       
         StateMachine.AddTransition(idle, patrol, IsPatrolling);
         StateMachine.AddTransition(patrol, idle, NotPatrolling);
@@ -38,8 +39,13 @@ public class Wanderer : MonoBehaviour
         StateMachine.AddAnyTransition(chase, ()=> PlayerDetector.PlayerInRange);
         StateMachine.AddTransition(chase, idle, ()=> PlayerDetector.PlayerInRange == false);
 
+        StateMachine.AddAnyTransition(attack, atkTest);
+
         bool IsPatrolling()   => isPatrolling; 
         bool NotPatrolling()  => !isPatrolling;
+
+
+        bool atkTest() => range;
         StateMachine.SetState(idle);
 
        //Debug UI 
@@ -58,7 +64,7 @@ public class Wanderer : MonoBehaviour
 
     public PlayerDetector GetDetector()
     {
-        return _detectionRadiusObject.AddComponent<PlayerDetector>();
+        return _detectionRadiusObject.GetComponent<PlayerDetector>();
     }
 
 }

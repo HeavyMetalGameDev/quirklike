@@ -4,21 +4,26 @@ using UnityEngine.AI;
 public class AttackState : State
 {
     private readonly Wanderer wanderer;
-    private readonly AttackRadius attackRadius;
-    public AttackState(Wanderer w, AttackRadius a){
+    private readonly NavMeshAgent agent;
+
+    public AttackState(Wanderer w,  NavMeshAgent a)
+    {
+
         this.wanderer = w;
-        this.attackRadius = a;
+        this.agent = a;
+
     }
 
     public void Tick(){
-
+        
     }
 
     public void OnEnter(){
-        attackRadius.attacking = true;
+        agent.enabled = true;
+        Debug.Log("Attack state");
     }
 
     public void OnExit(){
-        attackRadius.attacking = false;
+        
     }
 }

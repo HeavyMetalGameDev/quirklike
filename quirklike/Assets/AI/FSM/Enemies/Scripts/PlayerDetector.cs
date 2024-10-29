@@ -7,6 +7,7 @@ public class PlayerDetector : MonoBehaviour
 
     private PlayerController DetectedPlayer;
     public bool PlayerInMRange;
+    private float MeleeRange = 4.0f;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -16,15 +17,32 @@ public class PlayerDetector : MonoBehaviour
         }
     }
 
+    
     private void OnTriggerExit(Collider other)
     {
         if(other.GetComponent <PlayerController>()){
             StartCoroutine(ClearDetectionAfterDelay());
         }
     }
+
+    private void OnTriggerStay(Collider other) 
+    {
+        if(other.GetComponent<PlayerController>()){
+            if(DetectedPlayer != null)
+            {
+                Vector3 dist = this.transform.position - GetPlayerPosition();
+                if(dist.magnitude < 4)
+                {
+                    Debug.Log("LETS GO");
+                    PlayerInMRange = true;
+                } 
+            }
+        }
+    }
+
     private IEnumerator ClearDetectionAfterDelay()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
         DetectedPlayer = null;
     }
 
