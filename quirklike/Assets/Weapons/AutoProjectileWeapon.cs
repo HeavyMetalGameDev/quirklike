@@ -9,7 +9,6 @@ public class AutoProjectileWeapon : WeaponBase
     [SerializeField] float damage = 10.0f;
     [SerializeField] float baseFireRate = 0.5f; //this should sync up to the animation
     [SerializeField] float fireRateMultiplier = 1.0f; //this should be used to multiply the animation speed
-    [SerializeField] Animator _animator;
     [SerializeField] AudioSource _gunAudioSource;
     [SerializeField] AudioClip _gunFireClip;
     [SerializeField] ObjectPool _projectilePool;
@@ -22,7 +21,7 @@ public class AutoProjectileWeapon : WeaponBase
 
 
 
-    private void Awake()
+    private void Start()
     {
         RecalculateTrueFireRate();
         RecalculateFirePeriod();
@@ -104,14 +103,20 @@ public class AutoProjectileWeapon : WeaponBase
                 hitPos = _cameraTransform.position + _cameraTransform.forward * 300.0f; //far in the distance
             }
 
-            GameObject projectile = _projectilePool.GetFreeItem();
-            projectile.transform.position = _firePoint.position;
-            BasicProjectile projectileScript = projectile.GetComponent<BasicProjectile>();
-            projectileScript.SetAlignment(DamageAlignment.PLAYER_SOURCE);
-            projectileScript.SetDamage(damage);
-            projectileScript.SetTargetPosition(hitPos);
+            CreateProjectile(hitPos);
 
         }
+    }
+
+    private void CreateProjectile(Vector3 targetPoint)
+    {
+        GameObject projectile = _projectilePool.GetFreeItem();
+        projectile.transform.position = _firePoint.position;
+        projectile.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        BasicProjectile projectileScript = projectile.GetComponent<BasicProjectile>();
+        projectileScript.SetAlignment(DamageAlignment.PLAYER_SOURCE);
+        projectileScript.SetDamage(damage);
+        projectileScript.SetTargetPosition(targetPoint);
     }
 
 

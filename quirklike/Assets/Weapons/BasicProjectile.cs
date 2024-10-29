@@ -48,7 +48,6 @@ public class BasicProjectile : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
-
         if (collision.gameObject.CompareTag("Enemy"))
         {
             IDamageable enemy = collision.gameObject.GetComponent<IDamageable>();

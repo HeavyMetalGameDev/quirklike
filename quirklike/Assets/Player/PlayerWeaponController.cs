@@ -63,7 +63,7 @@ public class PlayerWeaponController : MonoBehaviour
         }
     }
 
-    void AttachAlreadyHeldWeapon(WeaponBase weapon) //used when the weapon is already in the current weapons list, might be needed sometimes idk
+    void AttachAlreadyHeldWeapon(ref WeaponBase weapon) //used when the weapon is already in the current weapons list, might be needed sometimes idk
     {
         Debug.Log(weapon.gameObject);
         OnPlayerFireClicked += weapon.OnInputClicked;
@@ -71,14 +71,13 @@ public class PlayerWeaponController : MonoBehaviour
         OnPlayerFireReleased += weapon.OnInputReleased;
     }
 
-    void AttachWeapon(WeaponBase weapon)
+    public void AttachWeapon(WeaponBase weapon ) //should only be called once we know the player wants to pickup/swap this weapon i.e after they choose what to swap.
     {
-        Debug.Log(weapon.gameObject);
-
         WeaponSlot freeSlot = GetFreeWeaponSlot();
         if (freeSlot == null) return; //all slots are ful :(
         freeSlot.weapon = weapon;
         freeSlot.ReparentWeapon();
+        weapon.PickUpWeapon();
 
         weapon._cameraTransform = Camera.main.transform;
 
@@ -92,8 +91,12 @@ public class PlayerWeaponController : MonoBehaviour
     void DropWeapon(int weaponIndexID)
     {
         WeaponSlot droppedSlot = _currentWeaponSlots[weaponIndexID];
+        if (droppedSlot == null) return;
         WeaponBase droppedWeapon = droppedSlot.weapon;
+        if (droppedWeapon == null) return;
         droppedSlot.DropWeaponFromSlot();
+        droppedWeapon.DropWeapon();
+        droppedWeapon.transform.position = transform.position;
 
         _numberOfAssignedWeapons--;
         OnPlayerFireClicked -= droppedWeapon.OnInputClicked;
@@ -111,5 +114,13 @@ public class PlayerWeaponController : MonoBehaviour
             }
         }
         return null;
+    }
+
+    void DEBUGTestDropWeapon()
+    {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            DropWeapon(0);
+        }
     }
 }
