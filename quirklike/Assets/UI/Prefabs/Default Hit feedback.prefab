@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6554519878508159173}
   - component: {fileID: 5559714042861257969}
-  - component: {fileID: 5317021908781661109}
+  - component: {fileID: 5615433670205226103}
   m_Layer: 5
   m_Name: Default Hit feedback
   m_TagString: Untagged
@@ -49,7 +49,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2677948013721885703}
   m_CullTransparentMesh: 1
---- !u!114 &5317021908781661109
+--- !u!114 &5615433670205226103
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,17 +58,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2677948013721885703}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca1dd9f6438b0da45ba98a2a156aa82b, type: 3}
+  m_Script: {fileID: 11500000, guid: b5c7420ef24049249b5db94002ce960d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HitFeedbackLines:
-  - {fileID: 1775998587142276688}
-  - {fileID: 2708245972137102548}
-  - {fileID: 8514621661835095669}
-  - {fileID: 491177509599575124}
+  HitFeedbackLines: []
   FadeTime: 0.2
-  DefaultColor: {r: 1, g: 0, b: 0, a: 0}
-  HitColor: {r: 1, g: 0, b: 0.013642311, a: 1}
+  DefaultColor: {r: 0, g: 0, b: 0, a: 0}
+  HitColor: {r: 0, g: 0, b: 0, a: 1}
   cooldownTime: 0.1
 --- !u!1 &3269583278506502503
 GameObject:

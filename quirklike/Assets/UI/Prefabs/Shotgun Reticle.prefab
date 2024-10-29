@@ -535,7 +535,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5990188362558119524}
   - component: {fileID: 2977253033818237883}
-  - component: {fileID: 8587562970593202234}
+  - component: {fileID: 5298425812170624191}
   m_Layer: 5
   m_Name: Shotgun Reticle
   m_TagString: Untagged
@@ -578,7 +578,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9131900407066469079}
   m_CullTransparentMesh: 1
---- !u!114 &8587562970593202234
+--- !u!114 &5298425812170624191
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -587,12 +587,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 9131900407066469079}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b43c885cf8a58840ac3bde89e6fc85e, type: 3}
+  m_Script: {fileID: 11500000, guid: afe8c97a22fa27f4bbbdaf37fa85ffa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BloomedSize: 70
-  DefaultSize: 50
-  BloomCooldown: 0.5
+  BloomedSize: 25
+  DefaultSize: 10
+  BloomCooldown: 0.3
 --- !u!1 &9218296441354249968
 GameObject:
   m_ObjectHideFlags: 0

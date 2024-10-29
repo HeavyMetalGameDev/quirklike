@@ -310,7 +310,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4208163207292530214}
   - component: {fileID: 2963866107010519292}
-  - component: {fileID: 8066102357177234845}
+  - component: {fileID: 4046570325349815431}
   m_Layer: 5
   m_Name: DefaultReticle
   m_TagString: Untagged
@@ -349,7 +349,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7114987130195702092}
   m_CullTransparentMesh: 1
---- !u!114 &8066102357177234845
+--- !u!114 &4046570325349815431
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -358,9 +358,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7114987130195702092}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b43c885cf8a58840ac3bde89e6fc85e, type: 3}
+  m_Script: {fileID: 11500000, guid: afe8c97a22fa27f4bbbdaf37fa85ffa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BloomedSize: 35
-  DefaultSize: 25
+  BloomedSize: 25
+  DefaultSize: 10
   BloomCooldown: 0.3
