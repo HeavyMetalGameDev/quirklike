@@ -33,5 +33,6 @@ public class IdleState : State
 
     public void OnExit(){
         // Debug.Log("birth Exit");
+        
     }
 }

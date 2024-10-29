@@ -8,10 +8,14 @@ public class ChaseState : State
 
     private const float CHASE_SPEED = 6f;
     private PlayerDetector Detector;
-    public ChaseState(Wanderer w,  NavMeshAgent a)
+    private readonly Animator Animator;
+    private static readonly int IsChasing = Animator.StringToHash("IsChasing");
+
+    public ChaseState(Wanderer w,  NavMeshAgent a, Animator anim)
     {
         wanderer = w;
         NavAgent = a;
+        Animator = anim;
     }
 
     public void Tick()
@@ -26,10 +30,12 @@ public class ChaseState : State
         NavAgent.speed = CHASE_SPEED;
         wanderer.StateName = "chase";
         Detector = wanderer.GetDetector();
+        Animator.SetBool(IsChasing, true);
         
     }
     public void OnExit()
     {
         NavAgent.enabled = false;
+        Animator.SetBool(IsChasing, false);
     }
 }
