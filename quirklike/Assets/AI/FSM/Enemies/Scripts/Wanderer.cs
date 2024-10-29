@@ -14,12 +14,14 @@ public class Wanderer : MonoBehaviour
 
     [Tooltip("Points to patrol between. Make sure the Y values are the same/higher than the agent height")]
     public Vector3[] PatrolPoints;
+    [SerializeField] private GameObject Weapon;
 
     [Header("Debug")]
     public string StateName;
-    public bool Debug;
-    public bool range;
-
+    public bool DebugUI;
+    public bool attacked =false;
+    public float AttackTime = 5;
+    public bool CanAttack = true;
     private AgentLinkMover LinkMover;
     private Animator animator;
     private static readonly int Jump = Animator.StringToHash("Jump");
@@ -42,29 +44,37 @@ public class Wanderer : MonoBehaviour
         var idle    = new IdleState(this, NavAgent, animator);
         var patrol  = new PatrolState(this, NavAgent, PatrolPoints , animator);
         var chase   = new ChaseState(this, NavAgent, animator);
-        // var attack  = new AttackState(this, NavAgent, animator);
+        var attack  = new AttackState(this, NavAgent, animator);
       
-        StateMachine.AddTransition(idle, patrol, IsPatrolling);
-        StateMachine.AddTransition(patrol, idle, NotPatrolling);
+        // StateMachine.AddTransition(idle, patrol, IsPatrolling);
+        // StateMachine.AddTransition(patrol, idle, NotPatrolling);
 
         // StateMachine.AddAnyTransition(chase, ()=> PlayerDetector.PlayerInRange);
         // StateMachine.AddTransition(chase, idle, ()=> PlayerDetector.PlayerInRange == false);
 
-        // StateMachine.AddAnyTransition(attack, ()=> PlayerDetector.PlayerInMRange);
-        // StateMachine.AddTransition(attack, idle, ()=> PlayerDetector.PlayerInMRange == false);    
+        StateMachine.AddAnyTransition(attack, EnemycanAttack);
+        StateMachine.AddTransition(attack, idle, doneAttacking);    
 
         bool IsPatrolling()   => isPatrolling; 
         bool NotPatrolling()  => !isPatrolling;
-
+        bool doneAttacking()  => attacked || PlayerDetector.PlayerInMRange == false;
+        bool EnemycanAttack() => CanAttack && PlayerDetector.PlayerInMRange;
+        
         StateMachine.SetState(idle);
 
        //Debug UI 
-       if(Debug){
+       if(DebugUI){
         var canvas = transform.Find("Canvas").gameObject;
         canvas.SetActive(true);
        }
        
+        Weapon.GetComponent<CapsuleCollider>().enabled = false;
+    }
 
+    public IEnumerator test()
+    {
+        yield return new WaitForSeconds(AttackTime);
+        CanAttack = true;
     }
 
     private void HandleLinkStart()
