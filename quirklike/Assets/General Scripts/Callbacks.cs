@@ -6,9 +6,13 @@ public abstract class CallbackData
 {
 
 }
-public abstract class CallbackFloat:CallbackData
+public class CallbackFloat:CallbackData
 {
     public float value;
+    public CallbackFloat(float value)
+    {
+        this.value = value;
+    }
 }
 
 public class CallbackPlayerHitEnemyData : CallbackData

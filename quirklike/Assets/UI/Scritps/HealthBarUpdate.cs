@@ -23,6 +23,16 @@ public class HealthBarUpdate : MonoBehaviour
     private Coroutine CountRoutine;
     private int _value;
 
+    private void OnEnable()
+    {
+        Callbacks.PlayerHurt += OnPlayerHurt;
+        Callbacks.PlayerHealed += OnPlayerHeal;
+    }
+    private void OnDisable()
+    {
+        Callbacks.PlayerHurt -= OnPlayerHurt;
+        Callbacks.PlayerHealed -= OnPlayerHeal;
+    }
 
     private void UpdateHText(int NewValue)
     {
@@ -91,17 +101,17 @@ public class HealthBarUpdate : MonoBehaviour
         UpdateHealthUI(CurrentHealth);
     }
     
-    //Debug Stuff
-    void Update()
+    void OnPlayerHurt(float newHealth)
     {
-        if(Input.GetKeyDown("left")){
-            CurrentHealth -= 10;
-            UpdateHealthUI(CurrentHealth);
+        CurrentHealth = newHealth;
+        UpdateHealthUI(CurrentHealth);
 
-        }
-        if(Input.GetKeyDown("right")){
-            CurrentHealth +=10;
-            UpdateHealthUI(CurrentHealth);
-        }
+    }
+
+    void OnPlayerHeal(float newHealth)
+    {
+        CurrentHealth = newHealth;
+        UpdateHealthUI(CurrentHealth);
+
     }
 }
