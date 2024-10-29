@@ -209,8 +209,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5746526456298027343}
-  - component: {fileID: 7146259887989656436}
   - component: {fileID: 4732028690845077310}
+  - component: {fileID: 8013015759146806409}
   m_Layer: 12
   m_Name: PlayerInteractionHitbox
   m_TagString: Untagged
@@ -233,19 +233,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2759749024964150029}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7146259887989656436
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1345784269054724618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a1fe70806a5c904497cdc41e1e12db7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _weaponController: {fileID: 5360830613345182154}
 --- !u!136 &4732028690845077310
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -269,6 +256,19 @@ CapsuleCollider:
   m_Height: 1.85
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8013015759146806409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345784269054724618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61219d4e585210946a39ff8666997e2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weaponController: {fileID: 5360830613345182154}
 --- !u!1 &1806834055623381577
 GameObject:
   m_ObjectHideFlags: 0

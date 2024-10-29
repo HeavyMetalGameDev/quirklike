@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2914015129448358600}
   m_Layer: 7
   m_Name: GunModel
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 8256200678426032829}
   m_Layer: 7
   m_Name: FirePoint
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,9 +74,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5978159099901845806}
   - component: {fileID: 8402811465148044763}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: InWorldHitbox
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,8 +129,8 @@ GameObject:
   m_Component:
   - component: {fileID: 971008436181420907}
   - component: {fileID: 7619269748332121178}
+  - component: {fileID: 5150504785732177500}
   - component: {fileID: 3109618776868224851}
-  - component: {fileID: 6186130569020963270}
   - component: {fileID: 6829817185281155220}
   - component: {fileID: 7905531986626724538}
   - component: {fileID: 7481645245046101051}
@@ -177,6 +177,22 @@ MonoBehaviour:
   fireRateMultiplier: 1
   _gunAudioSource: {fileID: 7905531986626724538}
   _gunFireClip: {fileID: 8300000, guid: e9eec5fb80f70a542b2e384117dafcdf, type: 3}
+--- !u!114 &5150504785732177500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8396323995529386496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cedda9be83bb8604b8214d9ca76af170, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverTimeVertical: 3
+  hoverVerticalDistance: 0.2
+  hoverTimeRotation: 3
+  objectToHover: {fileID: 1502534755389884757}
 --- !u!114 &3109618776868224851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,26 +202,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8396323995529386496}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05728768d30df15429060bcc00d74793, type: 3}
+  m_Script: {fileID: 11500000, guid: 43a694c3a67e513439fa4b33d29b743f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _worldHitboxObject: {fileID: 7444847464563199926}
---- !u!114 &6186130569020963270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8396323995529386496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd65191c39df96a46998461e2c71e0b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hoverTimeVertical: 2
-  hoverVerticalDistance: 0.05
-  hoverTimeRotation: 3
-  objectToHover: {fileID: 1502534755389884757}
 --- !u!95 &6829817185281155220
 Animator:
   serializedVersion: 5
@@ -413,6 +413,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 512c048b0ba9bd449bd9f4e4002bdbcc, type: 3}
       propertyPath: m_Name
       value: blasterB
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 512c048b0ba9bd449bd9f4e4002bdbcc, type: 3}
+      propertyPath: m_TagString
+      value: Weapon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
