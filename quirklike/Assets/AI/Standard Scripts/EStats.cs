@@ -6,6 +6,7 @@ public class EStats : MonoBehaviour, IDamageable
 {
     [SerializeField]
     private float Health = 100;
+    
     private void Awake(){
         
         
