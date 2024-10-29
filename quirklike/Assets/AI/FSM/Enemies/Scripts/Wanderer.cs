@@ -36,16 +36,15 @@ public class Wanderer : MonoBehaviour
         StateMachine.AddTransition(idle, patrol, IsPatrolling);
         StateMachine.AddTransition(patrol, idle, NotPatrolling);
 
-        StateMachine.AddAnyTransition(chase, ()=> PlayerDetector.PlayerInRange);
-        StateMachine.AddTransition(chase, idle, ()=> PlayerDetector.PlayerInRange == false);
+        // StateMachine.AddAnyTransition(chase, ()=> PlayerDetector.PlayerInRange);
+        // StateMachine.AddTransition(chase, idle, ()=> PlayerDetector.PlayerInRange == false);
 
-        StateMachine.AddAnyTransition(attack, atkTest);
+        StateMachine.AddAnyTransition(attack, ()=> PlayerDetector.PlayerInMRange);
+        StateMachine.AddTransition(attack, idle, ()=> PlayerDetector.PlayerInMRange == false);    
 
         bool IsPatrolling()   => isPatrolling; 
         bool NotPatrolling()  => !isPatrolling;
 
-
-        bool atkTest() => range;
         StateMachine.SetState(idle);
 
        //Debug UI 

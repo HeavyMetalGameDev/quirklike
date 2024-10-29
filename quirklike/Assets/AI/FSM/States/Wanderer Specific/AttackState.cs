@@ -15,11 +15,12 @@ public class AttackState : State
     }
 
     public void Tick(){
-        
+
     }
 
     public void OnEnter(){
         agent.enabled = true;
+        wanderer.StateName = "attack";
         Debug.Log("Attack state");
     }
 
