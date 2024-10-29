@@ -42,13 +42,13 @@ public class Wanderer : MonoBehaviour
         var idle    = new IdleState(this, NavAgent, animator);
         var patrol  = new PatrolState(this, NavAgent, PatrolPoints , animator);
         var chase   = new ChaseState(this, NavAgent, animator);
-        var attack  = new AttackState(this, NavAgent);
+        var attack  = new AttackState(this, NavAgent, animator);
       
         StateMachine.AddTransition(idle, patrol, IsPatrolling);
         StateMachine.AddTransition(patrol, idle, NotPatrolling);
 
-        StateMachine.AddAnyTransition(chase, ()=> PlayerDetector.PlayerInRange);
-        StateMachine.AddTransition(chase, idle, ()=> PlayerDetector.PlayerInRange == false);
+        // StateMachine.AddAnyTransition(chase, ()=> PlayerDetector.PlayerInRange);
+        // StateMachine.AddTransition(chase, idle, ()=> PlayerDetector.PlayerInRange == false);
 
         // StateMachine.AddAnyTransition(attack, ()=> PlayerDetector.PlayerInMRange);
         // StateMachine.AddTransition(attack, idle, ()=> PlayerDetector.PlayerInMRange == false);    
