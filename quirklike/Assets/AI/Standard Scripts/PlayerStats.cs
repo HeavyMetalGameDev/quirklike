@@ -26,7 +26,8 @@ public class PlayerStats : MonoBehaviour, IDamageable
         Debug.Log("Player Attacks" ); 
     }
 
-    public void TakeDamage(float Damage){
+    public void TakeDamage(float Damage)
+    {
         Health -= Damage;
 
         if(Health <=0){
