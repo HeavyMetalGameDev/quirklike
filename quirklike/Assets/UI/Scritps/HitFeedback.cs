@@ -47,6 +47,7 @@ public class HitFeedback : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.K))
         {
+            Debug.Log("hit-feedback");
             SetHitFeedback(true);
         }
 

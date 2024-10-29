@@ -484,14 +484,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6716231917522138444}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4881303e1719b52448834127c140670e, type: 3}
+  m_Script: {fileID: 11500000, guid: 19e7e9928c46234409711df541a56ab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   BarFillSpeed: 0.5
   BarGradient:
     serializedVersion: 2
-    key0: {r: 1, g: 0.02417057, b: 0, a: 1}
-    key1: {r: 0.019819975, g: 1, b: 0, a: 1}
+    key0: {r: 1, g: 0.28627452, b: 0.28627452, a: 1}
+    key1: {r: 0, g: 1, b: 0.53333336, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -507,14 +507,14 @@ MonoBehaviour:
     ctime6: 0
     ctime7: 0
     atime0: 0
-    atime1: 65535
+    atime1: 65458
     atime2: 0
     atime3: 0
     atime4: 0
     atime5: 0
     atime6: 0
     atime7: 0
-    m_Mode: 0
+    m_Mode: 2
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
