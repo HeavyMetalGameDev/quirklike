@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 2644957673678147052}
   - component: {fileID: 5739914523305324146}
   - component: {fileID: 7948413796763580939}
+  - component: {fileID: 2631342539797525631}
   m_Layer: 0
   m_Name: E_Wanderer
   m_TagString: Enemy
@@ -180,9 +181,9 @@ MonoBehaviour:
   isPatrolling: 0
   _detectionRadiusObject: {fileID: 1192826631389093771}
   PatrolPoints: []
+  Weapon: {fileID: 0}
   StateName: 
-  Debug: 0
-  range: 0
+  DebugUI: 0
 --- !u!114 &2644957673678147052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,6 +264,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2631342539797525631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192826631389093771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0038d63347b936944ba2c12c54602b79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsAttackOngoing: 0
+  HasAttacked: 0
 --- !u!1 &1937478368512851491
 GameObject:
   m_ObjectHideFlags: 0

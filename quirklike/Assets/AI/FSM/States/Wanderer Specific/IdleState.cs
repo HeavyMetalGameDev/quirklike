@@ -27,7 +27,6 @@ public class IdleState : State
     {
         IDLE_TIME = 1000;
         wanderer.StateName = "idle";
-        Debug.Log("idel triggered");
         NavAgent.enabled = true;
         Animator.SetBool(IsMoving, false);
     }

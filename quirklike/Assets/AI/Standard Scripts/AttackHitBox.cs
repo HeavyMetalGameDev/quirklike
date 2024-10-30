@@ -6,8 +6,6 @@ using UnityEngine;
 public class AttackHitBox : MonoBehaviour
 {
     private CapsuleCollider WeaponHitbox;
-
-    
     void Awake()
     {
         WeaponHitbox = GetComponent<CapsuleCollider>();
@@ -23,7 +21,6 @@ public class AttackHitBox : MonoBehaviour
         if(player != null && damageable != null)
         {
             damageable.TakeDamage(10);
-            Debug.Log(" " + other.gameObject.name);
         }
     }
 }

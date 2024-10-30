@@ -586,7 +586,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8523775351414684411, guid: 9714cba4204448d499549c6e976327f2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.43
+      value: 23.86
       objectReference: {fileID: 0}
     - target: {fileID: 8523775351414684411, guid: 9714cba4204448d499549c6e976327f2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -639,6 +639,10 @@ PrefabInstance:
     - target: {fileID: 8602884505754782771, guid: 9714cba4204448d499549c6e976327f2, type: 3}
       propertyPath: DebugUI
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8602884505754782771, guid: 9714cba4204448d499549c6e976327f2, type: 3}
+      propertyPath: AttackCoolDown
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8602884505754782771, guid: 9714cba4204448d499549c6e976327f2, type: 3}
       propertyPath: PatrolPoints.Array.size
