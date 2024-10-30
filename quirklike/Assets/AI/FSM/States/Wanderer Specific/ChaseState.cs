@@ -6,7 +6,7 @@ public class ChaseState : State
     private readonly Wanderer wanderer;
     private NavMeshAgent NavAgent;
 
-    private const float CHASE_SPEED = 6f;
+    private const float CHASE_SPEED = 10f;
     private PlayerDetector Detector;
     private readonly Animator Animator;
     private static readonly int IsChasing = Animator.StringToHash("IsChasing");
