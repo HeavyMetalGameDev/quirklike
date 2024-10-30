@@ -7,7 +7,6 @@ public class PlayerDetector : MonoBehaviour
 
     private PlayerController DetectedPlayer;
     public bool PlayerInMRange = false;
-    private float MeleeRange = 4.0f;
 
     private void OnTriggerEnter(Collider other)
     {

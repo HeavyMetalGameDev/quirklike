@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(EStats), typeof(AgentLinkMover))]
+[RequireComponent(typeof(EStats), typeof(AgentLinkMover), typeof(AttackEventWatcher))]
 public class Wanderer : MonoBehaviour
 {
     private StateMachine StateMachine;
@@ -15,15 +15,14 @@ public class Wanderer : MonoBehaviour
     [Tooltip("Points to patrol between. Make sure the Y values are the same/higher than the agent height")]
     public Vector3[] PatrolPoints;
     [SerializeField] private GameObject Weapon;
+    [SerializeField] private float AttackCoolDown = 1.0f;
 
     [Header("Debug")]
     public string StateName;
     public bool DebugUI;
-    public bool attacked =false;
-    public float AttackTime = 5;
-    public bool CanAttack = true;
     private AgentLinkMover LinkMover;
     private Animator animator;
+    private AttackEventWatcher AEWatcher;
     private static readonly int Jump = Animator.StringToHash("Jump");
     private static readonly int Landed = Animator.StringToHash("Landed");
     
@@ -34,6 +33,7 @@ public class Wanderer : MonoBehaviour
 
         animator     = GetComponent<Animator>();
         LinkMover    = GetComponent<AgentLinkMover>();
+        AEWatcher    = GetComponent<AttackEventWatcher>();
 
         LinkMover.OnLinkStart += HandleLinkStart;
         LinkMover.OnLinkEnd   += HandleLinkEnd;
@@ -44,21 +44,20 @@ public class Wanderer : MonoBehaviour
         var idle    = new IdleState(this, NavAgent, animator);
         var patrol  = new PatrolState(this, NavAgent, PatrolPoints , animator);
         var chase   = new ChaseState(this, NavAgent, animator);
-        var attack  = new AttackState(this, NavAgent, animator);
+        var attack  = new AttackState(this, NavAgent, animator, AEWatcher, AttackCoolDown);
       
-        // StateMachine.AddTransition(idle, patrol, IsPatrolling);
-        // StateMachine.AddTransition(patrol, idle, NotPatrolling);
+        StateMachine.AddTransition(idle, patrol, IsPatrolling);
+        StateMachine.AddTransition(patrol, idle, NotPatrolling);
 
-        // StateMachine.AddAnyTransition(chase, ()=> PlayerDetector.PlayerInRange);
-        // StateMachine.AddTransition(chase, idle, ()=> PlayerDetector.PlayerInRange == false);
+        StateMachine.AddTransition(idle, chase, ()=> PlayerDetector.PlayerInRange);
+        StateMachine.AddTransition(patrol, chase, ()=> PlayerDetector.PlayerInRange);
+        StateMachine.AddTransition(chase, idle, ()=> PlayerDetector.PlayerInRange == false);
 
-        StateMachine.AddAnyTransition(attack, EnemycanAttack);
-        StateMachine.AddTransition(attack, idle, doneAttacking);    
+        StateMachine.AddTransition(chase, attack, ()=> PlayerDetector.PlayerInMRange);
+        StateMachine.AddTransition(attack, idle,  ()=> PlayerDetector.PlayerInMRange == false);
 
         bool IsPatrolling()   => isPatrolling; 
         bool NotPatrolling()  => !isPatrolling;
-        bool doneAttacking()  => attacked || PlayerDetector.PlayerInMRange == false;
-        bool EnemycanAttack() => CanAttack && PlayerDetector.PlayerInMRange;
         
         StateMachine.SetState(idle);
 
@@ -71,11 +70,6 @@ public class Wanderer : MonoBehaviour
         Weapon.GetComponent<CapsuleCollider>().enabled = false;
     }
 
-    public IEnumerator test()
-    {
-        yield return new WaitForSeconds(AttackTime);
-        CanAttack = true;
-    }
 
     private void HandleLinkStart()
     {
