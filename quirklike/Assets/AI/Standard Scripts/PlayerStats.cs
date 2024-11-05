@@ -6,32 +6,22 @@ public class PlayerStats : MonoBehaviour, IDamageable
 {
     
     [SerializeField]
-    private float Health = 100;
-    [SerializeField]
-    GameObject enemy;
-    
-    //very unsafe way of doing this yet a way of doing it nonetheless
-    private void Update() 
+    private float maxHealth = 100;
+    private float currentHealth = 100;
+
+    private void Start()
     {
-
-        if(Input.GetKeyDown(KeyCode.H)){
-            Debug.Log("testing");
-            IDamageable E = enemy.GetComponent<IDamageable>();
-            E.TakeDamage(10);
-        }
+        currentHealth = maxHealth;
     }
-
-    private void OnAttack(IDamageable Target)
+    public void TakeDamage(float Damage)
     {
-        Debug.Log("Player Attacks" ); 
-    }
+        currentHealth -= Damage;
+        CallbackFloat callbackNewHealth = new CallbackFloat(currentHealth);
+        Callbacks.CallEvent(CallbackEvent.PlayerHurt, callbackNewHealth);
 
-    public void TakeDamage(float Damage){
-        Health -= Damage;
-
-        if(Health <=0){
+        if(currentHealth <=0){
             Debug.Log("Player Is Dead");
-            // throw new System.NotImplementedException();
+            Callbacks.CallEvent(CallbackEvent.PlayerKilled);
         }
     }
 

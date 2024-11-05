@@ -6,6 +6,31 @@ public abstract class CallbackData
 {
 
 }
+public class CallbackFloat:CallbackData
+{
+    public float value;
+    public CallbackFloat(float value)
+    {
+        this.value = value;
+    }
+}
+
+public class CallbackPlayerHitEnemyData : CallbackData
+{
+    public float damage;
+    public bool isCritical;
+    public GameObject enemyHit;
+    public int playerID;
+
+    public CallbackPlayerHitEnemyData(float damage, bool isCritical, GameObject enemyHit, int playerID)
+    {
+        this.damage = damage;
+        this.isCritical = isCritical;
+        this.enemyHit = enemyHit;
+        this.playerID = playerID;
+
+    }
+}
 
 public enum CallbackEvent
 {
@@ -21,7 +46,9 @@ public enum CallbackEvent
     WeaponPickedUp,
     WeaponDropped,
     PlayerHurt,
+    PlayerHealed,
     PlayerKilled,
+    PlayerHitEnemy,
     GameLost,
     AreaComplete
 }
@@ -39,8 +66,10 @@ public static class Callbacks
     public static event System.Action RoomCompleted;
     public static event System.Action WeaponPickedUp;
     public static event System.Action WeaponDropped;
-    public static event System.Action PlayerHurt;
+    public static event System.Action<float> PlayerHurt;
+    public static event System.Action<float> PlayerHealed;
     public static event System.Action PlayerKilled;
+    public static event System.Action<float,bool,GameObject,int> PlayerHitEnemy;
     public static event System.Action GameLost;
     public static event System.Action AreaComplete;
 
@@ -106,13 +135,28 @@ public static class Callbacks
             case CallbackEvent.PlayerHurt:
                 {
                     Debug.Log("PLAYER HURT");
-                    PlayerHurt?.Invoke();
+                    CallbackFloat floatData = (CallbackFloat)data;
+                    PlayerHurt?.Invoke(floatData.value);
+                    break;
+                }
+            case CallbackEvent.PlayerHealed:
+                {
+                    Debug.Log("PLAYER HEALED");
+                    CallbackFloat floatData = (CallbackFloat)data;
+                    PlayerHealed?.Invoke(floatData.value);
                     break;
                 }
             case CallbackEvent.PlayerKilled:
                 {
                     Debug.Log("PLAYER KILLED");
                     PlayerKilled?.Invoke();
+                    break;
+                }
+            case CallbackEvent.PlayerHitEnemy:
+                {
+                    Debug.Log("PLAYER HIT ENEMY");
+                    CallbackPlayerHitEnemyData phed = (CallbackPlayerHitEnemyData)data;
+                    PlayerHitEnemy?.Invoke(phed.damage,phed.isCritical,phed.enemyHit,phed.playerID);
                     break;
                 }
             case CallbackEvent.GameLost:
