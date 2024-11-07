@@ -14,6 +14,16 @@ public class CallbackFloat:CallbackData
         this.value = value;
     }
 }
+public class CallbackTwoInts : CallbackData
+{
+    public int valueOne;
+    public int valueTwo;
+    public CallbackTwoInts(int valueOne, int valueTwo)
+    {
+        this.valueOne = valueOne;
+        this.valueTwo = valueTwo;
+    }
+}
 
 public class CallbackPlayerHitEnemyData : CallbackData
 {
@@ -50,7 +60,8 @@ public enum CallbackEvent
     PlayerKilled,
     PlayerHitEnemy,
     GameLost,
-    AreaComplete
+    AreaComplete,
+    SwapWeaponSlots,
 }
 
 
@@ -72,6 +83,7 @@ public static class Callbacks
     public static event System.Action<float,bool,GameObject,int> PlayerHitEnemy;
     public static event System.Action GameLost;
     public static event System.Action AreaComplete;
+    public static event System.Action<int,int> SwapWeaponSlots;
 
 
     public static void CallEvent(CallbackEvent callbackEvent, CallbackData data = null) //this can be called from anywhere, be careful
@@ -169,6 +181,13 @@ public static class Callbacks
                 {
                     Debug.Log("AREA COMPLETE");
                     AreaComplete?.Invoke();
+                    break;
+                }
+            case CallbackEvent.SwapWeaponSlots:
+                {
+                    Debug.Log("TRY SWAP WEAPONS");
+                    CallbackTwoInts slotIDs = (CallbackTwoInts)data;
+                    SwapWeaponSlots?.Invoke(slotIDs.valueOne, slotIDs.valueTwo);
                     break;
                 }
             default:
