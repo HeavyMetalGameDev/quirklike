@@ -45,6 +45,14 @@ public class PlayerWeaponController : MonoBehaviour
             if (weapon) AttachWeapon(weapon);
         }
     }
+    private void OnEnable()
+    {
+        Callbacks.SwapWeaponSlots += SwapWeaponSlots;
+    }
+    private void OnDisable()
+    {
+        Callbacks.SwapWeaponSlots -= SwapWeaponSlots;
+    }
 
     // Update is called once per frame
     void Update()
@@ -62,6 +70,8 @@ public class PlayerWeaponController : MonoBehaviour
             OnPlayerFireReleased?.Invoke();
         }
     }
+
+
 
     void AttachAlreadyHeldWeapon(ref WeaponBase weapon) //used when the weapon is already in the current weapons list, might be needed sometimes idk
     {
@@ -86,6 +96,20 @@ public class PlayerWeaponController : MonoBehaviour
         OnPlayerFireClicked += weapon.OnInputClicked;
         OnPlayerFireHeld += weapon.OnInputHeld;
         OnPlayerFireReleased += weapon.OnInputReleased;
+    }
+
+    public void SwapWeaponSlots(int slotIDOne, int slotIDTwo) //swaps the weapions in two slots
+    {
+        if (slotIDOne >= _currentWeaponSlots.Count || slotIDTwo >= _currentWeaponSlots.Count) return;
+        if (_currentWeaponSlots[slotIDOne].weapon == null || _currentWeaponSlots[slotIDTwo].weapon == null) return;
+
+        WeaponBase weaponTemp = _currentWeaponSlots[slotIDOne].weapon;
+
+        _currentWeaponSlots[slotIDOne].weapon = _currentWeaponSlots[slotIDTwo].weapon;
+        _currentWeaponSlots[slotIDOne].ReparentWeapon();
+
+        _currentWeaponSlots[slotIDTwo].weapon = weaponTemp;
+        _currentWeaponSlots[slotIDTwo].ReparentWeapon();
     }
 
     void DropWeapon(int weaponIndexID)

@@ -63,4 +63,20 @@ public class HitFeedback : MonoBehaviour
             ToggleHitFeedback(feedbackViz);
         }
     }
+
+    void OnPlayerHitEnemy(float damage, bool isCritical, GameObject enemyHit, int playerID)
+    {
+        //this should probably be more complicated.
+        SetHitFeedback(true);
+    }
+
+    private void OnEnable()
+    {
+        Callbacks.PlayerHitEnemy += OnPlayerHitEnemy;
+    }
+
+    private void OnDisable()
+    {
+        Callbacks.PlayerHitEnemy -= OnPlayerHitEnemy;
+    }
 }
