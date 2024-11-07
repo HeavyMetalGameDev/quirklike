@@ -8,20 +8,22 @@ TagManager:
   - Room
   - TransitionRoom
   - GameManager
+  - Enemy
+  - Weapon
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Ground
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Weapon
+  - NeutralDamageSource
+  - PlayerDamageSource
+  - EnemyDamageSource
+  - Trigger
+  - PlayerInteraction
   - 
   - 
   - 

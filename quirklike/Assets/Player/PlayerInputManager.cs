@@ -40,11 +40,24 @@ public class PlayerInputManager : MonoBehaviour
 
     public bool PlayerFireHeld()
     {
+        return _playerController.Player.Fire.inProgress;
+    }
+    public bool PlayerFireDown()
+    {
         return _playerController.Player.Fire.WasPressedThisFrame();
+    }
+    public bool PlayerFireUp()
+    {
+        return _playerController.Player.Fire.WasReleasedThisFrame();
     }
 
     public bool PlayerJumpPress()
     {
         return _playerController.Player.Jump.triggered;
+    }
+
+    public bool PlayerInteractionPress()
+    {
+        return _playerController.Player.Interact.triggered;
     }
 }

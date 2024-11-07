@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour
         _currentVelocity = Vector3.zero;
         _cameraTransform = Camera.main.transform;
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         _maxRampAngle = _characterController.slopeLimit;
     }
     private void Update()
@@ -96,7 +97,7 @@ public class PlayerController : MonoBehaviour
         Vector3 _speed = _characterController.transform.position - previousPosition;
         _currentVelocity.x = _speed.x;
         _currentVelocity.z = _speed.z;
-        Debug.Log(_speed.magnitude);
+        // Debug.Log(_speed.magnitude);
     }
 
     private void FixedUpdate()
