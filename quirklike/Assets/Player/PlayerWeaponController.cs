@@ -45,11 +45,18 @@ public class PlayerWeaponController : MonoBehaviour
             if (weapon) AttachWeapon(weapon);
         }
     }
+    private void OnEnable()
+    {
+        Callbacks.SwapWeaponSlots += SwapWeaponSlots;
+    }
+    private void OnDisable()
+    {
+        Callbacks.SwapWeaponSlots -= SwapWeaponSlots;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C)) SwapWeaponSlots(0, 1); //debug
         if (_playerInputManager.PlayerFireDown()) //change these to new input system
         {
             OnPlayerFireClicked?.Invoke();
@@ -63,6 +70,8 @@ public class PlayerWeaponController : MonoBehaviour
             OnPlayerFireReleased?.Invoke();
         }
     }
+
+
 
     void AttachAlreadyHeldWeapon(ref WeaponBase weapon) //used when the weapon is already in the current weapons list, might be needed sometimes idk
     {
