@@ -49,6 +49,7 @@ public class PlayerWeaponController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.C)) SwapWeaponSlots(0, 1); //debug
         if (_playerInputManager.PlayerFireDown()) //change these to new input system
         {
             OnPlayerFireClicked?.Invoke();
@@ -86,6 +87,20 @@ public class PlayerWeaponController : MonoBehaviour
         OnPlayerFireClicked += weapon.OnInputClicked;
         OnPlayerFireHeld += weapon.OnInputHeld;
         OnPlayerFireReleased += weapon.OnInputReleased;
+    }
+
+    public void SwapWeaponSlots(int slotIDOne, int slotIDTwo) //swaps the weapions in two slots
+    {
+        if (slotIDOne >= _currentWeaponSlots.Count || slotIDTwo >= _currentWeaponSlots.Count) return;
+        if (_currentWeaponSlots[slotIDOne].weapon == null || _currentWeaponSlots[slotIDTwo].weapon == null) return;
+
+        WeaponBase weaponTemp = _currentWeaponSlots[slotIDOne].weapon;
+
+        _currentWeaponSlots[slotIDOne].weapon = _currentWeaponSlots[slotIDTwo].weapon;
+        _currentWeaponSlots[slotIDOne].ReparentWeapon();
+
+        _currentWeaponSlots[slotIDTwo].weapon = weaponTemp;
+        _currentWeaponSlots[slotIDTwo].ReparentWeapon();
     }
 
     void DropWeapon(int weaponIndexID)
