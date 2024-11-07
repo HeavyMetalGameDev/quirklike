@@ -6,6 +6,7 @@ public class EStats : MonoBehaviour, IDamageable
 {
     [SerializeField]
     private float Health = 100;
+    
     private void Awake(){
         
         
@@ -20,6 +21,10 @@ public class EStats : MonoBehaviour, IDamageable
     public void TakeDamage(float Damage){
         Health -= Damage;
         Debug.Log("DAMAGED????");
+
+        CallbackPlayerHitEnemyData callbackData = new CallbackPlayerHitEnemyData(Damage, false, gameObject, 0); //this will need to be changed in the future
+        Callbacks.CallEvent(CallbackEvent.PlayerHitEnemy, callbackData);
+
         if(Health <=0){
             gameObject.SetActive(false);
         }

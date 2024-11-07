@@ -45,6 +45,14 @@ public class PlayerWeaponController : MonoBehaviour
             if (weapon) AttachWeapon(weapon);
         }
     }
+    private void OnEnable()
+    {
+        Callbacks.SwapWeaponSlots += SwapWeaponSlots;
+    }
+    private void OnDisable()
+    {
+        Callbacks.SwapWeaponSlots -= SwapWeaponSlots;
+    }
 
     // Update is called once per frame
     void Update()
@@ -63,7 +71,9 @@ public class PlayerWeaponController : MonoBehaviour
         }
     }
 
-    void AttachAlreadyHeldWeapon(WeaponBase weapon) //used when the weapon is already in the current weapons list, might be needed sometimes idk
+
+
+    void AttachAlreadyHeldWeapon(ref WeaponBase weapon) //used when the weapon is already in the current weapons list, might be needed sometimes idk
     {
         Debug.Log(weapon.gameObject);
         OnPlayerFireClicked += weapon.OnInputClicked;
@@ -71,14 +81,13 @@ public class PlayerWeaponController : MonoBehaviour
         OnPlayerFireReleased += weapon.OnInputReleased;
     }
 
-    void AttachWeapon(WeaponBase weapon)
+    public void AttachWeapon(WeaponBase weapon ) //should only be called once we know the player wants to pickup/swap this weapon i.e after they choose what to swap.
     {
-        Debug.Log(weapon.gameObject);
-
         WeaponSlot freeSlot = GetFreeWeaponSlot();
         if (freeSlot == null) return; //all slots are ful :(
         freeSlot.weapon = weapon;
         freeSlot.ReparentWeapon();
+        weapon.PickUpWeapon();
 
         weapon._cameraTransform = Camera.main.transform;
 
@@ -89,11 +98,29 @@ public class PlayerWeaponController : MonoBehaviour
         OnPlayerFireReleased += weapon.OnInputReleased;
     }
 
+    public void SwapWeaponSlots(int slotIDOne, int slotIDTwo) //swaps the weapions in two slots
+    {
+        if (slotIDOne >= _currentWeaponSlots.Count || slotIDTwo >= _currentWeaponSlots.Count) return;
+        if (_currentWeaponSlots[slotIDOne].weapon == null || _currentWeaponSlots[slotIDTwo].weapon == null) return;
+
+        WeaponBase weaponTemp = _currentWeaponSlots[slotIDOne].weapon;
+
+        _currentWeaponSlots[slotIDOne].weapon = _currentWeaponSlots[slotIDTwo].weapon;
+        _currentWeaponSlots[slotIDOne].ReparentWeapon();
+
+        _currentWeaponSlots[slotIDTwo].weapon = weaponTemp;
+        _currentWeaponSlots[slotIDTwo].ReparentWeapon();
+    }
+
     void DropWeapon(int weaponIndexID)
     {
         WeaponSlot droppedSlot = _currentWeaponSlots[weaponIndexID];
+        if (droppedSlot == null) return;
         WeaponBase droppedWeapon = droppedSlot.weapon;
+        if (droppedWeapon == null) return;
         droppedSlot.DropWeaponFromSlot();
+        droppedWeapon.DropWeapon();
+        droppedWeapon.transform.position = transform.position;
 
         _numberOfAssignedWeapons--;
         OnPlayerFireClicked -= droppedWeapon.OnInputClicked;
@@ -111,5 +138,13 @@ public class PlayerWeaponController : MonoBehaviour
             }
         }
         return null;
+    }
+
+    void DEBUGTestDropWeapon()
+    {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            DropWeapon(0);
+        }
     }
 }
