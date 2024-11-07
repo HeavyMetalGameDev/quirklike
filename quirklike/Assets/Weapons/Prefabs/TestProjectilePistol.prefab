@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 8336115469208185932}
   m_Layer: 7
   m_Name: TestProjectilePistol
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -238,9 +238,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cedda9be83bb8604b8214d9ca76af170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverTimeVertical: 2
-  hoverVerticalDistance: 2
-  hoverTimeRotation: 2
+  hoverTimeVertical: 3
+  hoverVerticalDistance: 0.2
+  hoverTimeRotation: 3
   objectToHover: {fileID: 1221030594304814738}
 --- !u!114 &2501871102090515389
 MonoBehaviour:

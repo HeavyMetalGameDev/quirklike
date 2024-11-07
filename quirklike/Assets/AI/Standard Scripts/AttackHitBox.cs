@@ -14,7 +14,7 @@ public class AttackHitBox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) 
     {
-
+        Debug.Log("HIT");
         IDamageable damageable = other.GetComponent<IDamageable>();
         PlayerController player = other.GetComponent<PlayerController>();
 
