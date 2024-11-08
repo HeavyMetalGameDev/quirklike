@@ -62,6 +62,7 @@ public enum CallbackEvent
     GameLost,
     AreaComplete,
     SwapWeaponSlots,
+    RoomGenerationComplete
 }
 
 
@@ -84,6 +85,8 @@ public static class Callbacks
     public static event System.Action GameLost;
     public static event System.Action AreaComplete;
     public static event System.Action<int,int> SwapWeaponSlots;
+    public static event System.Action RoomGenerationComplete;
+
 
 
     public static void CallEvent(CallbackEvent callbackEvent, CallbackData data = null) //this can be called from anywhere, be careful
@@ -188,6 +191,12 @@ public static class Callbacks
                     Debug.Log("TRY SWAP WEAPONS");
                     CallbackTwoInts slotIDs = (CallbackTwoInts)data;
                     SwapWeaponSlots?.Invoke(slotIDs.valueOne, slotIDs.valueTwo);
+                    break;
+                }
+            case CallbackEvent.RoomGenerationComplete:
+                {
+                    Debug.Log("ROOM GENERATION COMPLETE");
+                    RoomGenerationComplete?.Invoke();
                     break;
                 }
             default:

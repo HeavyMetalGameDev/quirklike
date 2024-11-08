@@ -14,6 +14,7 @@ public class RoomManager : MonoBehaviour
         Callbacks.EnemyKilled += OnEnemyKilled;
         Callbacks.EnemySpawned += OnNewEnemyCreated;
         Callbacks.WaveCompleted += OnWaveComplete;
+        Callbacks.RoomGenerationComplete += BeginRoom; //debug
     }
 
     private void OnDisable()
@@ -21,6 +22,8 @@ public class RoomManager : MonoBehaviour
         Callbacks.EnemyKilled -= OnEnemyKilled;
         Callbacks.EnemySpawned -= OnNewEnemyCreated;
         Callbacks.WaveCompleted -= OnWaveComplete;
+        Callbacks.RoomGenerationComplete -= BeginRoom; //debug
+
     }
 
     void Start()
@@ -34,16 +37,26 @@ public class RoomManager : MonoBehaviour
 
     }
 
+    void BeginRoom() //will be called once a player has entered a room.
+    {
+        StartCoroutine(CoroutineInitialiseWave());
+    }
+
     private void OnWaveComplete()
     {
         _enemyWaves[_currentWaveID].SetActive(false);
+        _currentWaveID++;
+        if(_currentWaveID == _enemyWaves.Length) //if the final wave is complete
+        {
+            Callbacks.CallEvent(CallbackEvent.RoomCompleted);
+        }
         StartCoroutine(CoroutineInitialiseWave());
     }
 
     IEnumerator CoroutineInitialiseWave()
     {
         yield return new WaitForSeconds(_waveTimeDelay);
-        GameObject newWave = _enemyWaves[++_currentWaveID];
+        GameObject newWave = _enemyWaves[_currentWaveID];
         newWave.SetActive(true);
 
         foreach (Transform child in newWave.transform) //each child of the wave

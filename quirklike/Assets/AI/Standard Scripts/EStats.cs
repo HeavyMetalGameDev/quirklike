@@ -26,6 +26,7 @@ public class EStats : MonoBehaviour, IDamageable
         Callbacks.CallEvent(CallbackEvent.PlayerHitEnemy, callbackData);
 
         if(Health <=0){
+            Callbacks.CallEvent(CallbackEvent.EnemyKilled);
             gameObject.SetActive(false);
         }
     }

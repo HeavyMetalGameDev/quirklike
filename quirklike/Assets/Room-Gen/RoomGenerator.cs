@@ -73,6 +73,7 @@ public class RoomGenerator : MonoBehaviour
         InitialiseRoomList();
         SpawnRooms();
         haveRoomsGenerated = true;
+        Callbacks.CallEvent(CallbackEvent.RoomGenerationComplete);
     }
 
     private void InitialiseRoomList()
