@@ -5,6 +5,7 @@ using UnityEngine;
 public class RoomManager : MonoBehaviour
 {
     [SerializeField] GameObject[] _enemyWaves;
+    RoomData _roomData;
     int _currentWaveID = 0;
     int _enemyCount = 0;
     float _waveTimeDelay = 1.0f;
@@ -28,7 +29,7 @@ public class RoomManager : MonoBehaviour
 
     void Start()
     {
-
+        _roomData = GetComponent<RoomData>();
     }
 
     // Update is called once per frame
