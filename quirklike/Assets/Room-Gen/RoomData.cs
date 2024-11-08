@@ -25,7 +25,7 @@ public class RoomData : MonoBehaviour
 
     [SerializeField]
     private List<GameObject> linkPoints;
-    public List<GameObject> GetLinkPoints() { return linkPoints; }
+    public ref List<GameObject> GetLinkPoints() { return ref linkPoints; }
 
      
 

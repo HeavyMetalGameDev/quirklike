@@ -41,6 +41,7 @@ public class RoomGenerator : MonoBehaviour
     private List<GameObject> roomsToGenerate;
 
     private GameObject currentLinkPoint;
+    private int currentLinkPointIndex;
     private GameObject currentRoom;
     private GameObject currentTransition;
 
@@ -160,29 +161,36 @@ public class RoomGenerator : MonoBehaviour
                 availablePoints.Add(i);
             }
         }
+        Debug.Log(availablePoints.Count);
         return availablePoints[Random.Range(0, availablePoints.Count)];
     }
     private void SpawnRooms()
     {
-        currentRoom = roomsToGenerate[0];
+        currentRoom = roomsToGenerate[0]; //this is a prefab, not clear
         startingRoom = Instantiate(currentRoom, Vector3.zero, new Quaternion(), this.transform);
-        generatedRooms.Add(startingRoom);
-        currentLinkPoint = GetRandomLinkPoints(startingRoom.GetComponent<RoomData>(), LinkType.ExitOnly);
-        AssignLinkAsExit(currentLinkPoint);
+        currentRoom = startingRoom;
+        generatedRooms.Add(currentRoom);
+
+        currentLinkPointIndex = GetRandomLinkPointIndex(currentRoom.GetComponent<RoomData>(), LinkType.ExitOnly); //gets an exit
+        currentLinkPoint = currentRoom.GetComponent<RoomData>().GetLinkPoints()[currentLinkPointIndex];
 
         for (int i = 1; i < roomsToGenerate.Count; i++)
         {
 
             currentRoom = LinkRoom(WeightedRoomSelect(transitionPool, transitionPoolWeights));
-            currentLinkPoint = GetRandomLinkPoints(currentRoom.GetComponent<RoomData>(), LinkType.ExitOnly);
+            currentLinkPointIndex = GetRandomLinkPointIndex(currentRoom.GetComponent<RoomData>(), LinkType.ExitOnly); //gets an exit
+            currentLinkPoint = currentRoom.GetComponent<RoomData>().GetLinkPoints()[currentLinkPointIndex];
+
 
             //currentRoom = LinkRoom(transitionPool[0]);
             //currentLinkPoint = GetRandomLinkPoints(currentRoom.GetComponent<RoomData>(), LinkType.ExitOnly);
 
             currentRoom = LinkRoom(roomsToGenerate[i]);
-            currentLinkPoint = GetRandomLinkPoints(currentRoom.GetComponent<RoomData>(), LinkType.ExitOnly);
+            currentLinkPointIndex = GetRandomLinkPointIndex(currentRoom.GetComponent<RoomData>(), LinkType.ExitOnly); //gets an exit
+            currentLinkPoint = currentRoom.GetComponent<RoomData>().GetLinkPoints()[currentLinkPointIndex];
         }
         endingRoom = currentRoom;
+        DisableAllObjects(ref endingRoom.GetComponent<RoomData>().GetLinkPoints()); //keep this for now. Later, we will need an exit
         // newTransition.transform.Rotate(newTransition.transform.position, toRotate);
     }
 
@@ -214,6 +222,9 @@ public class RoomGenerator : MonoBehaviour
         AssignLinkAsExit(currentLinkPoint);
         AssignLinkAsEntry(newTransition.GetComponent<RoomData>().GetLinkPoints()[randomEntryLink]);
 
+        currentRoom.GetComponent<RoomData>().RemoveEntryLinkPoint(currentLinkPointIndex);
+        DisableAllObjects(ref currentRoom.GetComponent<RoomData>().GetLinkPoints());
+
         newTransition.transform.RotateAround(currentLinkPoint.transform.position, new Vector3(0, 1, 0), toRotate);
         newTransition.GetComponent<RoomData>().RemoveEntryLinkPoint(randomEntryLink);
         if(newTransition.GetComponent<RoomData>().GetRoomType() == RoomData.RoomType.MainRoom) generatedRooms.Add(newTransition);
@@ -223,7 +234,6 @@ public class RoomGenerator : MonoBehaviour
 
     void AssignLinkAsEntry(GameObject link)
     {
-        ErrorCheckForHierarchy(link);
         RoomTrigger trigger = link.GetComponentInChildren<RoomTrigger>();
         if (trigger == null)
         {
@@ -234,7 +244,6 @@ public class RoomGenerator : MonoBehaviour
         trigger.SetDoorTriggerType(DoorTriggerType.ENTERANCE);
     }
     void AssignLinkAsExit(GameObject link)    {
-        ErrorCheckForHierarchy(link);
         RoomTrigger trigger = link.GetComponentInChildren<RoomTrigger>();
         if (trigger == null)
         {
@@ -252,6 +261,14 @@ public class RoomGenerator : MonoBehaviour
         if (!obj.activeInHierarchy)
         {
             Debug.LogError("ERROR: " + gameObject + " IS A PREFAB!!");
+        }
+    }
+
+    void DisableAllObjects(ref List<GameObject> objs)
+    {
+        foreach (GameObject obj in objs)
+        {
+            obj.SetActive(false);
         }
     }
 }
