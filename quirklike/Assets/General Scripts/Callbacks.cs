@@ -51,6 +51,7 @@ public enum CallbackEvent
     EnemySpawned,
     SceneLoaded,
     RoomEntered,
+    RoomExited,
     WaveCompleted,
     RoomCompleted,
     WeaponPickedUp,
@@ -74,6 +75,7 @@ public static class Callbacks
     public static event System.Action EnemySpawned;
     public static event System.Action SceneLoaded;
     public static event System.Action RoomEntered;
+    public static event System.Action RoomExited;
     public static event System.Action WaveCompleted;
     public static event System.Action RoomCompleted;
     public static event System.Action WeaponPickedUp;
@@ -121,6 +123,12 @@ public static class Callbacks
                 {
                     Debug.Log("ROOM ENTERED");
                     RoomEntered?.Invoke();
+                    break;
+                }
+            case CallbackEvent.RoomExited:
+                {
+                    Debug.Log("ROOM EXITED");
+                    RoomExited?.Invoke();
                     break;
                 }
             case CallbackEvent.WaveCompleted:

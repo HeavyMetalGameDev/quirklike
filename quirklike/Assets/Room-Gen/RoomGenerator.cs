@@ -167,7 +167,8 @@ public class RoomGenerator : MonoBehaviour
         currentRoom = roomsToGenerate[0];
         startingRoom = Instantiate(currentRoom, Vector3.zero, new Quaternion(), this.transform);
         generatedRooms.Add(startingRoom);
-        currentLinkPoint = GetRandomLinkPoints(currentRoom.GetComponent<RoomData>(), LinkType.ExitOnly);
+        currentLinkPoint = GetRandomLinkPoints(startingRoom.GetComponent<RoomData>(), LinkType.ExitOnly);
+        AssignLinkAsExit(currentLinkPoint);
 
         for (int i = 1; i < roomsToGenerate.Count; i++)
         {
@@ -187,6 +188,7 @@ public class RoomGenerator : MonoBehaviour
 
     private GameObject LinkRoom(GameObject roomToAdd)
     {
+        Debug.Log(roomToAdd.activeInHierarchy);
         if (roomToAdd.GetComponent<RoomData>() == null)
         {
             Debug.Log("GameObject does not have Room Data!");
@@ -196,6 +198,7 @@ public class RoomGenerator : MonoBehaviour
         Vector3 entryOriginRelitive = Vector3.zero;
         int randomEntryLink = GetRandomLinkPointIndex(roomToAdd.GetComponent<RoomData>(), LinkType.EntryOnly);
         GameObject currentEntryPoint = roomToAdd.GetComponent<RoomData>().GetLinkPoints()[randomEntryLink];
+
         float toRotate = 0f;
         if (true)
         {
@@ -208,10 +211,47 @@ public class RoomGenerator : MonoBehaviour
         GameObject newTransition = Instantiate(roomToAdd,
             currentLinkPoint.transform.position - roomOffset, new Quaternion(), this.transform);
 
+        AssignLinkAsExit(currentLinkPoint);
+        AssignLinkAsEntry(newTransition.GetComponent<RoomData>().GetLinkPoints()[randomEntryLink]);
+
         newTransition.transform.RotateAround(currentLinkPoint.transform.position, new Vector3(0, 1, 0), toRotate);
         newTransition.GetComponent<RoomData>().RemoveEntryLinkPoint(randomEntryLink);
         if(newTransition.GetComponent<RoomData>().GetRoomType() == RoomData.RoomType.MainRoom) generatedRooms.Add(newTransition);
         else generatedTransitions.Add(newTransition);
         return newTransition;
+    }
+
+    void AssignLinkAsEntry(GameObject link)
+    {
+        ErrorCheckForHierarchy(link);
+        RoomTrigger trigger = link.GetComponentInChildren<RoomTrigger>();
+        if (trigger == null)
+        {
+            Debug.LogError(link);
+            Debug.LogError("DOOR IS MISSING TRIGGER");
+            return;
+        }
+        trigger.SetDoorTriggerType(DoorTriggerType.ENTERANCE);
+    }
+    void AssignLinkAsExit(GameObject link)    {
+        ErrorCheckForHierarchy(link);
+        RoomTrigger trigger = link.GetComponentInChildren<RoomTrigger>();
+        if (trigger == null)
+        {
+            Debug.LogError(link);
+
+            Debug.LogError("DOOR IS MISSING TRIGGER");
+            return;
+        }
+        Debug.Log(link.name + " IS EXIT ASSIGNED");
+        trigger.SetDoorTriggerType(DoorTriggerType.EXIT);
+    }
+
+    void ErrorCheckForHierarchy(GameObject obj)
+    {
+        if (!obj.activeInHierarchy)
+        {
+            Debug.LogError("ERROR: " + gameObject + " IS A PREFAB!!");
+        }
     }
 }

@@ -9,6 +9,7 @@ public class RoomManager : MonoBehaviour
     int _currentWaveID = 0;
     int _enemyCount = 0;
     float _waveTimeDelay = 1.0f;
+    bool isActiveRoom = false;
 
     private void OnEnable()
     {
@@ -32,14 +33,9 @@ public class RoomManager : MonoBehaviour
         _roomData = GetComponent<RoomData>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     void BeginRoom() //will be called once a player has entered a room.
     {
+        isActiveRoom = true;
         StartCoroutine(CoroutineInitialiseWave());
     }
 
@@ -83,5 +79,15 @@ public class RoomManager : MonoBehaviour
     void OnNewEnemyCreated()
     {
         _enemyCount++;
+    }
+
+    void OnRoomEntered()
+    {
+        //close the opening door, then begin the room.
+    }
+
+    void OnRoomExited()
+    {
+        //close the door, then disable this room.
     }
 }

@@ -5,12 +5,16 @@ using UnityEngine;
 public enum DoorTriggerType { ENTERANCE,EXIT}
 public class RoomTrigger : MonoBehaviour
 {
-    DoorTriggerType _doorType;
+    public DoorTriggerType _doorType = DoorTriggerType.ENTERANCE;
     Vector3 playerPositionOnEntry;
     Vector3 playerPositionOnExit;
     float colliderThickness = 0.0f;
     const float thicknessAllowance = 0.6f;
 
+    private void Awake()
+    {
+        _doorType = DoorTriggerType.ENTERANCE; //we need to do this for some reason???
+    }
     private void Start()
     {
         colliderThickness = GetComponent<BoxCollider>().size.x;
@@ -49,21 +53,22 @@ public class RoomTrigger : MonoBehaviour
             hasGoneThrough = true;
         }
 
-        if (!hasGoneThrough || !intoRoom) return;
+        if (!hasGoneThrough) return;
 
         switch (_doorType)
         {
             case DoorTriggerType.ENTERANCE:
             {
-                    Debug.Log("PLAYER HAS ENTERED NEW ROOM!");
+                    if (!intoRoom) return;
+                    Callbacks.CallEvent(CallbackEvent.RoomEntered);
                     break;
             }
             case DoorTriggerType.EXIT:
-                {
-                    Debug.Log("PLAYER HAS EXITED THE ROOM!");
-
+            {
+                    if (intoRoom) return;
+                    Callbacks.CallEvent(CallbackEvent.RoomExited);
                     break;
-                }
+            }
         }
 
     }
