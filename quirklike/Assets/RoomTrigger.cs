@@ -6,6 +6,7 @@ public enum DoorTriggerType { ENTERANCE,EXIT}
 public class RoomTrigger : MonoBehaviour
 {
     public DoorTriggerType _doorType = DoorTriggerType.ENTERANCE;
+    private int _roomID;
     Vector3 playerPositionOnEntry;
     Vector3 playerPositionOnExit;
     float colliderThickness = 0.0f;
@@ -23,6 +24,10 @@ public class RoomTrigger : MonoBehaviour
     public void SetDoorTriggerType(DoorTriggerType type)
     {
         _doorType = type;
+    }
+    public void SetTriggerRoomID(int id)
+    {
+        _roomID = id;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -60,13 +65,16 @@ public class RoomTrigger : MonoBehaviour
             case DoorTriggerType.ENTERANCE:
             {
                     if (!intoRoom) return;
-                    Callbacks.CallEvent(CallbackEvent.RoomEntered);
+                    var data = new CallbackInt(_roomID);
+                    Callbacks.CallEvent(CallbackEvent.RoomEntered,data);
                     break;
             }
             case DoorTriggerType.EXIT:
             {
                     if (intoRoom) return;
-                    Callbacks.CallEvent(CallbackEvent.RoomExited);
+                    var data = new CallbackInt(_roomID);
+
+                    Callbacks.CallEvent(CallbackEvent.RoomExited,data);
                     break;
             }
         }

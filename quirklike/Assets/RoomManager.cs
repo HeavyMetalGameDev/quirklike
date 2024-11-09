@@ -9,7 +9,7 @@ public class RoomManager : MonoBehaviour
     int _currentWaveID = 0;
     int _enemyCount = 0;
     float _waveTimeDelay = 1.0f;
-    bool isActiveRoom = false;
+    bool isActiveRoom = false; // needs implemented
 
     private void OnEnable()
     {

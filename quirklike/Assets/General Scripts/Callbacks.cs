@@ -14,6 +14,14 @@ public class CallbackFloat:CallbackData
         this.value = value;
     }
 }
+public class CallbackInt : CallbackData
+{
+    public int value;
+    public CallbackInt(int value)
+    {
+        this.value = value;
+    }
+}
 public class CallbackTwoInts : CallbackData
 {
     public int valueOne;
@@ -74,8 +82,8 @@ public static class Callbacks
     public static event System.Action EnemyKilled;
     public static event System.Action EnemySpawned;
     public static event System.Action SceneLoaded;
-    public static event System.Action RoomEntered;
-    public static event System.Action RoomExited;
+    public static event System.Action<int> RoomEntered;
+    public static event System.Action<int> RoomExited;
     public static event System.Action WaveCompleted;
     public static event System.Action RoomCompleted;
     public static event System.Action WeaponPickedUp;
@@ -121,14 +129,18 @@ public static class Callbacks
                 }
             case CallbackEvent.RoomEntered:
                 {
-                    Debug.Log("ROOM ENTERED");
-                    RoomEntered?.Invoke();
+                    CallbackInt intData = (CallbackInt)data;
+                    Debug.Log("ROOM " + intData.value +" ENTERED");
+
+                    RoomEntered?.Invoke(intData.value);
                     break;
                 }
             case CallbackEvent.RoomExited:
                 {
-                    Debug.Log("ROOM EXITED");
-                    RoomExited?.Invoke();
+                    CallbackInt intData = (CallbackInt)data;
+                    Debug.Log("ROOM " + intData.value + " EXITED");
+
+                    RoomExited?.Invoke(intData.value);
                     break;
                 }
             case CallbackEvent.WaveCompleted:

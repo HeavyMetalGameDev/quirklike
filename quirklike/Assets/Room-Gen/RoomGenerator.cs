@@ -43,6 +43,7 @@ public class RoomGenerator : MonoBehaviour
     private GameObject currentLinkPoint;
     private int currentLinkPointIndex;
     private GameObject currentRoom;
+    private int currentGeneratedRoomId = 0;
     private GameObject currentTransition;
 
     private bool haveRoomsGenerated = false;
@@ -190,6 +191,7 @@ public class RoomGenerator : MonoBehaviour
             currentLinkPoint = currentRoom.GetComponent<RoomData>().GetLinkPoints()[currentLinkPointIndex];
         }
         endingRoom = currentRoom;
+        endingRoom.GetComponent<RoomData>().SetRoomID(currentGeneratedRoomId);
         DisableAllObjects(ref endingRoom.GetComponent<RoomData>().GetLinkPoints()); //keep this for now. Later, we will need an exit
         // newTransition.transform.Rotate(newTransition.transform.position, toRotate);
     }
@@ -219,8 +221,15 @@ public class RoomGenerator : MonoBehaviour
         GameObject newTransition = Instantiate(roomToAdd,
             currentLinkPoint.transform.position - roomOffset, new Quaternion(), this.transform);
 
+        currentRoom.GetComponent<RoomData>().SetRoomID(currentGeneratedRoomId);
         AssignLinkAsExit(currentLinkPoint);
-        AssignLinkAsEntry(newTransition.GetComponent<RoomData>().GetLinkPoints()[randomEntryLink]);
+        AssignLinkTriggerID(currentLinkPoint);
+
+        currentGeneratedRoomId++;
+
+        GameObject newLinkPoint = newTransition.GetComponent<RoomData>().GetLinkPoints()[randomEntryLink];
+        AssignLinkAsEntry(newLinkPoint);
+        AssignLinkTriggerID(newLinkPoint);
 
         currentRoom.GetComponent<RoomData>().RemoveEntryLinkPoint(currentLinkPointIndex);
         DisableAllObjects(ref currentRoom.GetComponent<RoomData>().GetLinkPoints());
@@ -254,6 +263,19 @@ public class RoomGenerator : MonoBehaviour
         }
         Debug.Log(link.name + " IS EXIT ASSIGNED");
         trigger.SetDoorTriggerType(DoorTriggerType.EXIT);
+    }
+
+    void AssignLinkTriggerID(GameObject link)
+    {
+        RoomTrigger trigger = link.GetComponentInChildren<RoomTrigger>();
+        if (trigger == null)
+        {
+            Debug.LogError(link);
+
+            Debug.LogError("DOOR IS MISSING TRIGGER");
+            return;
+        }
+        trigger.SetTriggerRoomID(currentGeneratedRoomId);
     }
 
     void ErrorCheckForHierarchy(GameObject obj)
