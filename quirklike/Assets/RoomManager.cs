@@ -26,9 +26,8 @@ public class RoomManager : MonoBehaviour
         Callbacks.EnemyKilled -= OnEnemyKilled;
         Callbacks.EnemySpawned -= OnNewEnemyCreated;
         Callbacks.WaveCompleted -= OnWaveComplete;
+        Callbacks.RoomEntered -= OnRoomEntered;
         Callbacks.RoomExited -= OnRoomExited;
-
-
     }
 
     private void Awake()
@@ -116,12 +115,16 @@ public class RoomManager : MonoBehaviour
                 _enemyCount++;
             }
         }
+        Debug.Log("THIS WAVE HAS ENMIES THAT NUMBER " + _enemyCount);
 
     }
 
     void OnEnemyKilled()
     {
+        if (!isActiveRoom) return;
+
         _enemyCount--;
+        Debug.Log(_enemyCount);
         if (_enemyCount < 0) Debug.LogError("Negative Enemy count, something has gone wrong.");
         if (_enemyCount == 0)
         {
@@ -131,11 +134,15 @@ public class RoomManager : MonoBehaviour
 
     void OnNewEnemyCreated()
     {
+        if (!isActiveRoom) return;
+
         _enemyCount++;
     }
 
     void OnRoomComplete()
     {
+        if (!isActiveRoom) return;
+
         foreach (RoomTrigger trigger in _roomTriggers)
         {
             if(trigger.GetDoorTriggerType() == DoorTriggerType.EXIT) //complete room, disable the exit door.
