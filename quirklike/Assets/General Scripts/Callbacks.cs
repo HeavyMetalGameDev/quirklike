@@ -85,7 +85,7 @@ public static class Callbacks
     public static event System.Action<int> RoomEntered;
     public static event System.Action<int> RoomExited;
     public static event System.Action WaveCompleted;
-    public static event System.Action RoomCompleted;
+    public static event System.Action<int> RoomCompleted;
     public static event System.Action WeaponPickedUp;
     public static event System.Action WeaponDropped;
     public static event System.Action<float> PlayerHurt;
@@ -152,7 +152,9 @@ public static class Callbacks
             case CallbackEvent.RoomCompleted:
                 {
                     Debug.Log("ROOM COMPLETED");
-                    RoomCompleted?.Invoke();
+                    CallbackInt intData = (CallbackInt)data;
+
+                    RoomCompleted?.Invoke(intData.value);
                     break;
                 }
             case CallbackEvent.WeaponPickedUp:

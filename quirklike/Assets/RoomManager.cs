@@ -5,6 +5,7 @@ using UnityEngine;
 public class RoomManager : MonoBehaviour
 {
     [SerializeField] GameObject[] _enemyWaves;
+    RoomTrigger[] _roomTriggers;
     RoomData _roomData;
     int _currentWaveID = 0;
     int _enemyCount = 0;
@@ -16,7 +17,8 @@ public class RoomManager : MonoBehaviour
         Callbacks.EnemyKilled += OnEnemyKilled;
         Callbacks.EnemySpawned += OnNewEnemyCreated;
         Callbacks.WaveCompleted += OnWaveComplete;
-        Callbacks.RoomGenerationComplete += BeginRoom; //debug
+        Callbacks.RoomEntered += OnRoomEntered;
+        Callbacks.RoomExited += OnRoomExited;
     }
 
     private void OnDisable()
@@ -24,28 +26,79 @@ public class RoomManager : MonoBehaviour
         Callbacks.EnemyKilled -= OnEnemyKilled;
         Callbacks.EnemySpawned -= OnNewEnemyCreated;
         Callbacks.WaveCompleted -= OnWaveComplete;
-        Callbacks.RoomGenerationComplete -= BeginRoom; //debug
+        Callbacks.RoomExited -= OnRoomExited;
+
 
     }
 
+    private void Awake()
+    {
+        _roomTriggers = new RoomTrigger[2];
+    }
     void Start()
     {
         _roomData = GetComponent<RoomData>();
     }
 
+    void OnRoomEntered(int roomID)
+    {
+        if(_roomData.GetRoomID() == roomID)
+        {
+            BeginRoom();
+        }
+    }
+
+    void OnRoomExited(int roomID)
+    {
+        if (_roomData.GetRoomID() == roomID)
+        {
+            isActiveRoom = false;
+            //set the room to be inactive and stuff
+        }
+    }
+
     void BeginRoom() //will be called once a player has entered a room.
     {
+        if (_enemyWaves.Length == 0)
+        {
+            return; //dont bother closing the door
+        }
         isActiveRoom = true;
+        foreach (RoomTrigger trigger in _roomTriggers)
+        {
+            if (trigger.GetDoorTriggerType() == DoorTriggerType.EXIT) //complete room, disable the exit door.
+            {
+                trigger.SetDoorActive(true);
+                break;
+            }
+        }
         StartCoroutine(CoroutineInitialiseWave());
+    }
+
+    public void AssignTrigger(RoomTrigger trigger)
+    {
+        if (_roomTriggers[0] == null) {
+            _roomTriggers[0] = trigger;
+            return;
+        }
+        if (_roomTriggers[1] != null)
+        {
+            Debug.LogError("ERROR: Too many triggers assigned.");
+            return;
+        }
+        _roomTriggers[1] = trigger;
     }
 
     private void OnWaveComplete()
     {
+        if (!isActiveRoom) return;
+
         _enemyWaves[_currentWaveID].SetActive(false);
         _currentWaveID++;
         if(_currentWaveID == _enemyWaves.Length) //if the final wave is complete
         {
-            Callbacks.CallEvent(CallbackEvent.RoomCompleted);
+            OnRoomComplete();
+            return;
         }
         StartCoroutine(CoroutineInitialiseWave());
     }
@@ -81,13 +134,16 @@ public class RoomManager : MonoBehaviour
         _enemyCount++;
     }
 
-    void OnRoomEntered()
+    void OnRoomComplete()
     {
-        //close the opening door, then begin the room.
-    }
-
-    void OnRoomExited()
-    {
-        //close the door, then disable this room.
+        foreach (RoomTrigger trigger in _roomTriggers)
+        {
+            if(trigger.GetDoorTriggerType() == DoorTriggerType.EXIT) //complete room, disable the exit door.
+            {
+                trigger.SetDoorActive(false);
+                break;
+            }
+        }
+        Callbacks.CallEvent(CallbackEvent.RoomCompleted);
     }
 }

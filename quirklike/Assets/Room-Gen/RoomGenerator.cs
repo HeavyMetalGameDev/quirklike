@@ -218,27 +218,38 @@ public class RoomGenerator : MonoBehaviour
 
         }
 
-        GameObject newTransition = Instantiate(roomToAdd,
+        GameObject newCreatedRoom = Instantiate(roomToAdd,
             currentLinkPoint.transform.position - roomOffset, new Quaternion(), this.transform);
 
         currentRoom.GetComponent<RoomData>().SetRoomID(currentGeneratedRoomId);
         AssignLinkAsExit(currentLinkPoint);
         AssignLinkTriggerID(currentLinkPoint);
+        AssignLinkTriggerToRoomManager(currentLinkPoint, currentRoom);
 
         currentGeneratedRoomId++;
 
-        GameObject newLinkPoint = newTransition.GetComponent<RoomData>().GetLinkPoints()[randomEntryLink];
+        GameObject newLinkPoint = newCreatedRoom.GetComponent<RoomData>().GetLinkPoints()[randomEntryLink];
         AssignLinkAsEntry(newLinkPoint);
         AssignLinkTriggerID(newLinkPoint);
+        AssignLinkTriggerToRoomManager(newLinkPoint, newCreatedRoom);
+
 
         currentRoom.GetComponent<RoomData>().RemoveEntryLinkPoint(currentLinkPointIndex);
         DisableAllObjects(ref currentRoom.GetComponent<RoomData>().GetLinkPoints());
 
-        newTransition.transform.RotateAround(currentLinkPoint.transform.position, new Vector3(0, 1, 0), toRotate);
-        newTransition.GetComponent<RoomData>().RemoveEntryLinkPoint(randomEntryLink);
-        if(newTransition.GetComponent<RoomData>().GetRoomType() == RoomData.RoomType.MainRoom) generatedRooms.Add(newTransition);
-        else generatedTransitions.Add(newTransition);
-        return newTransition;
+        newCreatedRoom.transform.RotateAround(currentLinkPoint.transform.position, new Vector3(0, 1, 0), toRotate);
+        newCreatedRoom.GetComponent<RoomData>().RemoveEntryLinkPoint(randomEntryLink);
+        if(newCreatedRoom.GetComponent<RoomData>().GetRoomType() == RoomData.RoomType.MainRoom) generatedRooms.Add(newCreatedRoom);
+        else generatedTransitions.Add(newCreatedRoom);
+        return newCreatedRoom;
+    }
+
+    void AssignLinkTriggerToRoomManager(GameObject link, GameObject room )
+    {
+        var roomManager = room.GetComponent<RoomManager>();
+        var linkTrigger = link.GetComponentInChildren<RoomTrigger>();
+
+        roomManager.AssignTrigger(linkTrigger);
     }
 
     void AssignLinkAsEntry(GameObject link)
@@ -276,14 +287,6 @@ public class RoomGenerator : MonoBehaviour
             return;
         }
         trigger.SetTriggerRoomID(currentGeneratedRoomId);
-    }
-
-    void ErrorCheckForHierarchy(GameObject obj)
-    {
-        if (!obj.activeInHierarchy)
-        {
-            Debug.LogError("ERROR: " + gameObject + " IS A PREFAB!!");
-        }
     }
 
     void DisableAllObjects(ref List<GameObject> objs)

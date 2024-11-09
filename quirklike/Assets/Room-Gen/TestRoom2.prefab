@@ -166,6 +166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 486626885079732813}
   - component: {fileID: 7354431306359637212}
+  - component: {fileID: 1496666097197385646}
   m_Layer: 0
   m_Name: TestRoom2
   m_TagString: Room
@@ -203,7 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42e936c93db06f24dadb1823daf74cc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomID: TestRoom1
+  roomID: 0
   playerSpawn: {fileID: 528486216993381096}
   roomType: 0
   linkPoints:
@@ -212,6 +213,19 @@ MonoBehaviour:
   - {fileID: 5383329648597683654}
   - {fileID: 6582571170948330499}
   - {fileID: 1338250330508405123}
+--- !u!114 &1496666097197385646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3481605410305113822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6cc363a3311ee64cba6c4d1a32a2a81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyWaves: []
 --- !u!1 &4940537390816097585
 GameObject:
   m_ObjectHideFlags: 0

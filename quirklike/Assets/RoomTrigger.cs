@@ -5,7 +5,8 @@ using UnityEngine;
 public enum DoorTriggerType { ENTERANCE,EXIT}
 public class RoomTrigger : MonoBehaviour
 {
-    public DoorTriggerType _doorType = DoorTriggerType.ENTERANCE;
+    public DoorTriggerType doorType = DoorTriggerType.ENTERANCE;
+    [SerializeField] GameObject _doorObject;
     private int _roomID;
     Vector3 playerPositionOnEntry;
     Vector3 playerPositionOnExit;
@@ -14,7 +15,7 @@ public class RoomTrigger : MonoBehaviour
 
     private void Awake()
     {
-        _doorType = DoorTriggerType.ENTERANCE; //we need to do this for some reason???
+        doorType = DoorTriggerType.ENTERANCE; //we need to do this for some reason???
     }
     private void Start()
     {
@@ -23,12 +24,17 @@ public class RoomTrigger : MonoBehaviour
 
     public void SetDoorTriggerType(DoorTriggerType type)
     {
-        _doorType = type;
+        doorType = type;
+    }
+    public DoorTriggerType GetDoorTriggerType()
+    {
+        return doorType;
     }
     public void SetTriggerRoomID(int id)
     {
         _roomID = id;
     }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -60,13 +66,14 @@ public class RoomTrigger : MonoBehaviour
 
         if (!hasGoneThrough) return;
 
-        switch (_doorType)
+        switch (doorType)
         {
             case DoorTriggerType.ENTERANCE:
             {
                     if (!intoRoom) return;
                     var data = new CallbackInt(_roomID);
                     Callbacks.CallEvent(CallbackEvent.RoomEntered,data);
+                    SetDoorActive(true);
                     break;
             }
             case DoorTriggerType.EXIT:
@@ -75,9 +82,15 @@ public class RoomTrigger : MonoBehaviour
                     var data = new CallbackInt(_roomID);
 
                     Callbacks.CallEvent(CallbackEvent.RoomExited,data);
+                    SetDoorActive(true);
                     break;
             }
         }
 
+    }
+
+    public void SetDoorActive(bool isActive)
+    {
+        _doorObject.SetActive(isActive);
     }
 }
