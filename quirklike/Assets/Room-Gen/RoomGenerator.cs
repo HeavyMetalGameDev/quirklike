@@ -41,7 +41,9 @@ public class RoomGenerator : MonoBehaviour
     private List<GameObject> roomsToGenerate;
 
     private GameObject currentLinkPoint;
+    private int currentLinkPointIndex;
     private GameObject currentRoom;
+    private int currentGeneratedRoomId = 0;
     private GameObject currentTransition;
 
     private bool haveRoomsGenerated = false;
@@ -73,6 +75,7 @@ public class RoomGenerator : MonoBehaviour
         InitialiseRoomList();
         SpawnRooms();
         haveRoomsGenerated = true;
+        Callbacks.CallEvent(CallbackEvent.RoomGenerationComplete);
     }
 
     private void InitialiseRoomList()
@@ -159,33 +162,43 @@ public class RoomGenerator : MonoBehaviour
                 availablePoints.Add(i);
             }
         }
+        Debug.Log(availablePoints.Count);
         return availablePoints[Random.Range(0, availablePoints.Count)];
     }
     private void SpawnRooms()
     {
-        currentRoom = roomsToGenerate[0];
+        currentRoom = roomsToGenerate[0]; //this is a prefab, not clear
         startingRoom = Instantiate(currentRoom, Vector3.zero, new Quaternion(), this.transform);
-        generatedRooms.Add(startingRoom);
-        currentLinkPoint = GetRandomLinkPoints(currentRoom.GetComponent<RoomData>(), LinkType.ExitOnly);
+        currentRoom = startingRoom;
+        generatedRooms.Add(currentRoom);
+
+        currentLinkPointIndex = GetRandomLinkPointIndex(currentRoom.GetComponent<RoomData>(), LinkType.ExitOnly); //gets an exit
+        currentLinkPoint = currentRoom.GetComponent<RoomData>().GetLinkPoints()[currentLinkPointIndex];
 
         for (int i = 1; i < roomsToGenerate.Count; i++)
         {
 
             currentRoom = LinkRoom(WeightedRoomSelect(transitionPool, transitionPoolWeights));
-            currentLinkPoint = GetRandomLinkPoints(currentRoom.GetComponent<RoomData>(), LinkType.ExitOnly);
+            currentLinkPointIndex = GetRandomLinkPointIndex(currentRoom.GetComponent<RoomData>(), LinkType.ExitOnly); //gets an exit
+            currentLinkPoint = currentRoom.GetComponent<RoomData>().GetLinkPoints()[currentLinkPointIndex];
+
 
             //currentRoom = LinkRoom(transitionPool[0]);
             //currentLinkPoint = GetRandomLinkPoints(currentRoom.GetComponent<RoomData>(), LinkType.ExitOnly);
 
             currentRoom = LinkRoom(roomsToGenerate[i]);
-            currentLinkPoint = GetRandomLinkPoints(currentRoom.GetComponent<RoomData>(), LinkType.ExitOnly);
+            currentLinkPointIndex = GetRandomLinkPointIndex(currentRoom.GetComponent<RoomData>(), LinkType.ExitOnly); //gets an exit
+            currentLinkPoint = currentRoom.GetComponent<RoomData>().GetLinkPoints()[currentLinkPointIndex];
         }
         endingRoom = currentRoom;
+        endingRoom.GetComponent<RoomData>().SetRoomID(currentGeneratedRoomId);
+        DisableAllObjects(ref endingRoom.GetComponent<RoomData>().GetLinkPoints()); //keep this for now. Later, we will need an exit
         // newTransition.transform.Rotate(newTransition.transform.position, toRotate);
     }
 
     private GameObject LinkRoom(GameObject roomToAdd)
     {
+        Debug.Log(roomToAdd.activeInHierarchy);
         if (roomToAdd.GetComponent<RoomData>() == null)
         {
             Debug.Log("GameObject does not have Room Data!");
@@ -195,6 +208,7 @@ public class RoomGenerator : MonoBehaviour
         Vector3 entryOriginRelitive = Vector3.zero;
         int randomEntryLink = GetRandomLinkPointIndex(roomToAdd.GetComponent<RoomData>(), LinkType.EntryOnly);
         GameObject currentEntryPoint = roomToAdd.GetComponent<RoomData>().GetLinkPoints()[randomEntryLink];
+
         float toRotate = 0f;
         if (true)
         {
@@ -204,13 +218,82 @@ public class RoomGenerator : MonoBehaviour
 
         }
 
-        GameObject newTransition = Instantiate(roomToAdd,
+        GameObject newCreatedRoom = Instantiate(roomToAdd,
             currentLinkPoint.transform.position - roomOffset, new Quaternion(), this.transform);
 
-        newTransition.transform.RotateAround(currentLinkPoint.transform.position, new Vector3(0, 1, 0), toRotate);
-        newTransition.GetComponent<RoomData>().RemoveEntryLinkPoint(randomEntryLink);
-        if(newTransition.GetComponent<RoomData>().GetRoomType() == RoomData.RoomType.MainRoom) generatedRooms.Add(newTransition);
-        else generatedTransitions.Add(newTransition);
-        return newTransition;
+        currentRoom.GetComponent<RoomData>().SetRoomID(currentGeneratedRoomId);
+        AssignLinkAsExit(currentLinkPoint);
+        AssignLinkTriggerID(currentLinkPoint);
+        AssignLinkTriggerToRoomManager(currentLinkPoint, currentRoom);
+
+        currentGeneratedRoomId++;
+
+        GameObject newLinkPoint = newCreatedRoom.GetComponent<RoomData>().GetLinkPoints()[randomEntryLink];
+        AssignLinkAsEntry(newLinkPoint);
+        AssignLinkTriggerID(newLinkPoint);
+        AssignLinkTriggerToRoomManager(newLinkPoint, newCreatedRoom);
+
+
+        currentRoom.GetComponent<RoomData>().RemoveEntryLinkPoint(currentLinkPointIndex);
+        DisableAllObjects(ref currentRoom.GetComponent<RoomData>().GetLinkPoints());
+
+        newCreatedRoom.transform.RotateAround(currentLinkPoint.transform.position, new Vector3(0, 1, 0), toRotate);
+        newCreatedRoom.GetComponent<RoomData>().RemoveEntryLinkPoint(randomEntryLink);
+        if(newCreatedRoom.GetComponent<RoomData>().GetRoomType() == RoomData.RoomType.MainRoom) generatedRooms.Add(newCreatedRoom);
+        else generatedTransitions.Add(newCreatedRoom);
+        return newCreatedRoom;
+    }
+
+    void AssignLinkTriggerToRoomManager(GameObject link, GameObject room )
+    {
+        var roomManager = room.GetComponent<RoomManager>();
+        var linkTrigger = link.GetComponentInChildren<RoomTrigger>();
+
+        roomManager.AssignTrigger(linkTrigger);
+    }
+
+    void AssignLinkAsEntry(GameObject link)
+    {
+        RoomTrigger trigger = link.GetComponentInChildren<RoomTrigger>();
+        if (trigger == null)
+        {
+            Debug.LogError(link);
+            Debug.LogError("DOOR IS MISSING TRIGGER");
+            return;
+        }
+        trigger.SetDoorTriggerType(DoorTriggerType.ENTERANCE);
+    }
+    void AssignLinkAsExit(GameObject link)    {
+        RoomTrigger trigger = link.GetComponentInChildren<RoomTrigger>();
+        if (trigger == null)
+        {
+            Debug.LogError(link);
+
+            Debug.LogError("DOOR IS MISSING TRIGGER");
+            return;
+        }
+        Debug.Log(link.name + " IS EXIT ASSIGNED");
+        trigger.SetDoorTriggerType(DoorTriggerType.EXIT);
+    }
+
+    void AssignLinkTriggerID(GameObject link)
+    {
+        RoomTrigger trigger = link.GetComponentInChildren<RoomTrigger>();
+        if (trigger == null)
+        {
+            Debug.LogError(link);
+
+            Debug.LogError("DOOR IS MISSING TRIGGER");
+            return;
+        }
+        trigger.SetTriggerRoomID(currentGeneratedRoomId);
+    }
+
+    void DisableAllObjects(ref List<GameObject> objs)
+    {
+        foreach (GameObject obj in objs)
+        {
+            obj.SetActive(false);
+        }
     }
 }

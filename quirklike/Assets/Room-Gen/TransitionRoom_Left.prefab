@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5721750794318345898}
   - component: {fileID: 3626808389288855798}
+  - component: {fileID: 1790404292793535887}
   m_Layer: 0
   m_Name: TransitionRoom_Left
   m_TagString: TransitionRoom
@@ -50,12 +51,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42e936c93db06f24dadb1823daf74cc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomID: TestRoom1
+  roomID: 0
   playerSpawn: {fileID: 0}
   roomType: 1
   linkPoints:
   - {fileID: 3518819553125140935}
   - {fileID: 4038113609535391785}
+--- !u!114 &1790404292793535887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346312373643525394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6cc363a3311ee64cba6c4d1a32a2a81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyWaves: []
 --- !u!1 &2284361872031918882
 GameObject:
   m_ObjectHideFlags: 0

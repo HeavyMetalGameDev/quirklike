@@ -10,8 +10,9 @@ public class RoomData : MonoBehaviour
     public enum RoomType { MainRoom, TransitionRoom };
 
     [SerializeField]
-    private string roomID;
-    public string GetRoomID() { return roomID; }
+    private int roomID; //id is in the context of the level i.e first room is ID 0 , second room is 1 etc
+    public void SetRoomID(int id) { roomID = id; }
+    public int GetRoomID() { return roomID; }
 
     [SerializeField]
     private Transform playerSpawn;
@@ -25,7 +26,7 @@ public class RoomData : MonoBehaviour
 
     [SerializeField]
     private List<GameObject> linkPoints;
-    public List<GameObject> GetLinkPoints() { return linkPoints; }
+    public ref List<GameObject> GetLinkPoints() { return ref linkPoints; }
 
      
 

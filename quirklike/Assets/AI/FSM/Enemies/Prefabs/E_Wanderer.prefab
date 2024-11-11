@@ -181,7 +181,8 @@ MonoBehaviour:
   isPatrolling: 0
   _detectionRadiusObject: {fileID: 1192826631389093771}
   PatrolPoints: []
-  Weapon: {fileID: 0}
+  Weapon: {fileID: 1937478368512851491}
+  AttackCoolDown: 1
   StateName: 
   DebugUI: 0
 --- !u!114 &2644957673678147052

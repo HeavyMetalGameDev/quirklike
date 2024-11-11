@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         _playerInputManager = PlayerInputManager.Instance;
         //_rigidBody = GetComponent<Rigidbody>();
         _characterController = GetComponent<CharacterController>();

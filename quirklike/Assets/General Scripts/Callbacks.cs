@@ -14,6 +14,14 @@ public class CallbackFloat:CallbackData
         this.value = value;
     }
 }
+public class CallbackInt : CallbackData
+{
+    public int value;
+    public CallbackInt(int value)
+    {
+        this.value = value;
+    }
+}
 public class CallbackTwoInts : CallbackData
 {
     public int valueOne;
@@ -51,6 +59,7 @@ public enum CallbackEvent
     EnemySpawned,
     SceneLoaded,
     RoomEntered,
+    RoomExited,
     WaveCompleted,
     RoomCompleted,
     WeaponPickedUp,
@@ -62,6 +71,7 @@ public enum CallbackEvent
     GameLost,
     AreaComplete,
     SwapWeaponSlots,
+    RoomGenerationComplete
 }
 
 
@@ -72,9 +82,10 @@ public static class Callbacks
     public static event System.Action EnemyKilled;
     public static event System.Action EnemySpawned;
     public static event System.Action SceneLoaded;
-    public static event System.Action RoomEntered;
+    public static event System.Action<int> RoomEntered;
+    public static event System.Action<int> RoomExited;
     public static event System.Action WaveCompleted;
-    public static event System.Action RoomCompleted;
+    public static event System.Action<int> RoomCompleted;
     public static event System.Action WeaponPickedUp;
     public static event System.Action WeaponDropped;
     public static event System.Action<float> PlayerHurt;
@@ -84,6 +95,8 @@ public static class Callbacks
     public static event System.Action GameLost;
     public static event System.Action AreaComplete;
     public static event System.Action<int,int> SwapWeaponSlots;
+    public static event System.Action RoomGenerationComplete;
+
 
 
     public static void CallEvent(CallbackEvent callbackEvent, CallbackData data = null) //this can be called from anywhere, be careful
@@ -116,8 +129,18 @@ public static class Callbacks
                 }
             case CallbackEvent.RoomEntered:
                 {
-                    Debug.Log("ROOM ENTERED");
-                    RoomEntered?.Invoke();
+                    CallbackInt intData = (CallbackInt)data;
+                    Debug.Log("ROOM " + intData.value +" ENTERED");
+
+                    RoomEntered?.Invoke(intData.value);
+                    break;
+                }
+            case CallbackEvent.RoomExited:
+                {
+                    CallbackInt intData = (CallbackInt)data;
+                    Debug.Log("ROOM " + intData.value + " EXITED");
+
+                    RoomExited?.Invoke(intData.value);
                     break;
                 }
             case CallbackEvent.WaveCompleted:
@@ -129,7 +152,9 @@ public static class Callbacks
             case CallbackEvent.RoomCompleted:
                 {
                     Debug.Log("ROOM COMPLETED");
-                    RoomCompleted?.Invoke();
+                    CallbackInt intData = (CallbackInt)data;
+
+                    RoomCompleted?.Invoke(intData.value);
                     break;
                 }
             case CallbackEvent.WeaponPickedUp:
@@ -188,6 +213,12 @@ public static class Callbacks
                     Debug.Log("TRY SWAP WEAPONS");
                     CallbackTwoInts slotIDs = (CallbackTwoInts)data;
                     SwapWeaponSlots?.Invoke(slotIDs.valueOne, slotIDs.valueTwo);
+                    break;
+                }
+            case CallbackEvent.RoomGenerationComplete:
+                {
+                    Debug.Log("ROOM GENERATION COMPLETE");
+                    RoomGenerationComplete?.Invoke();
                     break;
                 }
             default:
